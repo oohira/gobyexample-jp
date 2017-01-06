@@ -1,5 +1,5 @@
-// Our first program will print the classic "hello world"
-// message. Here's the full source code.
+// 最初のプログラムは古典的な "hello world"
+// メッセージを表示します。ソースコードは次の通りです。
 package main
 
 import "fmt"
