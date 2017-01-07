@@ -1,5 +1,5 @@
-// In Go, an _array_ is a numbered sequence of elements of a
-// specific length.
+// Go では、 _配列 (array)_ は特定の長さをもつ
+// 番号付けられた要素の列です。
 
 package main
 
@@ -7,31 +7,30 @@ import "fmt"
 
 func main() {
 
-    // Here we create an array `a` that will hold exactly
-    // 5 `int`s. The type of elements and length are both
-    // part of the array's type. By default an array is
-    // zero-valued, which for `int`s means `0`s.
+    // ここでは、ちょうど 5 つの `int` をもつ配列
+    // `a` を作成しています。要素の型と長さはいずれも
+    // 配列の型の一部です。デフォルトでは、配列は
+    // ゼロ値で初期化されるので、 `int` の場合は
+    // `0` になります。
     var a [5]int
     fmt.Println("emp:", a)
 
-    // We can set a value at an index using the
-    // `array[index] = value` syntax, and get a value with
-    // `array[index]`.
+    // `array[index] = value` で指定位置に値を設定し、
+    // `array[index]` で値を取得することができます。
     a[4] = 100
     fmt.Println("set:", a)
     fmt.Println("get:", a[4])
 
-    // The builtin `len` returns the length of an array.
+    // `len` ビルトイン関数は配列の長さを返します。
     fmt.Println("len:", len(a))
 
-    // Use this syntax to declare and initialize an array
-    // in one line.
+    // 配列を 1 行で宣言かつ初期化するには、
+    // 次の記法を使います。
     b := [5]int{1, 2, 3, 4, 5}
     fmt.Println("dcl:", b)
 
-    // Array types are one-dimensional, but you can
-    // compose types to build multi-dimensional data
-    // structures.
+    // 配列型は一次元ですが、多次元のデータ構造を
+    // 表す型を構成することもできます。
     var twoD [2][3]int
     for i := 0; i < 2; i++ {
         for j := 0; j < 3; j++ {
