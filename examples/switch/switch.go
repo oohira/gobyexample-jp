@@ -1,5 +1,5 @@
-// _Switch statements_ express conditionals across many
-// branches.
+// _Switch ステートメント_ は、多くの分岐をもつ
+// 条件文を表現します。
 
 package main
 
@@ -8,7 +8,7 @@ import "time"
 
 func main() {
 
-    // Here's a basic `switch`.
+    // これは基本的な `switch` の例です。
     i := 2
     fmt.Print("Write ", i, " as ")
     switch i {
@@ -20,9 +20,9 @@ func main() {
         fmt.Println("three")
     }
 
-    // You can use commas to separate multiple expressions
-    // in the same `case` statement. We use the optional
-    // `default` case in this example as well.
+    // 同じ `case` の中で複数の式をカンマで
+    // 区切って指定することができます。
+    // また、`default` ケースを使うこともできます。
     switch time.Now().Weekday() {
     case time.Saturday, time.Sunday:
         fmt.Println("It's the weekend")
@@ -30,9 +30,8 @@ func main() {
         fmt.Println("It's a weekday")
     }
 
-    // `switch` without an expression is an alternate way
-    // to express if/else logic. Here we also show how the
-    // `case` expressions can be non-constants.
+    // 式のない `switch` は、if/else の代替手段になります。
+    // この例は、 `case` が定数式に限らないことも示します。
     t := time.Now()
     switch {
     case t.Hour() < 12:
@@ -41,10 +40,9 @@ func main() {
         fmt.Println("It's after noon")
     }
 
-    // A type `switch` compares types instead of values.  You
-    // can use this to discover the the type of an interface
-    // value.  In this example, the variable `t` will have the
-    // type corresponding to its clause.
+    // 型 `switch` は、値の代わりに型を比較します。これは、
+    // インターフェースの値に対する型を特定するのに使えます。
+    // この例では、変数 `t` は case に対応する型をもちます。
     whatAmI := func(i interface{}) {
         switch t := i.(type) {
         case bool:
