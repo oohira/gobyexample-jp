@@ -1,5 +1,5 @@
-# Note that while slices are different types than arrays,
-# they are rendered similarly by `fmt.Println`.
+# スライスは配列とは異なる型ですが、 `fmt.Println`
+# では同じように表現されることに注意してください。
 $ go run slices.go
 emp: [  ]
 set: [a b c]
@@ -13,9 +13,9 @@ sl3: [c d e f]
 dcl: [g h i]
 2d:  [[0] [1 2] [2 3 4]]
 
-# Check out this [great blog post](http://blog.golang.org/2011/01/go-slices-usage-and-internals.html)
-# by the Go team for more details on the design and
-# implementation of slices in Go.
+# Go におけるスライスの設計や実装に関する詳細は、
+# Go チームによるこの [素晴らしいブログ記事](http://blog.golang.org/2011/01/go-slices-usage-and-internals.html)
+# を参考にしてください。
 
-# Now that we've seen arrays and slices we'll look at
-# Go's other key builtin data structure: maps.
+# これで配列とスライスを学んだので、次は Go のもう
+# 1 つの主要な組み込み型であるマップを見ていきましょう。
