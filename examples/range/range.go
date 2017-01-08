@@ -1,6 +1,6 @@
-// _range_ iterates over elements in a variety of data
-// structures. Let's see how to use `range` with some
-// of the data structures we've already learned.
+// _範囲 (range)_ は、様々なデータ構造の要素を反復処理します。
+// これまでに学んだデータ構造で `range` をどのように使うかを
+// 見ていきましょう。
 
 package main
 
@@ -8,8 +8,8 @@ import "fmt"
 
 func main() {
 
-    // Here we use `range` to sum the numbers in a slice.
-    // Arrays work like this too.
+    // ここでは、スライス内の数字を合計するために
+    // `range` を使っています。配列でも同様に使えます。
     nums := []int{2, 3, 4}
     sum := 0
     for _, num := range nums {
@@ -17,31 +17,32 @@ func main() {
     }
     fmt.Println("sum:", sum)
 
-    // `range` on arrays and slices provides both the
-    // index and value for each entry. Above we didn't
-    // need the index, so we ignored it with the
-    // blank identifier `_`. Sometimes we actually want
-    // the indexes though.
+    // 配列やスライスに対する `range` は、各要素に対する
+    // インデックスと値の両方を提供します。先の例では、
+    // インデックスが必要なかったのでブランク識別子 `_`
+    // で無視しました。
+    // しかし、実際にインデックスを使いたいこともあります。
     for i, num := range nums {
         if num == 3 {
             fmt.Println("index:", i)
         }
     }
 
-    // `range` on map iterates over key/value pairs.
+    // マップに対する `range` は、キーと値のペアを反復処理します。
     kvs := map[string]string{"a": "apple", "b": "banana"}
     for k, v := range kvs {
         fmt.Printf("%s -> %s\n", k, v)
     }
 
-    // `range` can also iterate over just the keys of a map.
+    // `range` はマップのキーだけを反復処理することもできます。
     for k := range kvs {
         fmt.Println("key:", k)
     }
 
-    // `range` on strings iterates over Unicode code
-    // points. The first value is the starting byte index
-    // of the `rune` and the second the `rune` itself.
+    // 文字列に対する `range` は、Unicode コードポイントを
+    // 反復処理します。1 つ目の値は文字列の先頭からこの
+    // `文字 (rune)` までのバイト数を表し、2 つ目は
+    // `rune` そのものを表します。
     for i, c := range "go" {
         fmt.Println(i, c)
     }
