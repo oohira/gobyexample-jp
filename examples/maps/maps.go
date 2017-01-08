@@ -1,5 +1,6 @@
-// _Maps_ are Go's built-in [associative data type](http://en.wikipedia.org/wiki/Associative_array)
-// (sometimes called _hashes_ or _dicts_ in other languages).
+// _マップ (Maps)_ は、Go における [連想配列](http://en.wikipedia.org/wiki/Associative_array)
+// のための組み込み型です。別の言語では、_ハッシュ (hashes)_
+// や _辞書 (dicts)_ と呼ばれることもあります。
 
 package main
 
@@ -7,44 +8,44 @@ import "fmt"
 
 func main() {
 
-    // To create an empty map, use the builtin `make`:
-    // `make(map[key-type]val-type)`.
+    // 空のマップを作成するには、 `make` ビルトイン関数を使って
+    // `make(map[キーの型]値の型)` とします。
     m := make(map[string]int)
 
-    // Set key/value pairs using typical `name[key] = val`
-    // syntax.
+    // 典型的な `name[key] = val` という記法を使って、
+    // キーと値のペアを設定します。
     m["k1"] = 7
     m["k2"] = 13
 
-    // Printing a map with e.g. `Println` will show all of
-    // its key/value pairs.
+    // 例えば、 `Println` などでマップを表示すると、
+    // すべてのキーと値のペアが出力されるでしょう。
     fmt.Println("map:", m)
 
-    // Get a value for a key with `name[key]`.
+    // `name[key]` でキーに対する値を取得できます。
     v1 := m["k1"]
     fmt.Println("v1: ", v1)
 
-    // The builtin `len` returns the number of key/value
-    // pairs when called on a map.
+    // `len` ビルトイン関数は、マップに対しては
+    // キーと値のペアの数を返します。
     fmt.Println("len:", len(m))
 
-    // The builtin `delete` removes key/value pairs from
-    // a map.
+    // `delete` ビルトイン関数は、マップから
+    // キーと値のペアを削除します。
     delete(m, "k2")
     fmt.Println("map:", m)
 
-    // The optional second return value when getting a
-    // value from a map indicates if the key was present
-    // in the map. This can be used to disambiguate
-    // between missing keys and keys with zero values
-    // like `0` or `""`. Here we didn't need the value
-    // itself, so we ignored it with the _blank identifier_
-    // `_`.
+    // マップから値を取得するときの戻り値にはオプションで
+    // 2 番目があり、指定したキーがマップに存在したか
+    // どうかを表します。これは、キーが存在しなかったのか、
+    // `0` や `""` などのゼロ値で存在したのかを区別するのに
+    // 使えます。この例では、値自体は必要なかったので、
+    // _ブランク識別子 (blank identifier)_ と呼ばれる `_`
+    // で無視しています。
     _, prs := m["k2"]
     fmt.Println("prs:", prs)
 
-    // You can also declare and initialize a new map in
-    // the same line with this syntax.
+    // 新しいマップの宣言と初期化を次のように
+    // 同じ行で書くこともできます。
     n := map[string]int{"foo": 1, "bar": 2}
     fmt.Println("map:", n)
 }
