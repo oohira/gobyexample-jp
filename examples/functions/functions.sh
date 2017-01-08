@@ -2,5 +2,5 @@ $ go run functions.go
 1+2 = 3
 1+2+3 = 6
 
-# There are several other features to Go functions. One is
-# multiple return values, which we'll look at next.
+# Go の関数にはさらにほかの機能があります。
+# その 1 つが、次に学ぶ複数の戻り値です。
