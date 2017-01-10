@@ -1,13 +1,13 @@
-// Go supports
-// <a href="http://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>recursive functions</em></a>.
-// Here's a classic factorial example.
+// Go は、
+// <a href="http://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>再帰関数 (recursive functions)</em></a>
+// をサポートします。これは典型的な階乗関数の例です。
 
 package main
 
 import "fmt"
 
-// This `fact` function calls itself until it reaches the
-// base case of `fact(0)`.
+// この `fact` 関数は、終了条件となる `fact(0)`
+// に達するまで、自分自身を呼び出します。
 func fact(n int) int {
     if n == 0 {
         return 1
