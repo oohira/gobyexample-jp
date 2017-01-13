@@ -1,19 +1,19 @@
-// _Interfaces_ are named collections of method
-// signatures.
+// _インターフェース (Interfaces)_
+// は、メソッドシグネチャの集まりに名前を付けたものです。
 
 package main
 
 import "fmt"
 import "math"
 
-// Here's a basic interface for geometric shapes.
+// これは図形に対する基本的なインターフェースです。
 type geometry interface {
     area() float64
     perim() float64
 }
 
-// For our example we'll implement this interface on
-// `rect` and `circle` types.
+// 例として、 `rect` 型と `circle` 型で
+// このインターフェースを実装してみましょう。
 type rect struct {
     width, height float64
 }
@@ -21,9 +21,9 @@ type circle struct {
     radius float64
 }
 
-// To implement an interface in Go, we just need to
-// implement all the methods in the interface. Here we
-// implement `geometry` on `rect`s.
+// Go でインターフェースを実装するには、
+// そのインターフェースのすべてのメソッドを実装すればよいだけです。
+// ここでは、`rect` に対して `geometry` を実装しています。
 func (r rect) area() float64 {
     return r.width * r.height
 }
@@ -31,7 +31,7 @@ func (r rect) perim() float64 {
     return 2*r.width + 2*r.height
 }
 
-// The implementation for `circle`s.
+// `circle` に対する実装です。
 func (c circle) area() float64 {
     return math.Pi * c.radius * c.radius
 }
@@ -39,10 +39,10 @@ func (c circle) perim() float64 {
     return 2 * math.Pi * c.radius
 }
 
-// If a variable has an interface type, then we can call
-// methods that are in the named interface. Here's a
-// generic `measure` function taking advantage of this
-// to work on any `geometry`.
+// 変数がインターフェース型をもつなら、
+// そのインターフェースにあるメソッドを呼ぶことができます。
+// これを利用すると、任意の `geometry` に対して動作する
+// `measure` 関数は次のようになります。
 func measure(g geometry) {
     fmt.Println(g)
     fmt.Println(g.area())
@@ -53,10 +53,10 @@ func main() {
     r := rect{width: 3, height: 4}
     c := circle{radius: 5}
 
-    // The `circle` and `rect` struct types both
-    // implement the `geometry` interface so we can use
-    // instances of
-    // these structs as arguments to `measure`.
+    // `circle` および `rect` 構造体型はいずれも
+    // `geometry` インターフェースを実装するので、
+    // これらの構造体のインスタンスを `measure`
+    // 関数の引数として使うことができます。
     measure(r)
     measure(c)
 }
