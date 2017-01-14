@@ -1,4 +1,4 @@
-// A _goroutine_ is a lightweight thread of execution.
+// _ゴルーチン (goroutine)_ は、軽量スレッドです。
 
 package main
 
@@ -12,26 +12,23 @@ func f(from string) {
 
 func main() {
 
-    // Suppose we have a function call `f(s)`. Here's how
-    // we'd call that in the usual way, running it
-    // synchronously.
+    // 関数呼び出し `f(s)` があるとしましょう。
+    // 通常の方法で呼び出すと、同期的に実行されます。
     f("direct")
 
-    // To invoke this function in a goroutine, use
-    // `go f(s)`. This new goroutine will execute
-    // concurrently with the calling one.
+    // この関数をゴルーチンとして呼び出すには、
+    // `go f(s)` とします。この新しいゴルーチンは、
+    // 実行元とは並行して実行されます。
     go f("goroutine")
 
-    // You can also start a goroutine for an anonymous
-    // function call.
+    // 無名関数に対してゴルーチンを開始することもできます。
     go func(msg string) {
         fmt.Println(msg)
     }("going")
 
-    // Our two function calls are running asynchronously in
-    // separate goroutines now, so execution falls through
-    // to here. This `Scanln` code requires we press a key
-    // before the program exits.
+    // 上の 2 つの関数呼び出しは別々のゴルーチンで非同期に
+    // 実行されるので、プログラムの実行はすぐにここへきます。
+    // この `Scanln` は、キーを押すまでプログラムを終了させません。
     var input string
     fmt.Scanln(&input)
     fmt.Println("done")
