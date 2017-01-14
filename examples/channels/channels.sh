@@ -1,10 +1,10 @@
-# When we run the program the `"ping"` message is
-# successfully passed from one goroutine to another via
-# our channel.
+# このプログラムを実行すると、 `"ping"` メッセージが
+# チャネルを通して一方のゴルーチンからもう一方へ
+# 正しく渡されていることが分かります。
 $ go run channels.go 
 ping
 
-# By default sends and receives block until both the
-# sender and receiver are ready. This property allowed
-# us to wait at the end of our program for the `"ping"`
-# message without having to use any other synchronization.
+# デフォルトでは、送る側と受ける側が準備できるまで、
+# 送受信はブロックされます。この性質により、何か特別な
+# 同期処理を書かなくても、プログラムの最後で `"ping"`
+# メッセージを受信するまで待つことができるのです。
