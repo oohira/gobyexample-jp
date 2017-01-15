@@ -1,7 +1,7 @@
-// _Timeouts_ are important for programs that connect to
-// external resources or that otherwise need to bound
-// execution time. Implementing timeouts in Go is easy and
-// elegant thanks to channels and `select`.
+// _タイムアウト (Timeouts)_ は、外部リソースに接続する
+// プログラムや、実行時間を制限する必要があるプログラムで
+// 重要です。 Go では、チャネルと `select` のおかげで
+// タイムアウトを簡単かつエレガントに実現できます。
 
 package main
 
@@ -10,21 +10,19 @@ import "fmt"
 
 func main() {
 
-    // For our example, suppose we're executing an external
-    // call that returns its result on a channel `c1`
-    // after 2s.
+    // 例として、2 秒後にチャネル `c1` へ結果を返す
+    // 外部呼び出しを実行していると仮定しましょう。
     c1 := make(chan string, 1)
     go func() {
         time.Sleep(time.Second * 2)
         c1 <- "result 1"
     }()
 
-    // Here's the `select` implementing a timeout.
-    // `res := <-c1` awaits the result and `<-Time.After`
-    // awaits a value to be sent after the timeout of
-    // 1s. Since `select` proceeds with the first
-    // receive that's ready, we'll take the timeout case
-    // if the operation takes more than the allowed 1s.
+    // `select` を使ったタイムアウトの実装は次の通りです。
+    // `res := <-c1` が結果を待ち、`<-Time.After` は
+    // 1 秒のタイムアウト後に送信されてくる値を待ちます。
+    // `select` は最初に受信したものを処理するので、操作が
+    // 1 秒以上かかるとタイムアウトのケースが選択されます。
     select {
     case res := <-c1:
         fmt.Println(res)
@@ -32,8 +30,8 @@ func main() {
         fmt.Println("timeout 1")
     }
 
-    // If we allow a longer timeout of 3s, then the receive
-    // from `c2` will succeed and we'll print the result.
+    // もしタイムアウトをさらに長い 3 秒にすると、
+    // `c2` からの受信が先に成功し、結果が表示されます。
     c2 := make(chan string, 1)
     go func() {
         time.Sleep(time.Second * 2)
