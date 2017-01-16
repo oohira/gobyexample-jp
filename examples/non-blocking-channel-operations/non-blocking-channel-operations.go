@@ -1,7 +1,7 @@
-// Basic sends and receives on channels are blocking.
-// However, we can use `select` with a `default` clause to
-// implement _non-blocking_ sends, receives, and even
-// non-blocking multi-way `select`s.
+// チャネル上の基本的な送受信はブロックします。
+// しかし、`default` 句をもった `select` を使えば、
+// _ブロックしない (non-blocking)_ 送信、受信、
+// そして多重 `select` さえ実装することができます。
 
 package main
 
@@ -11,10 +11,10 @@ func main() {
     messages := make(chan string)
     signals := make(chan bool)
 
-    // Here's a non-blocking receive. If a value is
-    // available on `messages` then `select` will take
-    // the `<-messages` `case` with that value. If not
-    // it will immediately take the `default` case.
+    // これは、ブロックしない受信の例です。
+    // もし `messages` チャネルで値が準備できていれば、
+    // `select` は `<-messages` のケースを実行します。
+    // そうでなければ、すぐに `default` ケースを実行します。
     select {
     case msg := <-messages:
         fmt.Println("received message", msg)
@@ -22,7 +22,7 @@ func main() {
         fmt.Println("no message received")
     }
 
-    // A non-blocking send works similarly.
+    // ブロックしない送信も同様に動作します。
     msg := "hi"
     select {
     case messages <- msg:
@@ -31,10 +31,10 @@ func main() {
         fmt.Println("no message sent")
     }
 
-    // We can use multiple `case`s above the `default`
-    // clause to implement a multi-way non-blocking
-    // select. Here we attempt non-blocking receives
-    // on both `messages` and `signals`.
+    // ブロックしない多重 `select` を実現するために、
+    // `default` 句の前に複数の `case` を使うことができます。
+    // 次の例では、`messages` と `signals` の両方に対して
+    // ブロックしない受信を試みます。
     select {
     case msg := <-messages:
         fmt.Println("received message", msg)
