@@ -1,7 +1,7 @@
-// In a [previous](range) example we saw how `for` and
-// `range` provide iteration over basic data structures.
-// We can also use this syntax to iterate over
-// values received from a channel.
+// [以前](range) の例で、`for` と `range` が基本的なデータ構造に
+// 対して、どのように反復処理を提供するかを見ました。
+// この構文は、チャネルから受信した値を反復処理する場合にも
+// 使うことができます。
 
 package main
 
@@ -9,16 +9,15 @@ import "fmt"
 
 func main() {
 
-    // We'll iterate over 2 values in the `queue` channel.
+    // `queue` チャネルの 2 つの値を反復処理するとします。
     queue := make(chan string, 2)
     queue <- "one"
     queue <- "two"
     close(queue)
 
-    // This `range` iterates over each element as it's
-    // received from `queue`. Because we `close`d the
-    // channel above, the iteration terminates after
-    // receiving the 2 elements.
+    // この `range` は、`queue` から受信した要素を反復処理します。
+    // 上でチャネルを `close` したので、反復処理は 2 つの要素を
+    // 受信したときに終了します。
     for elem := range queue {
         fmt.Println(elem)
     }
