@@ -1,16 +1,16 @@
-// In this example we'll look at how to implement
-// a _worker pool_ using goroutines and channels.
+// ここでは、ゴルーチンとチャネルを使って、
+// _ワーカープール (worker pool)_ を実装する例を見ていきます。
 
 package main
 
 import "fmt"
 import "time"
 
-// Here's the worker, of which we'll run several
-// concurrent instances. These workers will receive
-// work on the `jobs` channel and send the corresponding
-// results on `results`. We'll sleep a second per job to
-// simulate an expensive task.
+// これは、複数インスタンスが並行実行されるワーカーです。
+// これらのワーカーは、`jobs` チャネルからタスクを受信し、
+// 結果を `results` チャネルに送信します。
+// 実行コストの高いジョブをシミュレートするため、
+// 各タスクは 1 秒スリープします。
 func worker(id int, jobs <-chan int, results chan<- int) {
     for j := range jobs {
         fmt.Println("worker", id, "started  job", j)
@@ -22,26 +22,26 @@ func worker(id int, jobs <-chan int, results chan<- int) {
 
 func main() {
 
-    // In order to use our pool of workers we need to send
-    // them work and collect their results. We make 2
-    // channels for this.
+    // ワーカープールを使うためには、タスクをワーカーに送信し、
+    // それらの結果を集める必要があります。
+    // そのために、2 つのチャネルを作成します。
     jobs := make(chan int, 100)
     results := make(chan int, 100)
 
-    // This starts up 3 workers, initially blocked
-    // because there are no jobs yet.
+    // ここで、3 つのワーカーを開始しますが、
+    // 最初はまだジョブがないためブロックします。
     for w := 1; w <= 3; w++ {
         go worker(w, jobs, results)
     }
 
-    // Here we send 5 `jobs` and then `close` that
-    // channel to indicate that's all the work we have.
+    // 次に、5 つのジョブを送信し、それがすべてであることを
+    // 伝えるためにチャネルを `close` します。
     for j := 1; j <= 5; j++ {
         jobs <- j
     }
     close(jobs)
 
-    // Finally we collect all the results of the work.
+    // 最後に、すべてのタスクの結果を集めます。
     for a := 1; a <= 5; a++ {
         <-results
     }
