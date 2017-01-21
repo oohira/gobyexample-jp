@@ -1,5 +1,5 @@
-# Running our program we see the first batch of requests
-# handled once every ~200 milliseconds as desired.
+# プログラムを実行すると、リクエストの前半部分は、期待通り
+# 200 ミリ秒に 1 回処理されていることが分かります。
 $ go run rate-limiting.go
 request 1 2012-10-19 00:38:18.687438 +0000 UTC
 request 2 2012-10-19 00:38:18.887471 +0000 UTC
@@ -7,9 +7,9 @@ request 3 2012-10-19 00:38:19.087238 +0000 UTC
 request 4 2012-10-19 00:38:19.287338 +0000 UTC
 request 5 2012-10-19 00:38:19.487331 +0000 UTC
 
-# For the second batch of requests we serve the first
-# 3 immediately because of the burstable rate limiting,
-# then serve the remaining 2 with ~200ms delays each.
+# リクエストの後半部分は、最初の 3 つはすぐに処理され、
+# 残り 2 つはその後 200 ミリ秒ずつ遅れて実行されていることが
+# 分かります。3 つまではバーストを許容しているからです。
 request 1 2012-10-19 00:38:20.487578 +0000 UTC
 request 2 2012-10-19 00:38:20.487645 +0000 UTC
 request 3 2012-10-19 00:38:20.487676 +0000 UTC
