@@ -1,9 +1,10 @@
-// The primary mechanism for managing state in Go is
-// communication over channels. We saw this for example
-// with [worker pools](worker-pools). There are a few other
-// options for managing state though. Here we'll
-// look at using the `sync/atomic` package for _atomic
-// counters_ accessed by multiple goroutines.
+// Go で状態を管理するための最も重要な仕組みは、
+// チャネルを使った通信です。これについては、
+// [ワーカープール](worker-pools) の例で見ました。
+// しかし、状態を管理する方法は他にもいくつかあります。
+// ここでは、複数のゴルーチンからアクセスされる
+// _アトミックカウンター (atomic counters)_ のための、
+// `sync/atomic` パッケージを使う方法を見ていきます。
 
 package main
 
@@ -13,37 +14,34 @@ import "sync/atomic"
 
 func main() {
 
-    // We'll use an unsigned integer to represent our
-    // (always-positive) counter.
+    // カウンターのために符号なし整数を使います。
     var ops uint64 = 0
 
-    // To simulate concurrent updates, we'll start 50
-    // goroutines that each increment the counter about
-    // once a millisecond.
+    // 同時更新をシミュレートするために、1 ミリ秒に
+    // 1 回カウンターをインクリメントするゴルーチンを
+    // 50 個開始します。
     for i := 0; i < 50; i++ {
         go func() {
             for {
-                // To atomically increment the counter we
-                // use `AddUint64`, giving it the memory
-                // address of our `ops` counter with the
-                // `&` syntax.
+                // カウンターをアトミックにインクリメントするため、
+                // `&` 構文で `ops` カウンターのメモリアドレスを
+                // `AddUint64` に与えます。
                 atomic.AddUint64(&ops, 1)
 
-                // Wait a bit between increments.
+                // 次のインクリメントまで少しだけ待ちます。
                 time.Sleep(time.Millisecond)
             }
         }()
     }
 
-    // Wait a second to allow some ops to accumulate.
+    // 加算が進むよう 1 秒間待ちます。
     time.Sleep(time.Second)
 
-    // In order to safely use the counter while it's still
-    // being updated by other goroutines, we extract a
-    // copy of the current value into `opsFinal` via
-    // `LoadUint64`. As above we need to give this
-    // function the memory address `&ops` from which to
-    // fetch the value.
+    // まだ他のゴルーチンで更新され続けているカウンターを
+    // 安全に使うため、`LoadUint64` で現在の値のコピーを
+    // `opsFinal` に取り出します。先の例と同様に、
+    // この関数にも `&ops` で値の取得元のメモリアドレスを
+    // 与える必要があります。
     opsFinal := atomic.LoadUint64(&ops)
     fmt.Println("ops:", opsFinal)
 }
