@@ -1,11 +1,11 @@
-// In the previous example we used explicit locking with
-// [mutexes](mutexes) to synchronize access to shared state
-// across multiple goroutines. Another option is to use the
-// built-in synchronization features of  goroutines and
-// channels to achieve the same result. This channel-based
-// approach aligns with Go's ideas of sharing memory by
-// communicating and having each piece of data owned
-// by exactly 1 goroutine.
+// 前回の例では、複数のゴルーチンから共有状態への
+// アクセスを同期するために、[ミューテックス](mutexes)
+// による明示的なロックを使いました。
+// 同じ結果を得るために、ゴルーチンとチャネルがもつ
+// 組み込みの同期機能を使う方法もあります。
+// チャネルベースのアプローチは、通信によってメモリを共有し、
+// 各データは 1 つのゴルーチンによって所有されるべきという、
+// Go の考え方に沿っています。
 
 package main
 
@@ -16,14 +16,13 @@ import (
     "time"
 )
 
-// In this example our state will be owned by a single
-// goroutine. This will guarantee that the data is never
-// corrupted with concurrent access. In order to read or
-// write that state, other goroutines will send messages
-// to the owning goroutine and receive corresponding
-// replies. These `readOp` and `writeOp` `struct`s
-// encapsulate those requests and a way for the owning
-// goroutine to respond.
+// この例では、状態は 1 つのゴルーチンに所有させます。
+// これは、データが並行アクセスで決して壊れないことを保証します。
+// ほかのゴルーチンが状態を読み書きするためには、
+// データを所有するゴルーチンにメッセージを送り、
+// 対応するデータを受け取る必要があります。
+// `readOp` 構造体と `writeOp` 構造体は、それらの要求や
+// データをもつゴルーチンが応答する方法をカプセル化します。
 type readOp struct {
     key  int
     resp chan int
@@ -36,25 +35,22 @@ type writeOp struct {
 
 func main() {
 
-    // As before we'll count how many operations we perform.
+    // 前回と同様に、操作回数をカウントします。
     var readOps uint64 = 0
     var writeOps uint64 = 0
 
-    // The `reads` and `writes` channels will be used by
-    // other goroutines to issue read and write requests,
-    // respectively.
+    // `reads` および `writes` チャネルは、ほかのゴルーチンから
+    // 読み書きのリクエストを発行するために使われます。
     reads := make(chan *readOp)
     writes := make(chan *writeOp)
 
-    // Here is the goroutine that owns the `state`, which
-    // is a map as in the previous example but now private
-    // to the stateful goroutine. This goroutine repeatedly
-    // selects on the `reads` and `writes` channels,
-    // responding to requests as they arrive. A response
-    // is executed by first performing the requested
-    // operation and then sending a value on the response
-    // channel `resp` to indicate success (and the desired
-    // value in the case of `reads`).
+    // これは前回の例と同様にマップ `state` を持つゴルーチンですが、
+    // ゴルーチンにプライベートな変数となっている点が異なります。
+    // このゴルーチンは、`reads` チャネルと `writes` チャネルを
+    // 繰り返し `select` し、リクエストが届いたら応答します。
+    // レスポンスは、まず要求された操作を実行し、
+    // その後成功を示す値 (`reads` の場合は要求された値)
+    // を応答チャネル `resp` に送信します。
     go func() {
         var state = make(map[int]int)
         for {
@@ -68,11 +64,10 @@ func main() {
         }
     }()
 
-    // This starts 100 goroutines to issue reads to the
-    // state-owning goroutine via the `reads` channel.
-    // Each read requires constructing a `readOp`, sending
-    // it over the `reads` channel, and the receiving the
-    // result over the provided `resp` channel.
+    // ここで、状態をもつゴルーチンから `reads` チャネル経由で
+    // 値を読み込むゴルーチンを 100 個開始します。
+    // 各読み込みは、`readOp` を構築し, `reads` チャネルへ送信し、
+    // 結果を `resp` チャネルから受信する必要があります。
     for r := 0; r < 100; r++ {
         go func() {
             for {
@@ -87,8 +82,7 @@ func main() {
         }()
     }
 
-    // We start 10 writes as well, using a similar
-    // approach.
+    // 同様に、書き込み用のゴルーチンを 10 個開始します。
     for w := 0; w < 10; w++ {
         go func() {
             for {
@@ -104,10 +98,10 @@ func main() {
         }()
     }
 
-    // Let the goroutines work for a second.
+    // ゴルーチンを 1 秒間動作させます。
     time.Sleep(time.Second)
 
-    // Finally, capture and report the op counts.
+    // 最後に、操作回数を取得してレポートします。
     readOpsFinal := atomic.LoadUint64(&readOps)
     fmt.Println("readOps:", readOpsFinal)
     writeOpsFinal := atomic.LoadUint64(&writeOps)
