@@ -1,27 +1,26 @@
-// Sometimes we'll want to sort a collection by something
-// other than its natural order. For example, suppose we
-// wanted to sort strings by their length instead of
-// alphabetically. Here's an example of custom sorts
-// in Go.
+// ときには、コレクションを自然順以外でソートしたいこともあります。
+// 例えば、文字列をアルファベット順ではなく、
+// 長さ順でソートしたいとしましょう。
+// Go のカスタムソートの例は次の通りです。
 
 package main
 
 import "sort"
 import "fmt"
 
-// In order to sort by a custom function in Go, we need a
-// corresponding type. Here we've created a `ByLength`
-// type that is just an alias for the builtin `[]string`
-// type.
+// Go でカスタム関数を使ってソートするためには、
+// 対応する型が必要です。ここでは、`ByLength`
+// 型を作りました。これは、
+// 組み込みの `[]string` 型のただのエイリアスです。
 type ByLength []string
 
-// We implement `sort.Interface` - `Len`, `Less`, and
-// `Swap` - on our type so we can use the `sort` package's
-// generic `Sort` function. `Len` and `Swap`
-// will usually be similar across types and `Less` will
-// hold the actual custom sorting logic. In our case we
-// want to sort in order of increasing string length, so
-// we use `len(s[i])` and `len(s[j])` here.
+// `sort` パッケージの `Sort` 関数を使えるように、
+// `sort.Interface` すなわち `Len`, `Less`, `Swap`
+// 関数を実装します。
+// `Len` と `Swap` はどの型でもだいたい同じになり、
+// `Less` が実際のカスタムソートのロジックをもちます。
+// この例では、文字列の長さの昇順でソートしたいので、
+// `len(s[i])` と `len(s[j])` を使っています。
 func (s ByLength) Len() int {
     return len(s)
 }
@@ -32,10 +31,8 @@ func (s ByLength) Less(i, j int) bool {
     return len(s[i]) < len(s[j])
 }
 
-// With all of this in place, we can now implement our
-// custom sort by casting the original `fruits` slice to
-// `ByLength`, and then use `sort.Sort` on that typed
-// slice.
+// 元の `fruits` スライスを `ByLength` にキャストし、
+// `sort.Sort` 関数を使うことでカスタムソートを実現できます。
 func main() {
     fruits := []string{"peach", "banana", "kiwi"}
     sort.Sort(ByLength(fruits))
