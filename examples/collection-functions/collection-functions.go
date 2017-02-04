@@ -1,28 +1,28 @@
-// We often need our programs to perform operations on
-// collections of data, like selecting all items that
-// satisfy a given predicate or mapping all items to a new
-// collection with a custom function.
+// プログラムでデータのコレクションに対して何か操作をしたい
+// ことはよくあります。
+// 与えられた述語を満たす全てのアイテムを選択したり、
+// カスタム関数を使って全てのアイテムを新しいコレクションに
+// マッピングしたりといった具合です。
 
-// In some languages it's idiomatic to use [generic](http://en.wikipedia.org/wiki/Generic_programming)
-// data structures and algorithms. Go does not support
-// generics; in Go it's common to provide collection
-// functions if and when they are specifically needed for
-// your program and data types.
+// いくつかの言語では [ジェネリック (generic)](http://en.wikipedia.org/wiki/Generic_programming)
+// なデータ構造とアルゴリズムを使うのが慣習です。
+// しかし、Go はジェネリクスをサポートしていません。
+// Go では、プログラムやデータ型が必要とする場合だけ
+// コレクション関数を提供するのが一般的です。
 
-// Here are some example collection functions for slices
-// of `strings`. You can use these examples to build your
-// own functions. Note that in some cases it may be
-// clearest to just inline the collection-manipulating
-// code directly, instead of creating and calling a
-// helper function.
+// 以下は、`string` のスライスに対するコレクション関数の例です。
+// あなた自身の関数を作るために、これらの例を使えるでしょう。
+// ときには、ヘルパー関数を作って呼び出す代わりに、
+// コレクションを操作するコードを単にインラインで定義した方が、
+// 分かりやすいこともあるので覚えておきましょう。
 
 package main
 
 import "strings"
 import "fmt"
 
-// Returns the first index of the target string `t`, or
-// -1 if no match is found.
+// 目的の文字列 `t` の最初のインデックスを返します。
+// 見つからなかった場合は、`-1` になります。
 func Index(vs []string, t string) int {
     for i, v := range vs {
         if v == t {
@@ -32,14 +32,13 @@ func Index(vs []string, t string) int {
     return -1
 }
 
-// Returns `true` if the target string t is in the
-// slice.
+// 文字列 `t` がスライスに含まれる場合は、`true` を返します。
 func Include(vs []string, t string) bool {
     return Index(vs, t) >= 0
 }
 
-// Returns `true` if one of the strings in the slice
-// satisfies the predicate `f`.
+// スライスの文字列が 1 つでも述語 `f` を満たす場合は、
+// `true` を返します。
 func Any(vs []string, f func(string) bool) bool {
     for _, v := range vs {
         if f(v) {
@@ -49,8 +48,8 @@ func Any(vs []string, f func(string) bool) bool {
     return false
 }
 
-// Returns `true` if all of the strings in the slice
-// satisfy the predicate `f`.
+// スライスの全ての文字列が述語 `f` を満たす場合は、
+// `true` を返します。
 func All(vs []string, f func(string) bool) bool {
     for _, v := range vs {
         if !f(v) {
@@ -60,8 +59,7 @@ func All(vs []string, f func(string) bool) bool {
     return true
 }
 
-// Returns a new slice containing all strings in the
-// slice that satisfy the predicate `f`.
+// 述語 `f` を満たす全ての文字列を含む、新しいスライスを返します。
 func Filter(vs []string, f func(string) bool) []string {
     vsf := make([]string, 0)
     for _, v := range vs {
@@ -72,8 +70,8 @@ func Filter(vs []string, f func(string) bool) []string {
     return vsf
 }
 
-// Returns a new slice containing the results of applying
-// the function `f` to each string in the original slice.
+// 元のスライスの各文字列に関数 `f` を適用した結果を含む、
+// 新しいスライスを返します。
 func Map(vs []string, f func(string) string) []string {
     vsm := make([]string, len(vs))
     for i, v := range vs {
@@ -84,7 +82,7 @@ func Map(vs []string, f func(string) string) []string {
 
 func main() {
 
-    // Here we try out our various collection functions.
+    // 色々なコレクション関数を試します。
     var strs = []string{"peach", "apple", "pear", "plum"}
 
     fmt.Println(Index(strs, "pear"))
@@ -103,9 +101,8 @@ func main() {
         return strings.Contains(v, "e")
     }))
 
-    // The above examples all used anonymous functions,
-    // but you can also use named functions of the correct
-    // type.
+    // 上の例は全て無名関数を使っていますが、
+    // 正しい型の名前付き関数を使うこともできます。
     fmt.Println(Map(strs, strings.ToUpper))
 
 }
