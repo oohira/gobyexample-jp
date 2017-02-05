@@ -1,25 +1,24 @@
-// The standard library's `strings` package provides many
-// useful string-related functions. Here are some examples
-// to give you a sense of the package.
+// 標準ライブラリの `strings` パッケージは、
+// 文字列関連の役に立つ関数を数多く提供しています。
+// 使い方を把握するための例をいくつか挙げます。
 
 package main
 
 import s "strings"
 import "fmt"
 
-// We alias `fmt.Println` to a shorter name as we'll use
-// it a lot below.
+// あとで何回も使うので、`fmt.Println`
+// に短い名前のエイリアスを定義します。
 var p = fmt.Println
 
 func main() {
 
-    // Here's a sample of the functions available in
-    // `strings`. Since these are functions from the
-    // package, not methods on the string object itself,
-    // we need pass the string in question as the first
-    // argument to the function. You can find more
-    // functions in the [`strings`](http://golang.org/pkg/strings/)
-    // package docs.
+    // `strings` パッケージで使える関数の例は次の通りです。
+    // これらはパッケージで定義される関数であって、
+    // 文字列オブジェクトそのもののメソッドではないため、
+    // 関数への第 1 引数として対象の文字列を渡す必要があります。
+    // さらに多くの関数を [`strings`](http://golang.org/pkg/strings/)
+    // パッケージのドキュメントで確認できます。
     p("Contains:  ", s.Contains("test", "es"))
     p("Count:     ", s.Count("test", "t"))
     p("HasPrefix: ", s.HasPrefix("test", "te"))
@@ -34,16 +33,18 @@ func main() {
     p("ToUpper:   ", s.ToUpper("test"))
     p()
 
-    // Not part of `strings`, but worth mentioning here, are
-    // the mechanisms for getting the length of a string in
-    // bytes and getting a byte by index.
+    // `strings` パッケージには含まれませんが、
+    // 文字列のバイト長や、指定インデックスのバイトを
+    // 取得する方法にここで触れておくことは意味があるでしょう。
     p("Len: ", len("hello"))
     p("Char:", "hello"[1])
 }
 
-// Note that `len` and indexing above work at the byte level.
-// Go uses UTF-8 encoded strings, so this is often useful
-// as-is. If you're working with potentially multi-byte
-// characters you'll want to use encoding-aware operations.
-// See [strings, bytes, runes and characters in Go](https://blog.golang.org/strings)
-// for more information.
+// `len` 関数やインデックス指定は、
+// バイトレベルで動作することに注意してください。
+// Go は UTF-8 でエンコードされた文字列を使うので、
+// 大抵そのままで役に立ちます。
+// しかし、もしマルチバイト文字列を扱う可能性があるなら、
+// エンコードを考慮した操作をしたいと思うでしょう。
+// さらなる情報のために、[strings, bytes, runes and characters in Go](https://blog.golang.org/strings)
+// を参照してください。
