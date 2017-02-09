@@ -1,6 +1,5 @@
-// Go offers built-in support for [regular expressions](http://en.wikipedia.org/wiki/Regular_expression).
-// Here are some examples of  common regexp-related tasks
-// in Go.
+// Go は、組み込みで [正規表現](http://en.wikipedia.org/wiki/Regular_expression)
+// をサポートしています。以下は、Go で正規表現を使う一般的な例です。
 
 package main
 
@@ -10,71 +9,67 @@ import "regexp"
 
 func main() {
 
-    // This tests whether a pattern matches a string.
+    // これは、パターンが文字列にマッチするか判定します。
     match, _ := regexp.MatchString("p([a-z]+)ch", "peach")
     fmt.Println(match)
 
-    // Above we used a string pattern directly, but for
-    // other regexp tasks you'll need to `Compile` an
-    // optimized `Regexp` struct.
+    // 上の例では文字列パターンを直接使いましたが、
+    // 他の正規表現タスクでも使うためには、`Compile`
+    // して最適化された `Regexp` 構造体を作る必要があります。
     r, _ := regexp.Compile("p([a-z]+)ch")
 
-    // Many methods are available on these structs. Here's
-    // a match test like we saw earlier.
+    // この構造体では、多くのメソッドが利用できます。
+    // 最初に見たような、マッチの判定は次の通りです。
     fmt.Println(r.MatchString("peach"))
 
-    // This finds the match for the regexp.
+    // 正規表現にマッチする部分の検索は次の通りです。
     fmt.Println(r.FindString("peach punch"))
 
-    // This also finds the first match but returns the
-    // start and end indexes for the match instead of the
-    // matching text.
+    // これも最初にマッチする部分を検索しますが、文字列の代わりに、
+    // 開始および終了インデックスを返します。
     fmt.Println(r.FindStringIndex("peach punch"))
 
-    // The `Submatch` variants include information about
-    // both the whole-pattern matches and the submatches
-    // within those matches. For example this will return
-    // information for both `p([a-z]+)ch` and `([a-z]+)`.
+    // `Submatch` は、全体のパターンにマッチした部分と、
+    // その中でサブマッチした部分の情報を含みます。
+    // 例えば次の例では、`p([a-z]+)ch` と `([a-z]+)`
+    // にマッチした部分を返します。
     fmt.Println(r.FindStringSubmatch("peach punch"))
 
-    // Similarly this will return information about the
-    // indexes of matches and submatches.
+    // 同様に、次の例はサブマッチした部分のインデックスも返します。
     fmt.Println(r.FindStringSubmatchIndex("peach punch"))
 
-    // The `All` variants of these functions apply to all
-    // matches in the input, not just the first. For
-    // example to find all matches for a regexp.
+    // `All` がつくバリエーションは、最初のマッチだけでなく、
+    // 入力の全てのマッチ部分を対象とします。
+    // 例えば、正規表現にマッチする全ての文字列を検索する例は、
+    // 次の通りです。
     fmt.Println(r.FindAllString("peach punch pinch", -1))
 
-    // These `All` variants are available for the other
-    // functions we saw above as well.
+    // 同様に、前述した他の関数にも `All` がつく関数があります。
     fmt.Println(r.FindAllStringSubmatchIndex(
         "peach punch pinch", -1))
 
-    // Providing a non-negative integer as the second
-    // argument to these functions will limit the number
-    // of matches.
+    // これらの関数の第 2 引数に非負の整数を与えると、
+    // マッチする数を制限することができます。
     fmt.Println(r.FindAllString("peach punch pinch", 2))
 
-    // Our examples above had string arguments and used
-    // names like `MatchString`. We can also provide
-    // `[]byte` arguments and drop `String` from the
-    // function name.
+    // これまでの例では、文字列型の引数をもち、`MatchString`
+    // といった名前の関数を使いました。名前から `String`
+    // を除いた関数に、`[]byte` 型の引数を渡すこともできます。
     fmt.Println(r.Match([]byte("peach")))
 
-    // When creating constants with regular expressions
-    // you can use the `MustCompile` variation of
-    // `Compile`. A plain `Compile` won't work for
-    // constants because it has 2 return values.
+    // 正規表現の定数を作る場合は、`Compile` の
+    // バリエーションとして `MustCompile` を使えます。
+    // ただの `Compile` は、2 つの戻り値を返すため、
+    // 定数には使えません。
     r = regexp.MustCompile("p([a-z]+)ch")
     fmt.Println(r)
 
-    // The `regexp` package can also be used to replace
-    // subsets of strings with other values.
+    // `regexp` パッケージは、文字列の一部を他の文字列で
+    // 置換するためにも使えます。
     fmt.Println(r.ReplaceAllString("a peach", "<fruit>"))
 
-    // The `Func` variant allows you to transform matched
-    // text with a given function.
+    // `Func` がつくバリエーションを使うと、マッチした文字列を
+    // 指定した関数で変換できます。
     in := []byte("a peach")
     out := r.ReplaceAllFunc(in, bytes.ToUpper)
     fmt.Println(string(out))

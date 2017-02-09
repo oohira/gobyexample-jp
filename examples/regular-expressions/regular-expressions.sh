@@ -1,4 +1,4 @@
-$ go run regular-expressions.go 
+$ go run regular-expressions.go
 true
 true
 peach
@@ -13,5 +13,5 @@ p([a-z]+)ch
 a <fruit>
 a PEACH
 
-# For a complete reference on Go regular expressions check
-# the [`regexp`](http://golang.org/pkg/regexp/) package docs.
+# Go の正規表現の完全なリファレンスは、[`regexp`](http://golang.org/pkg/regexp/)
+# パッケージのドキュメントを参照してください。
