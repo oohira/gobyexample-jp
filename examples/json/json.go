@@ -1,6 +1,6 @@
-// Go offers built-in support for JSON encoding and
-// decoding, including to and from built-in and custom
-// data types.
+// Go は、JSON のエンコードおよびデコードを組み込みで
+// サポートしています。組み込み型やカスタムデータ型と
+// JSON との相互変換も含みます。
 
 package main
 
@@ -8,8 +8,8 @@ import "encoding/json"
 import "fmt"
 import "os"
 
-// We'll use these two structs to demonstrate encoding and
-// decoding of custom types below.
+// これら 2 つの構造体は、カスタムデータ型のエンコードと
+// デコードをデモするために使います。
 type Response1 struct {
     Page   int
     Fruits []string
@@ -21,9 +21,8 @@ type Response2 struct {
 
 func main() {
 
-    // First we'll look at encoding basic data types to
-    // JSON strings. Here are some examples for atomic
-    // values.
+    // まず最初に、基本的なデータ型から JSON 文字列への
+    // エンコードを確認します。アトミックな値の例は次の通りです。
     bolB, _ := json.Marshal(true)
     fmt.Println(string(bolB))
 
@@ -36,8 +35,8 @@ func main() {
     strB, _ := json.Marshal("gopher")
     fmt.Println(string(strB))
 
-    // And here are some for slices and maps, which encode
-    // to JSON arrays and objects as you'd expect.
+    // スライスとマップの場合は次のようになります。期待通り、
+    // JSON の配列とオブジェクトにエンコードされます。
     slcD := []string{"apple", "peach", "pear"}
     slcB, _ := json.Marshal(slcD)
     fmt.Println(string(slcB))
@@ -46,73 +45,69 @@ func main() {
     mapB, _ := json.Marshal(mapD)
     fmt.Println(string(mapB))
 
-    // The JSON package can automatically encode your
-    // custom data types. It will only include exported
-    // fields in the encoded output and will by default
-    // use those names as the JSON keys.
+    // JSON パッケージは、カスタムデータ型も自動的に
+    // エンコードできます。エンコード結果には、
+    // エクスポートされたフィールドだけを含み、
+    // デフォルトではそのフィールド名が JSON キーになります。
     res1D := &Response1{
         Page:   1,
         Fruits: []string{"apple", "peach", "pear"}}
     res1B, _ := json.Marshal(res1D)
     fmt.Println(string(res1B))
 
-    // You can use tags on struct field declarations
-    // to customize the encoded JSON key names. Check the
-    // definition of `Response2` above to see an example
-    // of such tags.
+    // エンコードされる JSON キー名をカスタマイズするには、
+    // 構造体のフィールド宣言にタグを指定します。
+    // `Response2` の定義を確認してみてください。
     res2D := &Response2{
         Page:   1,
         Fruits: []string{"apple", "peach", "pear"}}
     res2B, _ := json.Marshal(res2D)
     fmt.Println(string(res2B))
 
-    // Now let's look at decoding JSON data into Go
-    // values. Here's an example for a generic data
-    // structure.
+    // 次に、JSON から Go の値へのデコードを見ていきます。
+    // 一般的なデータ構造に対する例は、次の通りです。
     byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
 
-    // We need to provide a variable where the JSON
-    // package can put the decoded data. This
-    // `map[string]interface{}` will hold a map of strings
-    // to arbitrary data types.
+    // JSON パッケージがデコードしたデータを格納できる
+    // 変数を用意する必要があります。`map[string]interface{}`
+    // は、文字列から任意のデータ型へのマップを保持します。
     var dat map[string]interface{}
 
-    // Here's the actual decoding, and a check for
-    // associated errors.
+    // 実際のデコード処理と、関連するエラーのチェックは、
+    // 次のようになります。
     if err := json.Unmarshal(byt, &dat); err != nil {
         panic(err)
     }
     fmt.Println(dat)
 
-    // In order to use the values in the decoded map,
-    // we'll need to cast them to their appropriate type.
-    // For example here we cast the value in `num` to
-    // the expected `float64` type.
+    // デコードされたマップの値を使うためには、
+    // 適切な型へキャストする必要があります。例えば、
+    // 次の例では `num` の値を `float64` にキャストします。
     num := dat["num"].(float64)
     fmt.Println(num)
 
-    // Accessing nested data requires a series of
-    // casts.
+    // ネストしたデータにアクセスするためには、
+    // 一連のキャストが必要になります。
     strs := dat["strs"].([]interface{})
     str1 := strs[0].(string)
     fmt.Println(str1)
 
-    // We can also decode JSON into custom data types.
-    // This has the advantages of adding additional
-    // type-safety to our programs and eliminating the
-    // need for type assertions when accessing the decoded
-    // data.
+    // JSON をカスタムデータ型にデコードすることもできます。
+    // この方法は、プログラムを型安全にし、デコードされた
+    // データにアクセスするときの型チェックを不要にできる
+    // という利点があります。
     str := `{"page": 1, "fruits": ["apple", "peach"]}`
     res := Response2{}
     json.Unmarshal([]byte(str), &res)
     fmt.Println(res)
     fmt.Println(res.Fruits[0])
 
-    // In the examples above we always used bytes and
-    // strings as intermediates between the data and
-    // JSON representation on standard out. We can also
-    // stream JSON encodings directly to `os.Writer`s like
-    // `os.Stdout` or even HTTP response bodies.
+    // これまでの例では、データを JSON 形式で標準出力へ
+    // 出力するために、中間形式としてバイト型と文字列型を
+    // 常に使っていました。
+    // `os.Stdout` や HTTP レスポンスボディのような
+    // `os.Writer`s に、エンコードした JSON
+    // を直接ストリーム出力することもできます。
     enc := json.NewEncoder(os.Stdout)
     d := map[string]int{"apple": 5, "lettuce": 7}
     enc.Encode(d)
