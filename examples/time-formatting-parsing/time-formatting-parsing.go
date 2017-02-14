@@ -1,5 +1,5 @@
-// Go supports time formatting and parsing via
-// pattern-based layouts.
+// Go は、パターンベースのレイアウトに基づく、
+// 日時のフォーマットとパースをサポートします。
 
 package main
 
@@ -9,25 +9,25 @@ import "time"
 func main() {
     p := fmt.Println
 
-    // Here's a basic example of formatting a time
-    // according to RFC3339, using the corresponding layout
-    // constant.
+    // これは RFC3339 に対応するレイアウト定数を使って、
+    // 日時をフォーマットする基本的な例です。
     t := time.Now()
     p(t.Format(time.RFC3339))
 
-    // Time parsing uses the same layout values as `Format`.
+    // 日時をパースする場合も `Format` と同じレイアウト値を使います。
     t1, e := time.Parse(
         time.RFC3339,
         "2012-11-01T22:08:41+00:00")
     p(t1)
 
-    // `Format` and `Parse` use example-based layouts. Usually
-    // you'll use a constant from `time` for these layouts, but
-    // you can also supply custom layouts. Layouts must use the
-    // reference time `Mon Jan 2 15:04:05 MST 2006` to show the
-    // pattern with which to format/parse a given time/string.
-    // The example time must be exactly as shown: the year 2006,
-    // 15 for the hour, Monday for the day of the week, etc.
+    // `Format` と `Parse` は、サンプルベースのレイアウトを使います。
+    // 通常は、`time` パッケージに定義された定数を使いますが、
+    // カスタムレイアウトを指定することもできます。
+    // レイアウトは、フォーマットやパースに使うパターンを示すために、
+    // 参照日時である `Mon Jan 2 15:04:05 MST 2006`
+    // を使わなければなりません。
+    // サンプル日時は、年が 2006、時が 15、曜日が月曜、
+    // とまさにこの通りの値を指定しなければなりません。
     p(t.Format("3:04PM"))
     p(t.Format("Mon Jan _2 15:04:05 2006"))
     p(t.Format("2006-01-02T15:04:05.999999-07:00"))
@@ -35,15 +35,14 @@ func main() {
     t2, e := time.Parse(form, "8 41 PM")
     p(t2)
 
-    // For purely numeric representations you can also
-    // use standard string formatting with the extracted
-    // components of the time value.
+    // 単なる数値表現だけであれば、標準的な文字列フォーマットに
+    // 日時を構成する個々の値を抽出して指定することもできます。
     fmt.Printf("%d-%02d-%02dT%02d:%02d:%02d-00:00\n",
         t.Year(), t.Month(), t.Day(),
         t.Hour(), t.Minute(), t.Second())
 
-    // `Parse` will return an error on malformed input
-    // explaining the parsing problem.
+    // `Parse` は、不正な入力に対しては、
+    // 問題を説明するエラーを返します。
     ansic := "Mon Jan _2 15:04:05 2006"
     _, e = time.Parse(ansic, "8:41PM")
     p(e)
