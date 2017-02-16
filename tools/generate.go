@@ -15,7 +15,7 @@ import (
 )
 
 var cacheDir = "/tmp/gobyexample-cache"
-var siteDir = "./public"
+var siteDir = "./docs"
 var pygmentizeBin = "./vendor/pygments/pygmentize"
 
 func check(err error) {
@@ -268,7 +268,7 @@ func renderExamples(examples []*Example) {
     _, err := exampleTmpl.Parse(mustReadFile("templates/example.tmpl"))
     check(err)
     for _, example := range examples {
-        exampleF, err := os.Create(siteDir + "/" + example.Id)
+        exampleF, err := os.Create(siteDir + "/" + example.Id + ".html")
         check(err)
         exampleTmpl.Execute(exampleF, example)
     }

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Go by Example: Worker Pools</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script type="text/javascript">
+    if (window.location.host == "oohira.github.io") {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-88560400-2', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <body>
+    <div class="example" id="worker-pools">
+      <h2><a href="./">Go by Example</a>: Worker Pools</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>ここでは、ゴルーチンとチャネルを使って、
+<em>ワーカープール (worker pool)</em> を実装する例を見ていきます。</p>
+
+          </td>
+          <td class="code empty leading">
+	        
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        <a href="http://play.golang.org/p/mD_o0wb-zo"><img title="Run code" src="play.png" class="run" /></a>
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;time&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>これは、複数インスタンスが並行実行されるワーカーです。
+これらのワーカーは、<code>jobs</code> チャネルからタスクを受信し、
+結果を <code>results</code> チャネルに送信します。
+実行コストの高いジョブをシミュレートするため、
+各タスクは 1 秒スリープします。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">worker</span><span class="p">(</span><span class="nx">id</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">jobs</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">results</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">jobs</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;worker&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="s">&quot;started  job&quot;</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+        <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;worker&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="s">&quot;finished job&quot;</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+        <span class="nx">results</span> <span class="o">&lt;-</span> <span class="nx">j</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ワーカープールを使うためには、タスクをワーカーに送信し、
+それらの結果を集める必要があります。
+そのために、2 つのチャネルを作成します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">jobs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nx">results</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ここで、3 つのワーカーを開始しますが、
+最初はまだジョブがないためブロックします。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">w</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">w</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">w</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="nx">worker</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">jobs</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>次に、5 つのジョブを送信し、それがすべてであることを
+伝えるためにチャネルを <code>close</code> します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">jobs</span> <span class="o">&lt;-</span> <span class="nx">j</span>
+    <span class="p">}</span>
+    <span class="nb">close</span><span class="p">(</span><span class="nx">jobs</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>最後に、すべてのタスクの結果を集めます。</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">a</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">a</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">a</span><span class="o">++</span> <span class="p">{</span>
+        <span class="o">&lt;-</span><span class="nx">results</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>実行したプログラムは、5 つのジョブが様々なワーカーで
+実行されていることを示します。このプログラムは、
+合計で 5 秒分のタスクを実行するにもかかわらす、
+2 秒しかかかりません。
+というのも、3 つのワーカーが並行実行されるからです。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="gp">$</span> <span class="nb">time</span> go run worker-pools.go 
+<span class="go">worker 1 started  job 1</span>
+<span class="go">worker 2 started  job 2</span>
+<span class="go">worker 3 started  job 3</span>
+<span class="go">worker 1 finished job 1</span>
+<span class="go">worker 1 started  job 4</span>
+<span class="go">worker 2 finished job 2</span>
+<span class="go">worker 2 started  job 5</span>
+<span class="go">worker 3 finished job 3</span>
+<span class="go">worker 1 finished job 4</span>
+<span class="go">worker 2 finished job 5</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre><span class="go">real	0m2.358s</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="rate-limiting.html">Rate Limiting</a>.
+      </p>
+      
+      <p class="footer">
+        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+      </p>
+    </div>
+  </body>
+</html>

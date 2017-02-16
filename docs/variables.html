@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Go by Example: Variables</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script type="text/javascript">
+    if (window.location.host == "oohira.github.io") {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-88560400-2', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <body>
+    <div class="example" id="variables">
+      <h2><a href="./">Go by Example</a>: Variables</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>Go では、 <em>変数 (variables)</em> は明示的に宣言され、コンパイラによって
+関数呼び出しの型チェックなどに使われます。</p>
+
+          </td>
+          <td class="code empty leading">
+	        
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        <a href="http://play.golang.org/p/TbSMQetiRR"><img title="Run code" src="play.png" class="run" /></a>
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>var</code> は 1 つ以上の変数を宣言します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&quot;initial&quot;</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>複数の変数を一度に宣言することもできます。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Go は初期化された変数の型を推論できます。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">d</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>初期化せずに宣言された変数は、 <em>ゼロ値 (zero-valued)</em>
+となります。例えば、 <code>int</code> のゼロ値は <code>0</code> です。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">e</span> <span class="kt">int</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>:=</code> は、変数を宣言かつ初期化する簡略記法です。
+この例では、 <code>var f string = &quot;short&quot;</code> と同じです。</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre>    <span class="nx">f</span> <span class="o">:=</span> <span class="s">&quot;short&quot;</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre><span class="gp">$</span> go run variables.go
+<span class="go">initial</span>
+<span class="go">1 2</span>
+<span class="go">true</span>
+<span class="go">0</span>
+<span class="go">short</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="constants.html">Constants</a>.
+      </p>
+      
+      <p class="footer">
+        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+      </p>
+    </div>
+  </body>
+</html>

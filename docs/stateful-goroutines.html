@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Go by Example: Stateful Goroutines</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script type="text/javascript">
+    if (window.location.host == "oohira.github.io") {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-88560400-2', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <body>
+    <div class="example" id="stateful-goroutines">
+      <h2><a href="./">Go by Example</a>: Stateful Goroutines</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>前回の例では、複数のゴルーチンから共有状態への
+アクセスを同期するために、<a href="mutexes">ミューテックス</a>
+による明示的なロックを使いました。
+同じ結果を得るために、ゴルーチンとチャネルがもつ
+組み込みの同期機能を使う方法もあります。
+チャネルベースのアプローチは、通信によってメモリを共有し、
+各データは 1 つのゴルーチンによって所有されるべきという、
+Go の考え方に沿っています。</p>
+
+          </td>
+          <td class="code empty leading">
+	        
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        <a href="http://play.golang.org/p/4mvQZzbPad"><img title="Run code" src="play.png" class="run" /></a>
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;math/rand&quot;</span>
+    <span class="s">&quot;sync/atomic&quot;</span>
+    <span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>この例では、状態は 1 つのゴルーチンに所有させます。
+これは、データが並行アクセスで決して壊れないことを保証します。
+ほかのゴルーチンが状態を読み書きするためには、
+データを所有するゴルーチンにメッセージを送り、
+対応するデータを受け取る必要があります。
+<code>readOp</code> 構造体と <code>writeOp</code> 構造体は、それらの要求や
+データをもつゴルーチンが応答する方法をカプセル化します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">type</span> <span class="nx">readOp</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">key</span>  <span class="kt">int</span>
+    <span class="nx">resp</span> <span class="kd">chan</span> <span class="kt">int</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">writeOp</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">key</span>  <span class="kt">int</span>
+    <span class="nx">val</span>  <span class="kt">int</span>
+    <span class="nx">resp</span> <span class="kd">chan</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>前回と同様に、操作回数をカウントします。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">readOps</span> <span class="kt">uint64</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="kd">var</span> <span class="nx">writeOps</span> <span class="kt">uint64</span> <span class="p">=</span> <span class="mi">0</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>reads</code> および <code>writes</code> チャネルは、ほかのゴルーチンから
+読み書きのリクエストを発行するために使われます。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">reads</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="o">*</span><span class="nx">readOp</span><span class="p">)</span>
+    <span class="nx">writes</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="o">*</span><span class="nx">writeOp</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>これは前回の例と同様にマップ <code>state</code> を持つゴルーチンですが、
+ゴルーチンにプライベートな変数となっている点が異なります。
+このゴルーチンは、<code>reads</code> チャネルと <code>writes</code> チャネルを
+繰り返し <code>select</code> し、リクエストが届いたら応答します。
+レスポンスは、まず要求された操作を実行し、
+その後成功を示す値 (<code>reads</code> の場合は要求された値)
+を応答チャネル <code>resp</code> に送信します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">state</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">{</span>
+            <span class="k">select</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nx">read</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">reads</span><span class="p">:</span>
+                <span class="nx">read</span><span class="p">.</span><span class="nx">resp</span> <span class="o">&lt;-</span> <span class="nx">state</span><span class="p">[</span><span class="nx">read</span><span class="p">.</span><span class="nx">key</span><span class="p">]</span>
+            <span class="k">case</span> <span class="nx">write</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">writes</span><span class="p">:</span>
+                <span class="nx">state</span><span class="p">[</span><span class="nx">write</span><span class="p">.</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="nx">write</span><span class="p">.</span><span class="nx">val</span>
+                <span class="nx">write</span><span class="p">.</span><span class="nx">resp</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ここで、状態をもつゴルーチンから <code>reads</code> チャネル経由で
+値を読み込むゴルーチンを 100 個開始します。
+各読み込みは、<code>readOp</code> を構築し, <code>reads</code> チャネルへ送信し、
+結果を <code>resp</code> チャネルから受信する必要があります。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">r</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">{</span>
+                <span class="nx">read</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">readOp</span><span class="p">{</span>
+                    <span class="nx">key</span><span class="p">:</span>  <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                    <span class="nx">resp</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)}</span>
+                <span class="nx">reads</span> <span class="o">&lt;-</span> <span class="nx">read</span>
+                <span class="o">&lt;-</span><span class="nx">read</span><span class="p">.</span><span class="nx">resp</span>
+                <span class="nx">atomic</span><span class="p">.</span><span class="nx">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">readOps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}()</span>
+    <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>同様に、書き込み用のゴルーチンを 10 個開始します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">w</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">w</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">w</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">{</span>
+                <span class="nx">write</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">writeOp</span><span class="p">{</span>
+                    <span class="nx">key</span><span class="p">:</span>  <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                    <span class="nx">val</span><span class="p">:</span>  <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+                    <span class="nx">resp</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)}</span>
+                <span class="nx">writes</span> <span class="o">&lt;-</span> <span class="nx">write</span>
+                <span class="o">&lt;-</span><span class="nx">write</span><span class="p">.</span><span class="nx">resp</span>
+                <span class="nx">atomic</span><span class="p">.</span><span class="nx">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">writeOps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}()</span>
+    <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ゴルーチンを 1 秒間動作させます。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>最後に、操作回数を取得してレポートします。</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre>    <span class="nx">readOpsFinal</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">readOps</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;readOps:&quot;</span><span class="p">,</span> <span class="nx">readOpsFinal</span><span class="p">)</span>
+    <span class="nx">writeOpsFinal</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">writeOps</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;writeOps:&quot;</span><span class="p">,</span> <span class="nx">writeOpsFinal</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>プログラムを実行すると、ゴルーチンベースの状態管理で
+80,000 回程の操作を完了したことが分かります。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="gp">$</span> go run stateful-goroutines.go
+<span class="go">readOps: 71708</span>
+<span class="go">writeOps: 7177</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>今回の例では、ミューテックスベースと比べてゴルーチンベースの
+アプローチはやや複雑でした。
+しかし、他の関連するチャネルがある場合などは、
+複数のミューテックスを管理するのは間違えやすいので、
+こちらのアプローチが有用です。
+いずれにせよ、正しいプログラムを作るのに最も適切だと
+思えるアプローチを使うべきです。</p>
+
+          </td>
+          <td class="code empty">
+	        
+            
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="sorting.html">Sorting</a>.
+      </p>
+      
+      <p class="footer">
+        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+      </p>
+    </div>
+  </body>
+</html>

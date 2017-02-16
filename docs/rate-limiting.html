@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Go by Example: Rate Limiting</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script type="text/javascript">
+    if (window.location.host == "oohira.github.io") {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-88560400-2', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <body>
+    <div class="example" id="rate-limiting">
+      <h2><a href="./">Go by Example</a>: Rate Limiting</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>_<a href="http://en.wikipedia.org/wiki/Rate_limiting">レートリミット (Rate limiting)</a>_
+は、リソースの使用量を制御し、サービスの品質を維持するための、
+とても重要な仕組みです。
+Go は、ゴルーチンとチャネル、<a href="tickers">ティッカー</a> により、
+レートリミットをエレガントにサポートします。</p>
+
+          </td>
+          <td class="code empty leading">
+	        
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        <a href="http://play.golang.org/p/ZLcO_Kozeh"><img title="Run code" src="play.png" class="run" /></a>
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;time&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>まず最初に、基本的なレートリミットを見ていきます。
+リクエストに対する処理を制限したいとしましょう。
+これらのリクエストに同じ名前の <code>requests</code>
+チャネルで対応します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">requests</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">requests</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+    <span class="p">}</span>
+    <span class="nb">close</span><span class="p">(</span><span class="nx">requests</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>limiter</code> チャネルは、200 ミリ秒ごとに値を受信します。
+これは、レートリミットの仕組みの中でレギュレーターの
+役割を果たします。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">limiter</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>各リクエストを処理する前に <code>limiter</code> チャネルからの
+受信でブロックさせることで、200 ミリ秒に
+1 リクエストしか処理できないよう制限しています。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">req</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">requests</span> <span class="p">{</span>
+        <span class="o">&lt;-</span><span class="nx">limiter</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">())</span>
+    <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>あるいは、全体としてはレートリミットを担保しつつ、
+一時的なバーストリクエストは許容したいと思うかもしれません。
+その場合、<code>limiter</code> チャネルをバッファリングすれば
+実現できます。ここで、<code>burstyLimiter</code> チャネルは、
+3 リクエストまでならバーストを許します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="nx">burstyLimiter</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>許容されているバースト量を表すため、
+チャネルに値を満たしておきます。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">burstyLimiter</span> <span class="o">&lt;-</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>200 ミリ秒ごとに、<code>burstyLimiter</code> の上限である
+3 つまで、新しい値を追加します。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">burstyLimiter</span> <span class="o">&lt;-</span> <span class="nx">t</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>それでは、5 リクエストきた場合をシミュレートします。
+これらのうち最初の 3 リクエストは、<code>burstyLimiter</code>
+のバースト機能の恩恵を受けるはずです。</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre>    <span class="nx">burstyRequests</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">burstyRequests</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+    <span class="p">}</span>
+    <span class="nb">close</span><span class="p">(</span><span class="nx">burstyRequests</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">req</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">burstyRequests</span> <span class="p">{</span>
+        <span class="o">&lt;-</span><span class="nx">burstyLimiter</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>プログラムを実行すると、リクエストの前半部分は、期待通り
+200 ミリ秒に 1 回処理されていることが分かります。</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="gp">$</span> go run rate-limiting.go
+<span class="go">request 1 2012-10-19 00:38:18.687438 +0000 UTC</span>
+<span class="go">request 2 2012-10-19 00:38:18.887471 +0000 UTC</span>
+<span class="go">request 3 2012-10-19 00:38:19.087238 +0000 UTC</span>
+<span class="go">request 4 2012-10-19 00:38:19.287338 +0000 UTC</span>
+<span class="go">request 5 2012-10-19 00:38:19.487331 +0000 UTC</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>リクエストの後半部分は、最初の 3 つはすぐに処理され、
+残り 2 つはその後 200 ミリ秒ずつ遅れて実行されていることが
+分かります。3 つまではバーストを許容しているからです。</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre><span class="go">request 1 2012-10-19 00:38:20.487578 +0000 UTC</span>
+<span class="go">request 2 2012-10-19 00:38:20.487645 +0000 UTC</span>
+<span class="go">request 3 2012-10-19 00:38:20.487676 +0000 UTC</span>
+<span class="go">request 4 2012-10-19 00:38:20.687483 +0000 UTC</span>
+<span class="go">request 5 2012-10-19 00:38:20.887542 +0000 UTC</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="atomic-counters.html">Atomic Counters</a>.
+      </p>
+      
+      <p class="footer">
+        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+      </p>
+    </div>
+  </body>
+</html>
