@@ -24,9 +24,9 @@
         
         <tr>
           <td class="docs">
-            <p>Go&rsquo;s <code>math/rand</code> package provides
-<a href="http://en.wikipedia.org/wiki/Pseudorandom_number_generator">pseudorandom number</a>
-generation.</p>
+            <p>Go の <code>math/rand</code> パッケージは、
+<a href="http://en.wikipedia.org/wiki/Pseudorandom_number_generator">擬似乱数</a>
+の生成をサポートします。</p>
 
           </td>
           <td class="code empty leading">
@@ -40,7 +40,7 @@ generation.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/ZdFpbahgC1"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/KjlLBD6Xgl"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -75,8 +75,8 @@ generation.</p>
         
         <tr>
           <td class="docs">
-            <p>For example, <code>rand.Intn</code> returns a random <code>int</code> n,
-<code>0 &lt;= n &lt; 100</code>.</p>
+            <p>例えば、<code>rand.Intn</code> は、<code>0 &lt;= n &lt; 100</code>
+となる <code>int</code> 型の乱数 <code>n</code> を返します。</p>
 
           </td>
           <td class="code leading">
@@ -91,8 +91,8 @@ generation.</p>
         
         <tr>
           <td class="docs">
-            <p><code>rand.Float64</code> returns a <code>float64</code> <code>f</code>,
-<code>0.0 &lt;= f &lt; 1.0</code>.</p>
+            <p><code>rand.Float64</code> は、<code>0.0 &lt;= f &lt; 1.0</code>
+となる <code>float64</code> 型の乱数 <code>f</code> を返します。</p>
 
           </td>
           <td class="code leading">
@@ -105,8 +105,8 @@ generation.</p>
         
         <tr>
           <td class="docs">
-            <p>This can be used to generate random floats in
-other ranges, for example <code>5.0 &lt;= f' &lt; 10.0</code>.</p>
+            <p>次のようにすれば、例えば <code>5.0 &lt;= f &lt; 10.0</code>
+のように異なる範囲の乱数を生成することもできます。</p>
 
           </td>
           <td class="code leading">
@@ -121,11 +121,12 @@ other ranges, for example <code>5.0 &lt;= f' &lt; 10.0</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>The default number generator is deterministic, so it&rsquo;ll
-produce the same sequence of numbers each time by default.
-To produce varying sequences, give it a seed that changes.
-Note that this is not safe to use for random numbers you
-intend to be secret, use <code>crypto/rand</code> for those.</p>
+            <p>デフォルトの乱数生成器は決定性があります。すなわち、
+生成される一連の数列は毎回同じになります。
+異なる数列を生成するには、異なるシードを与えます。
+なお、これを秘密にしたい乱数のために使うのは安全でない、
+ということに注意してください。
+そういった場合は、<code>crypto/rand</code> を使います。</p>
 
           </td>
           <td class="code leading">
@@ -139,8 +140,8 @@ intend to be secret, use <code>crypto/rand</code> for those.</p>
         
         <tr>
           <td class="docs">
-            <p>Call the resulting <code>rand.Rand</code> just like the
-functions on the <code>rand</code> package.</p>
+            <p>返された <code>rand.Rand</code> に対して、<code>rand</code>
+パッケージの関数と同じように関数を呼び出します。</p>
 
           </td>
           <td class="code leading">
@@ -155,8 +156,7 @@ functions on the <code>rand</code> package.</p>
         
         <tr>
           <td class="docs">
-            <p>If you seed a source with the same number, it
-produces the same sequence of random numbers.</p>
+            <p>同じ値をシードとして与えると、同じ乱数列を生成します。</p>
 
           </td>
           <td class="code">
@@ -200,9 +200,9 @@ produces the same sequence of random numbers.</p>
         
         <tr>
           <td class="docs">
-            <p>See the <a href="http://golang.org/pkg/math/rand/"><code>math/rand</code></a>
-package docs for references on other random quantities
-that Go can provide.</p>
+            <p>Go が提供するその他の乱数については、
+<a href="http://golang.org/pkg/math/rand/"><code>math/rand</code></a>
+パッケージのドキュメントを参照してください。</p>
 
           </td>
           <td class="code empty">
