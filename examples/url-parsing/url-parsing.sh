@@ -1,6 +1,6 @@
-# Running our URL parsing program shows all the different
-# pieces that we extracted.
-$ go run url-parsing.go 
+# この URL をパースするプログラムを実行すると、
+# 抽出した個々の値が表示されることが分かります。
+$ go run url-parsing.go
 postgres
 user:pass
 user
