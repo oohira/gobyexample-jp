@@ -1,6 +1,6 @@
-# The string encodes to slightly different values with the
-# standard and URL base64 encoders (trailing `+` vs `-`)
-# but they both decode to the original string as desired.
+# 標準のエンコーダーと URL 互換エンコーダーで
+# 微妙に異なる値になります (末尾が `+` か `-`) が、
+# いずれも期待通り元の文字列にデコードされます。
 $ go run base64-encoding.go
 YWJjMTIzIT8kKiYoKSctPUB+
 abc123!?$*&()'-=@~

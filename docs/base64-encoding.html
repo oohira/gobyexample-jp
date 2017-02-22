@@ -24,8 +24,8 @@
         
         <tr>
           <td class="docs">
-            <p>Go provides built-in support for <a href="http://en.wikipedia.org/wiki/Base64">base64
-encoding/decoding</a>.</p>
+            <p>Go は <a href="http://en.wikipedia.org/wiki/Base64">Base64 エンコード/デコード</a>
+を組み込みでサポートしています。</p>
 
           </td>
           <td class="code empty leading">
@@ -39,7 +39,7 @@ encoding/decoding</a>.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/t6rFm2x4Yr"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/MD-r8lL0ue"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -48,9 +48,9 @@ encoding/decoding</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>This syntax imports the <code>encoding/base64</code> package with
-the <code>b64</code> name instead of the default <code>base64</code>. It&rsquo;ll
-save us some space below.</p>
+            <p>この構文は、<code>encoding/base64</code> パッケージをデフォルトの
+<code>base64</code> の代わりに <code>b64</code> という名前でインポートします。
+サンプルコードのスペースを多少省略できます。</p>
 
           </td>
           <td class="code leading">
@@ -76,7 +76,7 @@ save us some space below.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s the <code>string</code> we&rsquo;ll encode/decode.</p>
+            <p>エンコード/デコードする <code>string</code> は次の通りです。</p>
 
           </td>
           <td class="code leading">
@@ -89,10 +89,11 @@ save us some space below.</p>
         
         <tr>
           <td class="docs">
-            <p>Go supports both standard and URL-compatible
-base64. Here&rsquo;s how to encode using the standard
-encoder. The encoder requires a <code>[]byte</code> so we
-cast our <code>string</code> to that type.</p>
+            <p>Go 標準の Base64 と URL 互換の Base64
+の両方をサポートしています。
+以下は、標準のエンコーダーを使ってエンコードする方法です。
+エンコーダーは <code>[]byte</code> を要求するので、
+<code>string</code> をキャストしてやります。</p>
 
           </td>
           <td class="code leading">
@@ -106,9 +107,8 @@ cast our <code>string</code> to that type.</p>
         
         <tr>
           <td class="docs">
-            <p>Decoding may return an error, which you can check
-if you don&rsquo;t already know the input to be
-well-formed.</p>
+            <p>デコードはエラーを返す可能性があります。
+入力が適切かあらかじめ分からない場合にはチェックできます。</p>
 
           </td>
           <td class="code leading">
@@ -123,8 +123,8 @@ well-formed.</p>
         
         <tr>
           <td class="docs">
-            <p>This encodes/decodes using a URL-compatible base64
-format.</p>
+            <p>次のエンコード/デコードは、URL 互換の Base64
+フォーマットを使います。</p>
 
           </td>
           <td class="code">
@@ -145,9 +145,9 @@ format.</p>
         
         <tr>
           <td class="docs">
-            <p>The string encodes to slightly different values with the
-standard and URL base64 encoders (trailing <code>+</code> vs <code>-</code>)
-but they both decode to the original string as desired.</p>
+            <p>標準のエンコーダーと URL 互換エンコーダーで
+微妙に異なる値になります (末尾が <code>+</code> か <code>-</code>) が、
+いずれも期待通り元の文字列にデコードされます。</p>
 
           </td>
           <td class="code leading">
