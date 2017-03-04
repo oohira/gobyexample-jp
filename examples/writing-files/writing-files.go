@@ -1,5 +1,5 @@
-// Writing files in Go follows similar patterns to the
-// ones we saw earlier for reading.
+// Go でのファイル書き込みは、
+// 前回見たファイル読み込みと同じパターンに従います。
 
 package main
 
@@ -18,41 +18,42 @@ func check(e error) {
 
 func main() {
 
-    // To start, here's how to dump a string (or just
-    // bytes) into a file.
+    // まず初めに、文字列 (または単なるバイト列) を書き出す方法です。
     d1 := []byte("hello\ngo\n")
     err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
     check(err)
 
-    // For more granular writes, open a file for writing.
+    // より細かく書き込むには、ファイルをオープンします。
     f, err := os.Create("/tmp/dat2")
     check(err)
 
-    // It's idiomatic to defer a `Close` immediately
-    // after opening a file.
+    // ファイルをオープンした直後に、遅延実行を使って
+    // `Close` するのが慣例です。
     defer f.Close()
 
-    // You can `Write` byte slices as you'd expect.
+    // バイト型のスライスを期待通り `Write` できます。
     d2 := []byte{115, 111, 109, 101, 10}
     n2, err := f.Write(d2)
     check(err)
     fmt.Printf("wrote %d bytes\n", n2)
 
-    // A `WriteString` is also available.
+    // `WriteString` 関数も使えます。
     n3, err := f.WriteString("writes\n")
     fmt.Printf("wrote %d bytes\n", n3)
 
-    // Issue a `Sync` to flush writes to stable storage.
+    // 書き込みをストレージにフラッシュするには
+    // `Sync` 関数を実行します。
     f.Sync()
 
-    // `bufio` provides buffered writers in addition
-    // to the buffered readers we saw earlier.
+    // `bufio` パッケージは、前回学んだバッファ読み込みに加えて、
+    // バッファ書き込みをサポートしています。
     w := bufio.NewWriter(f)
     n4, err := w.WriteString("buffered\n")
     fmt.Printf("wrote %d bytes\n", n4)
 
-    // Use `Flush` to ensure all buffered operations have
-    // been applied to the underlying writer.
+    // バッファリングされた操作が下位の `Writer`
+    // にすべて適用されることを保証するために `Flush`
+    // を実行します。
     w.Flush()
 
 }

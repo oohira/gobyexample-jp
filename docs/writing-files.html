@@ -24,8 +24,8 @@
         
         <tr>
           <td class="docs">
-            <p>Writing files in Go follows similar patterns to the
-ones we saw earlier for reading.</p>
+            <p>Go でのファイル書き込みは、
+前回見たファイル読み込みと同じパターンに従います。</p>
 
           </td>
           <td class="code empty leading">
@@ -39,7 +39,7 @@ ones we saw earlier for reading.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/5usz1Oc-xY"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/kGU2StEt2C"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -93,8 +93,7 @@ ones we saw earlier for reading.</p>
         
         <tr>
           <td class="docs">
-            <p>To start, here&rsquo;s how to dump a string (or just
-bytes) into a file.</p>
+            <p>まず初めに、文字列 (または単なるバイト列) を書き出す方法です。</p>
 
           </td>
           <td class="code leading">
@@ -109,7 +108,7 @@ bytes) into a file.</p>
         
         <tr>
           <td class="docs">
-            <p>For more granular writes, open a file for writing.</p>
+            <p>より細かく書き込むには、ファイルをオープンします。</p>
 
           </td>
           <td class="code leading">
@@ -123,8 +122,8 @@ bytes) into a file.</p>
         
         <tr>
           <td class="docs">
-            <p>It&rsquo;s idiomatic to defer a <code>Close</code> immediately
-after opening a file.</p>
+            <p>ファイルをオープンした直後に、遅延実行を使って
+<code>Close</code> するのが慣例です。</p>
 
           </td>
           <td class="code leading">
@@ -137,7 +136,7 @@ after opening a file.</p>
         
         <tr>
           <td class="docs">
-            <p>You can <code>Write</code> byte slices as you&rsquo;d expect.</p>
+            <p>バイト型のスライスを期待通り <code>Write</code> できます。</p>
 
           </td>
           <td class="code leading">
@@ -153,7 +152,7 @@ after opening a file.</p>
         
         <tr>
           <td class="docs">
-            <p>A <code>WriteString</code> is also available.</p>
+            <p><code>WriteString</code> 関数も使えます。</p>
 
           </td>
           <td class="code leading">
@@ -167,7 +166,8 @@ after opening a file.</p>
         
         <tr>
           <td class="docs">
-            <p>Issue a <code>Sync</code> to flush writes to stable storage.</p>
+            <p>書き込みをストレージにフラッシュするには
+<code>Sync</code> 関数を実行します。</p>
 
           </td>
           <td class="code leading">
@@ -180,8 +180,8 @@ after opening a file.</p>
         
         <tr>
           <td class="docs">
-            <p><code>bufio</code> provides buffered writers in addition
-to the buffered readers we saw earlier.</p>
+            <p><code>bufio</code> パッケージは、前回学んだバッファ読み込みに加えて、
+バッファ書き込みをサポートしています。</p>
 
           </td>
           <td class="code leading">
@@ -196,8 +196,9 @@ to the buffered readers we saw earlier.</p>
         
         <tr>
           <td class="docs">
-            <p>Use <code>Flush</code> to ensure all buffered operations have
-been applied to the underlying writer.</p>
+            <p>バッファリングされた操作が下位の <code>Writer</code>
+にすべて適用されることを保証するために <code>Flush</code>
+を実行します。</p>
 
           </td>
           <td class="code leading">
@@ -226,12 +227,12 @@ been applied to the underlying writer.</p>
         
         <tr>
           <td class="docs">
-            <p>Try running the file-writing code.</p>
+            <p>ファイル書き込みのコードを実行します。</p>
 
           </td>
           <td class="code leading">
 	        
-            <div class="highlight"><pre><span class="gp">$</span> go run writing-files.go 
+            <div class="highlight"><pre><span class="gp">$</span> go run writing-files.go
 <span class="go">wrote 5 bytes</span>
 <span class="go">wrote 7 bytes</span>
 <span class="go">wrote 9 bytes</span>
@@ -242,7 +243,7 @@ been applied to the underlying writer.</p>
         
         <tr>
           <td class="docs">
-            <p>Then check the contents of the written files.</p>
+            <p>そして、書き出されたファイルの中身を確認します。</p>
 
           </td>
           <td class="code leading">
@@ -261,8 +262,8 @@ been applied to the underlying writer.</p>
         
         <tr>
           <td class="docs">
-            <p>Next we&rsquo;ll look at applying some of the file I/O ideas
-we&rsquo;ve just seen to the <code>stdin</code> and <code>stdout</code> streams.</p>
+            <p>次は、<code>stdin</code> や <code>stdout</code> ストリームに見られる、
+いくつかのファイル I/O の考え方を適用する例を見ていきます。</p>
 
           </td>
           <td class="code empty">
