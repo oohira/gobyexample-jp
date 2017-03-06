@@ -24,10 +24,10 @@
         
         <tr>
           <td class="docs">
-            <p><a href="http://en.wikipedia.org/wiki/Command-line_interface#Arguments"><em>Command-line arguments</em></a>
-are a common way to parameterize execution of programs.
-For example, <code>go run hello.go</code> uses <code>run</code> and
-<code>hello.go</code> arguments to the <code>go</code> program.</p>
+            <p><a href="http://en.wikipedia.org/wiki/Command-line_interface#Arguments"><em>コマンドライン引数</em></a>
+は、プログラムの実行をパラメーター化する一般的な方法です。
+例えば、<code>go run hello.go</code> は、<code>run</code> と
+<code>hello.go</code> を <code>go</code> プログラムの引数として使います。</p>
 
           </td>
           <td class="code empty leading">
@@ -41,7 +41,7 @@ For example, <code>go run hello.go</code> uses <code>run</code> and
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/44uyYt_TRl"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/hoqRBVVYMY"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -75,10 +75,10 @@ For example, <code>go run hello.go</code> uses <code>run</code> and
         
         <tr>
           <td class="docs">
-            <p><code>os.Args</code> provides access to raw command-line
-arguments. Note that the first value in this slice
-is the path to the program, and <code>os.Args[1:]</code>
-holds the arguments to the program.</p>
+            <p><code>os.Args</code> は、生のコマンドライン引数へのアクセスを提供します。
+このスライスの 1 つ目の値は、プログラム自身のパスで、
+<code>os.Args[1:]</code> がプログラムへの引数を保持することに
+注意してください。</p>
 
           </td>
           <td class="code leading">
@@ -92,7 +92,7 @@ holds the arguments to the program.</p>
         
         <tr>
           <td class="docs">
-            <p>You can get individual args with normal indexing.</p>
+            <p>個々の引数はインデックスを使って通常通り取得できます。</p>
 
           </td>
           <td class="code leading">
@@ -124,15 +124,15 @@ holds the arguments to the program.</p>
         
         <tr>
           <td class="docs">
-            <p>To experiment with command-line arguments it&rsquo;s best to
-build a binary with <code>go build</code> first.</p>
+            <p>コマンドライン引数を試すには、<code>go build</code>
+で先にバイナリをビルドするのがよいです。</p>
 
           </td>
           <td class="code leading">
 	        
             <div class="highlight"><pre><span class="gp">$</span> go build command-line-arguments.go
 <span class="gp">$</span> ./command-line-arguments a b c d
-<span class="go">[./command-line-arguments a b c d]       </span>
+<span class="go">[./command-line-arguments a b c d]</span>
 <span class="go">[a b c d]</span>
 <span class="go">c</span>
 </pre></div>
@@ -142,8 +142,8 @@ build a binary with <code>go build</code> first.</p>
         
         <tr>
           <td class="docs">
-            <p>Next we&rsquo;ll look at more advanced command-line processing
-with flags.</p>
+            <p>次は、フラグを使ったさらに進んだコマンドライン処理を
+見ていきましょう。</p>
 
           </td>
           <td class="code empty">
