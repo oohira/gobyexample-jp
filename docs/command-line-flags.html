@@ -24,10 +24,10 @@
         
         <tr>
           <td class="docs">
-            <p><a href="http://en.wikipedia.org/wiki/Command-line_interface#Command-line_option"><em>Command-line flags</em></a>
-are a common way to specify options for command-line
-programs. For example, in <code>wc -l</code> the <code>-l</code> is a
-command-line flag.</p>
+            <p><a href="http://en.wikipedia.org/wiki/Command-line_interface#Command-line_option"><em>コマンドラインフラグ</em></a>
+は、コマンドラインプログラムに対してオプションを指定する
+一般的な方法です。例えば、<code>wc -l</code> での <code>-l</code>
+がコマンドラインフラグになります。</p>
 
           </td>
           <td class="code empty leading">
@@ -41,7 +41,7 @@ command-line flag.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/NASEOq2R3n"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/10s-6illnW"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -50,9 +50,10 @@ command-line flag.</p>
         
         <tr>
           <td class="docs">
-            <p>Go provides a <code>flag</code> package supporting basic
-command-line flag parsing. We&rsquo;ll use this package to
-implement our example command-line program.</p>
+            <p>Go は、基本的なコマンドラインフラグのパースをサポートする
+<code>flag</code> パッケージを提供しています。
+サンプルのコマンドラインプログラムを実装するために、
+このパッケージを使いましょう。</p>
 
           </td>
           <td class="code leading">
@@ -78,12 +79,12 @@ implement our example command-line program.</p>
         
         <tr>
           <td class="docs">
-            <p>Basic flag declarations are available for string,
-integer, and boolean options. Here we declare a
-string flag <code>word</code> with a default value <code>&quot;foo&quot;</code>
-and a short description. This <code>flag.String</code> function
-returns a string pointer (not a string value);
-we&rsquo;ll see how to use this pointer below.</p>
+            <p>基本的なフラグ宣言は、文字列、整数、真偽値に対して
+利用できます。ここでは、文字列フラグ <code>word</code>
+をデフォルト値 <code>&quot;foo&quot;</code> と簡単な説明とともに宣言します。
+この <code>flag.String</code> 関数は、(文字列値ではなく)
+文字列ポインタを返します。
+このポインタの使い方は後ほど確認します。</p>
 
           </td>
           <td class="code leading">
@@ -96,8 +97,8 @@ we&rsquo;ll see how to use this pointer below.</p>
         
         <tr>
           <td class="docs">
-            <p>This declares <code>numb</code> and <code>fork</code> flags, using a
-similar approach to the <code>word</code> flag.</p>
+            <p>次の例は、<code>word</code> フラグと同じ方法を使って、
+<code>numb</code> フラグと <code>fork</code> フラグを宣言しています。</p>
 
           </td>
           <td class="code leading">
@@ -111,10 +112,10 @@ similar approach to the <code>word</code> flag.</p>
         
         <tr>
           <td class="docs">
-            <p>It&rsquo;s also possible to declare an option that uses an
-existing var declared elsewhere in the program.
-Note that we need to pass in a pointer to the flag
-declaration function.</p>
+            <p>プログラムの別の場所で宣言された変数を使うような
+オプションを宣言することも可能です。
+フラグを宣言する関数にポインタの形で渡す必要がある点に
+注意してください。</p>
 
           </td>
           <td class="code leading">
@@ -128,8 +129,8 @@ declaration function.</p>
         
         <tr>
           <td class="docs">
-            <p>Once all flags are declared, call <code>flag.Parse()</code>
-to execute the command-line parsing.</p>
+            <p>すべてのフラグを宣言したら、コマンドラインをパースするために
+<code>flag.Parse()</code> を呼び出します。</p>
 
           </td>
           <td class="code leading">
@@ -142,10 +143,10 @@ to execute the command-line parsing.</p>
         
         <tr>
           <td class="docs">
-            <p>Here we&rsquo;ll just dump out the parsed options and
-any trailing positional arguments. Note that we
-need to dereference the pointers with e.g. <code>*wordPtr</code>
-to get the actual option values.</p>
+            <p>ここでは、パースしたオプションと残りの任意の引数を
+単に出力します。実際のオプション値を取得するために、
+<code>*wordPtr</code> のようにポインタをデリファレンスする
+必要がある点に気をつけてください。</p>
 
           </td>
           <td class="code">
@@ -167,9 +168,8 @@ to get the actual option values.</p>
         
         <tr>
           <td class="docs">
-            <p>To experiment with the command-line flags program it&rsquo;s
-best to first compile it and then run the resulting
-binary directly.</p>
+            <p>コマンドラインフラグをもつプログラムを試すためには、
+先にコンパイルして、出力されたバイナリを直接実行するのがよいです。</p>
 
           </td>
           <td class="code leading">
@@ -182,8 +182,8 @@ binary directly.</p>
         
         <tr>
           <td class="docs">
-            <p>Try out the built program by first giving it values for
-all flags.</p>
+            <p>まずはビルドされたプログラムにすべてのフラグの値を指定して
+みましょう。</p>
 
           </td>
           <td class="code leading">
@@ -201,8 +201,8 @@ all flags.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that if you omit flags they automatically take
-their default values.</p>
+            <p>フラグを省略すると、
+自動的にフラグごとのデフォルト値となる点に注意してください。</p>
 
           </td>
           <td class="code leading">
@@ -220,8 +220,7 @@ their default values.</p>
         
         <tr>
           <td class="docs">
-            <p>Trailing positional arguments can be provided after
-any flags.</p>
+            <p>位置引数は、任意のフラグの後に続けて指定することができます。</p>
 
           </td>
           <td class="code leading">
@@ -237,9 +236,9 @@ any flags.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that the <code>flag</code> package requires all flags to
-appear before positional arguments (otherwise the flags
-will be interpreted as positional arguments).</p>
+            <p><code>flag</code> パッケージは、すべてのフラグが位置引数の前に
+出現することを要求する点に注意してください。
+(さもないと、フラグも位置引数として解釈されてしまいます)</p>
 
           </td>
           <td class="code leading">
@@ -257,8 +256,9 @@ will be interpreted as positional arguments).</p>
         
         <tr>
           <td class="docs">
-            <p>Use <code>-h</code> or <code>--help</code> flags to get automatically
-generated help text for the command-line program.</p>
+            <p>コマンドラインプログラムに対して自動生成された
+ヘルプテキストを取得するには、<code>-h</code> または <code>--help</code>
+フラグを使います。</p>
 
           </td>
           <td class="code leading">
@@ -276,9 +276,9 @@ generated help text for the command-line program.</p>
         
         <tr>
           <td class="docs">
-            <p>If you provide a flag that wasn&rsquo;t specified to the
-<code>flag</code> package, the program will print an error message
-and show the help text again.</p>
+            <p><code>flag</code> パッケージに指定されていないフラグを与えた場合は、
+プログラムはエラーメッセージを表示して、ヘルプテキストを
+再度表示します。</p>
 
           </td>
           <td class="code leading">
@@ -294,8 +294,8 @@ and show the help text again.</p>
         
         <tr>
           <td class="docs">
-            <p>Next we&rsquo;ll look at environment variables, another common
-way to parameterize programs.</p>
+            <p>次は、プログラムをパラメーター化する別の一般的な方法である、
+環境変数を見ていきます。</p>
 
           </td>
           <td class="code empty">

@@ -1,10 +1,9 @@
-# To experiment with the command-line flags program it's
-# best to first compile it and then run the resulting
-# binary directly.
+# コマンドラインフラグをもつプログラムを試すためには、
+# 先にコンパイルして、出力されたバイナリを直接実行するのがよいです。
 $ go build command-line-flags.go
 
-# Try out the built program by first giving it values for
-# all flags.
+# まずはビルドされたプログラムにすべてのフラグの値を指定して
+# みましょう。
 $ ./command-line-flags -word=opt -numb=7 -fork -svar=flag
 word: opt
 numb: 7
@@ -12,8 +11,8 @@ fork: true
 svar: flag
 tail: []
 
-# Note that if you omit flags they automatically take
-# their default values.
+# フラグを省略すると、
+# 自動的にフラグごとのデフォルト値となる点に注意してください。
 $ ./command-line-flags -word=opt
 word: opt
 numb: 42
@@ -21,16 +20,15 @@ fork: false
 svar: bar
 tail: []
 
-# Trailing positional arguments can be provided after
-# any flags.
+# 位置引数は、任意のフラグの後に続けて指定することができます。
 $ ./command-line-flags -word=opt a1 a2 a3
 word: opt
 ...
 tail: [a1 a2 a3]
 
-# Note that the `flag` package requires all flags to
-# appear before positional arguments (otherwise the flags
-# will be interpreted as positional arguments).
+# `flag` パッケージは、すべてのフラグが位置引数の前に
+# 出現することを要求する点に注意してください。
+# (さもないと、フラグも位置引数として解釈されてしまいます)
 $ ./command-line-flags -word=opt a1 a2 a3 -numb=7
 word: opt
 numb: 42
@@ -38,8 +36,9 @@ fork: false
 svar: bar
 tail: [a1 a2 a3 -numb=7]
 
-# Use `-h` or `--help` flags to get automatically
-# generated help text for the command-line program.
+# コマンドラインプログラムに対して自動生成された
+# ヘルプテキストを取得するには、`-h` または `--help`
+# フラグを使います。
 $ ./command-line-flags -h
 Usage of ./command-line-flags:
   -fork=false: a bool
@@ -47,13 +46,13 @@ Usage of ./command-line-flags:
   -svar="bar": a string var
   -word="foo": a string
 
-# If you provide a flag that wasn't specified to the
-# `flag` package, the program will print an error message
-# and show the help text again.
+# `flag` パッケージに指定されていないフラグを与えた場合は、
+# プログラムはエラーメッセージを表示して、ヘルプテキストを
+# 再度表示します。
 $ ./command-line-flags -wat
 flag provided but not defined: -wat
 Usage of ./command-line-flags:
 ...
 
-# Next we'll look at environment variables, another common
-# way to parameterize programs.
+# 次は、プログラムをパラメーター化する別の一般的な方法である、
+# 環境変数を見ていきます。
