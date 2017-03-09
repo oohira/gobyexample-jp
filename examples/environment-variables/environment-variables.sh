@@ -1,19 +1,17 @@
-# Running the program shows that we pick up the value
-# for `FOO` that we set in the program, but that
-# `BAR` is empty.
+# プログラムを実行すると、プログラム中で設定した `FOO`
+# の値は取得できますが、`BAR` の値は空になることが分かります。
 $ go run environment-variables.go
 FOO: 1
-BAR: 
+BAR:
 
-# The list of keys in the environment will depend on your
-# particular machine.
+# 環境に定義されたキーの一覧は、あなたのマシンに依存します。
 TERM_PROGRAM
 PATH
 SHELL
 ...
 
-# If we set `BAR` in the environment first, the running
-# program picks that value up.
+# もし環境変数 `BAR` を先に設定すると、
+# 実行したプログラムはその値を取得できます。
 $ BAR=2 go run environment-variables.go
 FOO: 1
 BAR: 2
