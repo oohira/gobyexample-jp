@@ -1,12 +1,10 @@
-// In the previous example we looked at
-// [spawning external processes](spawning-processes). We
-// do this when we need an external process accessible to
-// a running Go process. Sometimes we just want to
-// completely replace the current Go process with another
-// (perhaps non-Go) one. To do this we'll use Go's
-// implementation of the classic
+// 前回の例では、[外部プロセスを生成する](spawning-processes)
+// 例を見ました。これは、実行中の Go プロセスから外部のプロセスを利用する
+// 必要がある場合に使います。しかし、ときには現在の Go プロセスを完全に別の
+// (おそらく Go 以外の) プロセスに置き換えたいだけの場合もあります。
+// そのためには、古典的な
 // <a href="http://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
-// function.
+// 関数の Go 実装を使います。
 
 package main
 
@@ -16,31 +14,27 @@ import "os/exec"
 
 func main() {
 
-    // For our example we'll exec `ls`. Go requires an
-    // absolute path to the binary we want to execute, so
-    // we'll use `exec.LookPath` to find it (probably
-    // `/bin/ls`).
+    // 例として `ls` を実行します。
+    // Go は、実行したいバイナリの絶対パスを要求するので、
+    // `exec.LookPath` を使って探します (おそらく `/bin/ls`)。
     binary, lookErr := exec.LookPath("ls")
     if lookErr != nil {
         panic(lookErr)
     }
 
-    // `Exec` requires arguments in slice form (as
-    // apposed to one big string). We'll give `ls` a few
-    // common arguments. Note that the first argument should
-    // be the program name.
+    // `Exec` は、引数を (1 つの文字列ではなく) スライスで要求します。
+    // いくつか一般的な引数を `ls` に渡してみることにしましょう。
+    // 最初の引数は、プログラムの名前でなければならない点に注意してください。
     args := []string{"ls", "-a", "-l", "-h"}
 
-    // `Exec` also needs a set of [environment variables](environment-variables)
-    // to use. Here we just provide our current
-    // environment.
+    // また、`Exec` には使用する [環境変数](environment-variables)
+    // も必要です。ここでは、現在の環境変数をそのまま渡すことにします。
     env := os.Environ()
 
-    // Here's the actual `syscall.Exec` call. If this call is
-    // successful, the execution of our process will end
-    // here and be replaced by the `/bin/ls -a -l -h`
-    // process. If there is an error we'll get a return
-    // value.
+    // これが、実際の `syscall.Exec` 呼び出しです。
+    // この呼び出しが成功すると、私たちのプロセスの実行は終了し、
+    // `/bin/ls -a -l -h` プロセスで置き換わります。
+    // もしエラーが発生すると、戻り値を受け取ることになります。
     execErr := syscall.Exec(binary, args, env)
     if execErr != nil {
         panic(execErr)

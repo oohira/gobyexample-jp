@@ -24,15 +24,13 @@
         
         <tr>
           <td class="docs">
-            <p>In the previous example we looked at
-<a href="spawning-processes">spawning external processes</a>. We
-do this when we need an external process accessible to
-a running Go process. Sometimes we just want to
-completely replace the current Go process with another
-(perhaps non-Go) one. To do this we&rsquo;ll use Go&rsquo;s
-implementation of the classic
+            <p>前回の例では、<a href="spawning-processes">外部プロセスを生成する</a>
+例を見ました。これは、実行中の Go プロセスから外部のプロセスを利用する
+必要がある場合に使います。しかし、ときには現在の Go プロセスを完全に別の
+(おそらく Go 以外の) プロセスに置き換えたいだけの場合もあります。
+そのためには、古典的な
 <a href="http://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
-function.</p>
+関数の Go 実装を使います。</p>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +44,7 @@ function.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/neqdJ51KLN"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/NOCbRXEeRu"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -81,10 +79,9 @@ function.</p>
         
         <tr>
           <td class="docs">
-            <p>For our example we&rsquo;ll exec <code>ls</code>. Go requires an
-absolute path to the binary we want to execute, so
-we&rsquo;ll use <code>exec.LookPath</code> to find it (probably
-<code>/bin/ls</code>).</p>
+            <p>例として <code>ls</code> を実行します。
+Go は、実行したいバイナリの絶対パスを要求するので、
+<code>exec.LookPath</code> を使って探します (おそらく <code>/bin/ls</code>)。</p>
 
           </td>
           <td class="code leading">
@@ -100,10 +97,9 @@ we&rsquo;ll use <code>exec.LookPath</code> to find it (probably
         
         <tr>
           <td class="docs">
-            <p><code>Exec</code> requires arguments in slice form (as
-apposed to one big string). We&rsquo;ll give <code>ls</code> a few
-common arguments. Note that the first argument should
-be the program name.</p>
+            <p><code>Exec</code> は、引数を (1 つの文字列ではなく) スライスで要求します。
+いくつか一般的な引数を <code>ls</code> に渡してみることにしましょう。
+最初の引数は、プログラムの名前でなければならない点に注意してください。</p>
 
           </td>
           <td class="code leading">
@@ -116,9 +112,8 @@ be the program name.</p>
         
         <tr>
           <td class="docs">
-            <p><code>Exec</code> also needs a set of <a href="environment-variables">environment variables</a>
-to use. Here we just provide our current
-environment.</p>
+            <p>また、<code>Exec</code> には使用する <a href="environment-variables">環境変数</a>
+も必要です。ここでは、現在の環境変数をそのまま渡すことにします。</p>
 
           </td>
           <td class="code leading">
@@ -131,11 +126,10 @@ environment.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s the actual <code>syscall.Exec</code> call. If this call is
-successful, the execution of our process will end
-here and be replaced by the <code>/bin/ls -a -l -h</code>
-process. If there is an error we&rsquo;ll get a return
-value.</p>
+            <p>これが、実際の <code>syscall.Exec</code> 呼び出しです。
+この呼び出しが成功すると、私たちのプロセスの実行は終了し、
+<code>/bin/ls -a -l -h</code> プロセスで置き換わります。
+もしエラーが発生すると、戻り値を受け取ることになります。</p>
 
           </td>
           <td class="code">
@@ -156,7 +150,7 @@ value.</p>
         
         <tr>
           <td class="docs">
-            <p>When we run our program it is replaced by <code>ls</code>.</p>
+            <p>プログラムを実行すると、<code>ls</code> に置き換わります。</p>
 
           </td>
           <td class="code leading">
@@ -173,10 +167,10 @@ value.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that Go does not offer a classic Unix <code>fork</code>
-function. Usually this isn&rsquo;t an issue though, since
-starting goroutines, spawning processes, and exec&rsquo;ing
-processes covers most use cases for <code>fork</code>.</p>
+            <p>Go は、古典的な Unix の <code>fork</code> 関数を提供していない点に
+注意してください。ゴルーチンの開始や、プロセスの生成、
+プロセスの <code>exec</code> で <code>fork</code> のほとんどのユースケースを
+網羅できるため、普通は問題になりません。</p>
 
           </td>
           <td class="code empty">
