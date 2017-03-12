@@ -1,9 +1,10 @@
-// Sometimes we'd like our Go programs to intelligently
-// handle [Unix signals](http://en.wikipedia.org/wiki/Unix_signal).
-// For example, we might want a server to gracefully
-// shutdown when it receives a `SIGTERM`, or a command-line
-// tool to stop processing input if it receives a `SIGINT`.
-// Here's how to handle signals in Go with channels.
+// ときには、Go プログラムで
+// [Unix シグナル](http://en.wikipedia.org/wiki/Unix_signal)
+// を扱いたいこともあります。例えば、`SIGTERM`
+// を受け取ったらサーバーを正常に終了させたり、`SIGINT`
+// を受け取ったらコマンドラインツールの入力処理を止めたり、
+// といった具合です。
+// 以下は、Go でチャネルを使ってシグナルを扱う方法です。
 
 package main
 
@@ -14,20 +15,21 @@ import "syscall"
 
 func main() {
 
-    // Go signal notification works by sending `os.Signal`
-    // values on a channel. We'll create a channel to
-    // receive these notifications (we'll also make one to
-    // notify us when the program can exit).
+    // Go のシグナル通知は、チャネルに `os.Signal`
+    // 値を送信することで行います。
+    // これらの通知を受信するためのチャネル
+    // (と、プログラムが終了できることを通知するためのチャネル)
+    // を作ります。
     sigs := make(chan os.Signal, 1)
     done := make(chan bool, 1)
 
-    // `signal.Notify` registers the given channel to
-    // receive notifications of the specified signals.
+    // `signal.Notify` は、指定されたシグナル通知を受信するために、
+    // 与えられたチャネルを登録します。
     signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
-    // This goroutine executes a blocking receive for
-    // signals. When it gets one it'll print it out
-    // and then notify the program that it can finish.
+    // このゴルーチンは、シグナルを同期的に受信します。
+    // シグナルを受信したら、それを表示して、
+    // プログラムに終了できることを通知します。
     go func() {
         sig := <-sigs
         fmt.Println()
@@ -35,9 +37,9 @@ func main() {
         done <- true
     }()
 
-    // The program will wait here until it gets the
-    // expected signal (as indicated by the goroutine
-    // above sending a value on `done`) and then exit.
+    // プログラムはシグナルを受信するまで
+    // (前述の `done` に値を送信するゴルーチンで知らされる)
+    // ここで待機した後、終了します。
     fmt.Println("awaiting signal")
     <-done
     fmt.Println("exiting")
