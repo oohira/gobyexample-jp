@@ -24,8 +24,8 @@
         
         <tr>
           <td class="docs">
-            <p>Use <code>os.Exit</code> to immediately exit with a given
-status.</p>
+            <p>指定したステータスですぐさま終了するには、
+<code>os.Exit</code> を使います。</p>
 
           </td>
           <td class="code empty leading">
@@ -39,7 +39,7 @@ status.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/CDiAh9SXRM"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/C-h4YKSmBn"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -73,8 +73,8 @@ status.</p>
         
         <tr>
           <td class="docs">
-            <p><code>defer</code>s will <em>not</em> be run when using <code>os.Exit</code>, so
-this <code>fmt.Println</code> will never be called.</p>
+            <p><code>os.Exit</code> を使う場合は、<code>defer</code> は実行 <em>されません</em> 。
+そのため、この <code>fmt.Println</code> は決して呼ばれません。</p>
 
           </td>
           <td class="code leading">
@@ -87,7 +87,7 @@ this <code>fmt.Println</code> will never be called.</p>
         
         <tr>
           <td class="docs">
-            <p>Exit with status 3.</p>
+            <p>ステータス 3 で終了します。</p>
 
           </td>
           <td class="code leading">
@@ -101,10 +101,10 @@ this <code>fmt.Println</code> will never be called.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that unlike e.g. C, Go does not use an integer
-return value from <code>main</code> to indicate exit status. If
-you&rsquo;d like to exit with a non-zero status you should
-use <code>os.Exit</code>.</p>
+            <p>例えば C とは異なり、Go は終了ステータスを示すために、
+<code>main</code> からの整数型の戻り値を使いません。
+非ゼロのステータスで終了したい場合は、<code>os.Exit</code>
+を使わなければなりません。</p>
 
           </td>
           <td class="code empty">
@@ -119,8 +119,8 @@ use <code>os.Exit</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>If you run <code>exit.go</code> using <code>go run</code>, the exit
-will be picked up by <code>go</code> and printed.</p>
+            <p><code>go run</code> を使って <code>exit.go</code> を実行した場合は、
+<code>go</code> によって終了が検知され、画面に表示されます。</p>
 
           </td>
           <td class="code leading">
@@ -134,8 +134,8 @@ will be picked up by <code>go</code> and printed.</p>
         
         <tr>
           <td class="docs">
-            <p>By building and executing a binary you can see
-the status in the terminal.</p>
+            <p>バイナリをビルドして実行した場合は、
+ターミナルでステータスを確認することができます。</p>
 
           </td>
           <td class="code leading">
@@ -151,7 +151,7 @@ the status in the terminal.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that the <code>!</code> from our program never got printed.</p>
+            <p>プログラムから <code>!</code> が決して表示されないことに注意してください。</p>
 
           </td>
           <td class="code empty">
