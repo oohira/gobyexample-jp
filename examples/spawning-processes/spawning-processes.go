@@ -1,9 +1,10 @@
-// Sometimes our Go programs need to spawn other, non-Go
-// processes. For example, the syntax highlighting on this
-// site is [implemented](https://github.com/mmcgrana/gobyexample/blob/master/tools/generate.go)
-// by spawning a [`pygmentize`](http://pygments.org/)
-// process from a Go program. Let's look at a few examples
-// of spawning processes from Go.
+// ときには、私たちの Go プログラムは他の Go
+// でないプロセスを生成する必要があります。
+// 例えば、このサイトのシンタックスハイライトは、
+// Go プログラムから [`pygmentize`](http://pygments.org/)
+// プロセスを起動することで
+// [実装されています](https://github.com/mmcgrana/gobyexample/blob/master/tools/generate.go)。
+// Go からプロセスを生成する例をいくつか見ていきましょう。
 
 package main
 
@@ -13,16 +14,16 @@ import "os/exec"
 
 func main() {
 
-    // We'll start with a simple command that takes no
-    // arguments or input and just prints something to
-    // stdout. The `exec.Command` helper creates an object
-    // to represent this external process.
+    // まずは引数なし、つまり入力を受け取らずに、
+    // 標準出力へ何か表示するだけの単純なコマンドから始めましょう。
+    // `exec.Command` ヘルパーは、
+    // この外部プロセスを表すオブジェクトを作成します。
     dateCmd := exec.Command("date")
 
-    // `.Output` is another helper that handles the common
-    // case of running a command, waiting for it to finish,
-    // and collecting its output. If there were no errors,
-    // `dateOut` will hold bytes with the date info.
+    // `Output` は、コマンドを実行し、その終了を待ち、
+    // 出力を取得するという一般的なケースを扱える、
+    // もう一つのヘルパーです。エラーがなければ、
+    // `dateOut` は日付情報のバイト列を保持します。
     dateOut, err := dateCmd.Output()
     if err != nil {
         panic(err)
@@ -30,15 +31,14 @@ func main() {
     fmt.Println("> date")
     fmt.Println(string(dateOut))
 
-    // Next we'll look at a slightly more involved case
-    // where we pipe data to the external process on its
-    // `stdin` and collect the results from its `stdout`.
+    // 次に、もう少し複雑なケースとして、
+    // パイプを使って外部プロセスの `stdin` にデータを与え、
+    // 結果を `stdout` から取得する例を見てみましょう。
     grepCmd := exec.Command("grep", "hello")
 
-    // Here we explicitly grab input/output pipes, start
-    // the process, write some input to it, read the
-    // resulting output, and finally wait for the process
-    // to exit.
+    // 次の例では、標準入力/出力のパイプを明示的につかみ、
+    // プロセスを開始し、入力データを書き込み、出力を読み込み、
+    // そして最後にプロセスが終了するのを待ちます。
     grepIn, _ := grepCmd.StdinPipe()
     grepOut, _ := grepCmd.StdoutPipe()
     grepCmd.Start()
@@ -47,20 +47,18 @@ func main() {
     grepBytes, _ := ioutil.ReadAll(grepOut)
     grepCmd.Wait()
 
-    // We ommited error checks in the above example, but
-    // you could use the usual `if err != nil` pattern for
-    // all of them. We also only collect the `StdoutPipe`
-    // results, but you could collect the `StderrPipe` in
-    // exactly the same way.
+    // 上の例ではエラーチェックを省略しましたが、いつもの
+    // `if err != nil` パターンを使うことができます。
+    // また、上の例では `StdoutPipe` の結果だけを取得しましたが、
+    // 全く同じ方法で `StderrPipe` から取得することもできます。
     fmt.Println("> grep hello")
     fmt.Println(string(grepBytes))
 
-    // Note that when spawning commands we need to
-    // provide an explicitly delineated command and
-    // argument array, vs. being able to just pass in one
-    // command-line string. If you want to spawn a full
-    // command with a string, you can use `bash`'s `-c`
-    // option:
+    // コマンドを起動するときは、1 つのコマンドライン文字列を
+    // 渡せるのではなく、コマンドと引数の配列を明示的に
+    // 渡す必要がある点に注意してください。
+    // 文字列でコマンドを起動したいなら、
+    // `bash` の `-c` オプションを使うことができます。
     lsCmd := exec.Command("bash", "-c", "ls -a -l -h")
     lsOut, err := lsCmd.Output()
     if err != nil {

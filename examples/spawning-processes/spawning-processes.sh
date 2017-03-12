@@ -1,6 +1,6 @@
-# The spawned programs return output that is the same
-# as if we had run them directly from the command-line.
-$ go run spawning-processes.go 
+# 起動されたプログラムは、それらをコマンドラインから
+# 直接実行したときと同じ出力を返します。
+$ go run spawning-processes.go
 > date
 Wed Oct 10 09:53:11 PDT 2012
 
