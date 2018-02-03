@@ -72,7 +72,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/ZmUEJyRHYf"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/Eld7lIuEMy-"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -94,7 +94,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>目的の文字列 <code>t</code> の最初のインデックスを返します。
+            <p>Index は、目的の文字列 <code>t</code> の最初のインデックスを返します。
 見つからなかった場合は、<code>-1</code> になります。</p>
 
           </td>
@@ -115,7 +115,8 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>文字列 <code>t</code> がスライスに含まれる場合は、<code>true</code> を返します。</p>
+            <p>Include は、文字列 <code>t</code> がスライスに含まれる場合に
+<code>true</code> を返します。</p>
 
           </td>
           <td class="code leading">
@@ -130,7 +131,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>スライスの文字列が 1 つでも述語 <code>f</code> を満たす場合は、
+            <p>Any は、スライスの文字列が 1 つでも述語 <code>f</code> を満たす場合に
 <code>true</code> を返します。</p>
 
           </td>
@@ -151,7 +152,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>スライスの全ての文字列が述語 <code>f</code> を満たす場合は、
+            <p>All は、スライスの全ての文字列が述語 <code>f</code> を満たす場合に
 <code>true</code> を返します。</p>
 
           </td>
@@ -172,7 +173,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>述語 <code>f</code> を満たす全ての文字列を含む、新しいスライスを返します。</p>
+            <p>Filter は、述語 <code>f</code> を満たす全ての文字列を含む、新しいスライスを返します。</p>
 
           </td>
           <td class="code leading">
@@ -193,7 +194,7 @@ Go では、プログラムやデータ型が必要とする場合だけ
         
         <tr>
           <td class="docs">
-            <p>元のスライスの各文字列に関数 <code>f</code> を適用した結果を含む、
+            <p>Map は、元のスライスの各文字列に関数 <code>f</code> を適用した結果を含む、
 新しいスライスを返します。</p>
 
           </td>
