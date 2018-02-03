@@ -29,7 +29,6 @@ func main() {
     // 上の 2 つの関数呼び出しは別々のゴルーチンで非同期に
     // 実行されるので、プログラムの実行はすぐにここへきます。
     // この `Scanln` は、キーを押すまでプログラムを終了させません。
-    var input string
-    fmt.Scanln(&input)
+    fmt.Scanln()
     fmt.Println("done")
 }

@@ -22,8 +22,8 @@ func main() {
     var mutex = &sync.Mutex{}
 
     // 読み書き操作をした回数も記録しましょう。
-    var readOps uint64 = 0
-    var writeOps uint64 = 0
+    var readOps uint64
+    var writeOps uint64
 
     // ここで、1 ミリ秒に 1 回 `state` から読み込み処理を実行する
     // ゴルーチンを 100 個開始します。

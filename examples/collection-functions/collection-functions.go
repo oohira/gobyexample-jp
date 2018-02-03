@@ -21,7 +21,7 @@ package main
 import "strings"
 import "fmt"
 
-// 目的の文字列 `t` の最初のインデックスを返します。
+// Index は、目的の文字列 `t` の最初のインデックスを返します。
 // 見つからなかった場合は、`-1` になります。
 func Index(vs []string, t string) int {
     for i, v := range vs {
@@ -32,12 +32,13 @@ func Index(vs []string, t string) int {
     return -1
 }
 
-// 文字列 `t` がスライスに含まれる場合は、`true` を返します。
+// Include は、文字列 `t` がスライスに含まれる場合に
+// `true` を返します。
 func Include(vs []string, t string) bool {
     return Index(vs, t) >= 0
 }
 
-// スライスの文字列が 1 つでも述語 `f` を満たす場合は、
+// Any は、スライスの文字列が 1 つでも述語 `f` を満たす場合に
 // `true` を返します。
 func Any(vs []string, f func(string) bool) bool {
     for _, v := range vs {
@@ -48,7 +49,7 @@ func Any(vs []string, f func(string) bool) bool {
     return false
 }
 
-// スライスの全ての文字列が述語 `f` を満たす場合は、
+// All は、スライスの全ての文字列が述語 `f` を満たす場合に
 // `true` を返します。
 func All(vs []string, f func(string) bool) bool {
     for _, v := range vs {
@@ -59,7 +60,7 @@ func All(vs []string, f func(string) bool) bool {
     return true
 }
 
-// 述語 `f` を満たす全ての文字列を含む、新しいスライスを返します。
+// Filter は、述語 `f` を満たす全ての文字列を含む、新しいスライスを返します。
 func Filter(vs []string, f func(string) bool) []string {
     vsf := make([]string, 0)
     for _, v := range vs {
@@ -70,7 +71,7 @@ func Filter(vs []string, f func(string) bool) []string {
     return vsf
 }
 
-// 元のスライスの各文字列に関数 `f` を適用した結果を含む、
+// Map は、元のスライスの各文字列に関数 `f` を適用した結果を含む、
 // 新しいスライスを返します。
 func Map(vs []string, f func(string) string) []string {
     vsm := make([]string, len(vs))

@@ -15,7 +15,7 @@ import "sync/atomic"
 func main() {
 
     // カウンターのために符号なし整数を使います。
-    var ops uint64 = 0
+    var ops uint64
 
     // 同時更新をシミュレートするために、1 ミリ秒に
     // 1 回カウンターをインクリメントするゴルーチンを
