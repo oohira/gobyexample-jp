@@ -36,8 +36,8 @@ type writeOp struct {
 func main() {
 
     // 前回と同様に、操作回数をカウントします。
-    var readOps uint64 = 0
-    var writeOps uint64 = 0
+    var readOps uint64
+    var writeOps uint64
 
     // `reads` および `writes` チャネルは、ほかのゴルーチンから
     // 読み書きのリクエストを発行するために使われます。

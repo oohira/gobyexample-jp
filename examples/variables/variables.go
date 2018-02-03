@@ -8,7 +8,7 @@ import "fmt"
 func main() {
 
     // `var` は 1 つ以上の変数を宣言します。
-    var a string = "initial"
+    var a = "initial"
     fmt.Println(a)
 
     // 複数の変数を一度に宣言することもできます。

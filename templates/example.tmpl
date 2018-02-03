@@ -17,7 +17,7 @@
     }
   </script>
   <body>
-    <div class="example" id="{{.Id}}">
+    <div class="example" id="{{.ID}}">
       <h2><a href="./">Go by Example</a>: {{.Name}}</h2>
       {{range .Segs}}
       <table>
@@ -27,7 +27,7 @@
             {{.DocsRendered}}
           </td>
           <td class="code{{if .CodeEmpty}} empty{{end}}{{if .CodeLeading}} leading{{end}}">
-	        {{if .CodeRun}}<a href="http://play.golang.org/p/{{$.UrlHash}}"><img title="Run code" src="play.png" class="run" /></a>{{end}}
+	        {{if .CodeRun}}<a href="http://play.golang.org/p/{{$.URLHash}}"><img title="Run code" src="play.png" class="run" /></a>{{end}}
             {{.CodeRendered}}
           </td>
         </tr>
@@ -36,7 +36,7 @@
       {{end}}
       {{if .NextExample}}
       <p class="next">
-        Next example: <a href="{{.NextExample.Id}}.html">{{.NextExample.Name}}</a>.
+        Next example: <a href="{{.NextExample.ID}}.html">{{.NextExample.Name}}</a>.
       </p>
       {{end}}
       <p class="footer">

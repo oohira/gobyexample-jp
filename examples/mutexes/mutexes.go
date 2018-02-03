@@ -1,7 +1,7 @@
 // 前回の例では、[アトミックな操作](atomic-counters) を使って、
 // シンプルなカウンターの状態を管理する方法を見ました。
 // より複雑な状態の場合は、複数のゴルーチンから安全にデータへ
-// アクセスするために _[ミューテックス (mutex)](http://en.wikipedia.org/wiki/Mutual_exclusion)_ を使えます。
+// アクセスするために <em>[ミューテックス (mutex)](http://en.wikipedia.org/wiki/Mutual_exclusion)</em> を使えます。
 
 package main
 
@@ -22,8 +22,8 @@ func main() {
     var mutex = &sync.Mutex{}
 
     // 読み書き操作をした回数も記録しましょう。
-    var readOps uint64 = 0
-    var writeOps uint64 = 0
+    var readOps uint64
+    var writeOps uint64
 
     // ここで、1 ミリ秒に 1 回 `state` から読み込み処理を実行する
     // ゴルーチンを 100 個開始します。

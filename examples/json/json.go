@@ -10,11 +10,11 @@ import "os"
 
 // これら 2 つの構造体は、カスタムデータ型のエンコードと
 // デコードをデモするために使います。
-type Response1 struct {
+type response1 struct {
     Page   int
     Fruits []string
 }
-type Response2 struct {
+type response2 struct {
     Page   int      `json:"page"`
     Fruits []string `json:"fruits"`
 }
@@ -49,7 +49,7 @@ func main() {
     // エンコードできます。エンコード結果には、
     // エクスポートされたフィールドだけを含み、
     // デフォルトではそのフィールド名が JSON キーになります。
-    res1D := &Response1{
+    res1D := &response1{
         Page:   1,
         Fruits: []string{"apple", "peach", "pear"}}
     res1B, _ := json.Marshal(res1D)
@@ -57,8 +57,8 @@ func main() {
 
     // エンコードされる JSON キー名をカスタマイズするには、
     // 構造体のフィールド宣言にタグを指定します。
-    // `Response2` の定義を確認してみてください。
-    res2D := &Response2{
+    // `response2` の定義を確認してみてください。
+    res2D := &response2{
         Page:   1,
         Fruits: []string{"apple", "peach", "pear"}}
     res2B, _ := json.Marshal(res2D)
@@ -97,7 +97,7 @@ func main() {
     // データにアクセスするときの型チェックを不要にできる
     // という利点があります。
     str := `{"page": 1, "fruits": ["apple", "peach"]}`
-    res := Response2{}
+    res := response2{}
     json.Unmarshal([]byte(str), &res)
     fmt.Println(res)
     fmt.Println(res.Fruits[0])
