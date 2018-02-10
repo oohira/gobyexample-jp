@@ -16,11 +16,11 @@ func main() {
     // 例えば同期的な RPC 操作をゴルーチンで並行実行する場合を
     // シミュレートしています。
     go func() {
-        time.Sleep(time.Second * 1)
+        time.Sleep(1 * time.Second)
         c1 <- "one"
     }()
     go func() {
-        time.Sleep(time.Second * 2)
+        time.Sleep(2 * time.Second)
         c2 <- "two"
     }()
 

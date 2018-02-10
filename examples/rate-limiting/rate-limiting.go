@@ -24,7 +24,7 @@ func main() {
     // `limiter` チャネルは、200 ミリ秒ごとに値を受信します。
     // これは、レートリミットの仕組みの中でレギュレーターの
     // 役割を果たします。
-    limiter := time.Tick(time.Millisecond * 200)
+    limiter := time.Tick(200 * time.Millisecond)
 
     // 各リクエストを処理する前に `limiter` チャネルからの
     // 受信でブロックさせることで、200 ミリ秒に
@@ -50,7 +50,7 @@ func main() {
     // 200 ミリ秒ごとに、`burstyLimiter` の上限である
     // 3 つまで、新しい値を追加します。
     go func() {
-        for t := range time.Tick(time.Millisecond * 200) {
+        for t := range time.Tick(200 * time.Millisecond) {
             burstyLimiter <- t
         }
     }()

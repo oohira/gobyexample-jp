@@ -22,7 +22,10 @@ func main() {
         fmt.Println("no message received")
     }
 
-    // ブロックしない送信も同様に動作します。
+    // ブロックしない送信も同様に動作します。`messages`
+    // チャネルには、バッファもなければ受ける側もいないため、
+    // `msg` を送信することはできません。
+    // そのため、`default` ケースが実行されます。
     msg := "hi"
     select {
     case messages <- msg:
