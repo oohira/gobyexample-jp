@@ -1,4 +1,4 @@
-// URL は、[リソースを特定する統一された方法](http://adam.heroku.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/)
+// URL は、[リソースを特定する統一された方法](https://adam.herokuapp.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/)
 // を提供します。以下は、Go で URL をパースする方法です。
 
 package main
