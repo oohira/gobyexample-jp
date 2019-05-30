@@ -25,7 +25,9 @@
         <tr>
           <td class="docs">
             <p>ゴルーチン間の実行を同期するために、チャネルを使うことができます。
-ここでの例は、ゴルーチンの完了を待つために、ブロッキング受信を使います。</p>
+ここでの例は、ゴルーチンの完了を待つために、ブロッキング受信を使います。
+複数のゴルーチンの完了を待つ場合は、
+<a href="waitgroups">WaitGroup</a> を使うとよいでしょう。</p>
 
           </td>
           <td class="code empty leading">
@@ -39,7 +41,7 @@
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/pRwEWKXbEd"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/49CIqiPXtKi"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -168,7 +170,7 @@
       </p>
       
       <p class="footer">
-        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+        by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
       </p>
     </div>
   </body>

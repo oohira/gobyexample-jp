@@ -39,7 +39,7 @@
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/mD_o0wb-zo"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/Hskda06Cb_x"><img title="Run code" src="play.png" class="run" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -146,7 +146,10 @@
         
         <tr>
           <td class="docs">
-            <p>最後に、すべてのタスクの結果を集めます。</p>
+            <p>最後に、すべてのタスクの結果を集めます。
+これにより、ワーカーのゴルーチンが完了することも保証します。
+複数のゴルーチンを待つ別の方法としては、
+<a href="waitgroups">WaitGroup</a> が使えます。</p>
 
           </td>
           <td class="code">
@@ -207,11 +210,11 @@
       
       
       <p class="next">
-        Next example: <a href="rate-limiting.html">Rate Limiting</a>.
+        Next example: <a href="waitgroups.html">WaitGroups</a>.
       </p>
       
       <p class="footer">
-        by <a href="https://twitter.com/mmcgrana">@mmcgrana</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+        by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
       </p>
     </div>
   </body>
