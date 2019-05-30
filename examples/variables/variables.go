@@ -25,7 +25,7 @@ func main() {
     fmt.Println(e)
 
     // `:=` は、変数を宣言かつ初期化する簡略記法です。
-    // この例では、 `var f string = "short"` と同じです。
-    f := "short"
+    // この例では、 `var f string = "apple"` と同じです。
+    f := "apple"
     fmt.Println(f)
 }
