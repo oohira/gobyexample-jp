@@ -31,7 +31,7 @@ func (s byLength) Less(i, j int) bool {
     return len(s[i]) < len(s[j])
 }
 
-// 元の `fruits` スライスを `byLength` にキャストし、
+// 元の `fruits` スライスを `byLength` に型変換し、
 // `sort.Sort` 関数を使うことでカスタムソートを実現できます。
 func main() {
     fruits := []string{"peach", "banana", "kiwi"}

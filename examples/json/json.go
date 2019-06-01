@@ -81,13 +81,13 @@ func main() {
     fmt.Println(dat)
 
     // デコードされたマップの値を使うためには、
-    // 適切な型へキャストする必要があります。例えば、
-    // 次の例では `num` の値を `float64` にキャストします。
+    // 適切な型へ変換する必要があります。例えば、
+    // 次の例では `num` の値を `float64` に変換します。
     num := dat["num"].(float64)
     fmt.Println(num)
 
     // ネストしたデータにアクセスするためには、
-    // 一連のキャストが必要になります。
+    // 一連の型変換が必要になります。
     strs := dat["strs"].([]interface{})
     str1 := strs[0].(string)
     fmt.Println(str1)

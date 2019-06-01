@@ -18,7 +18,7 @@ func main() {
     // の両方をサポートしています。
     // 以下は、標準のエンコーダーを使ってエンコードする方法です。
     // エンコーダーは `[]byte` を要求するので、
-    // `string` をキャストしてやります。
+    // `string` を型変換してやります。
     sEnc := b64.StdEncoding.EncodeToString([]byte(data))
     fmt.Println(sEnc)
 
