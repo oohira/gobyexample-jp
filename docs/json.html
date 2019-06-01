@@ -40,7 +40,7 @@ JSON との相互変換も含みます。</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/i6ZHnhJUBcR"><img title="Run code" src="play.png" class="run" /></a>
+	        <a href="http://play.golang.org/p/ARsYio1Jyzo"><img title="Run code" class="run" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ1SURBVCjPY/j//z8DMu7o6GAAgpQgD9tLqcmJH4KDg14aaik/MtdXe2ZjY6OCrh6Fs2jRYmZ9Pd05M9uL/u9dPfU/CLS0dfxvKIz/X5Dg/z8pKdkGqwGpqakMUdExDHJSYqt37tjxf+qUSf9rc2P+79298/+RA3v+H1zV///o6r7/DrbWFQkJiQwxMTGoBjAxMTpKiQmuqMuP/f/xw/v/J0+f/W9tbvTfxVLn/8rJVf+v757z/96hRf8TQtxuCQmLMjk4OKAawMfDVWVvrvd85eTq/7tXTP6/e/XM/22lif9LCnL+b13Q/v/Kzln/L++c/X/7/Jb/VpYWuZFRUagGAAErEBtlxvi+vn944f9L26cDNcz6v21R9/8zm6aC2SBDbu+f/78kK+4/L79AO7oBYCAqxD/57JZp/y/tmPX/wrYZ/6+CbAayD6zs/78daBjIgPayFJAGG6wGAIFAcpjH/dv7F4ANABuya/b/Od3l/ye2V/+/tnv2/7ldxSANmrgMYGBhZg7fuagD7GyYIeeBrrqwdRrQgLn/l02sBGkwwWkAEAjV5EZ/vQV0LswAGAYZsLC3DKTBAJ8BzCkRni/uHFyIYcAtoNc6ypL/ANVIohigrKwMxqqqqgxMzKzM6VHeL+6iGQAKzDtAV5XlJv3n5uFLRTHgzZs3YPzz50+GwqJiPitD9Y8Pjy4BB+CNvfP+3wUmIpAhhckhr3X19LodHZ28UQxQU1MDYw0NDQYBAQEeoBOTK7JjP2xf3Pt/bkfB/4KkoDcKMmIL5OXlFerq6hhu3rzJgC8MwMDYxGSfm5vbVn9/f0cgVxAkpqioyFBfX49iAACbTAK+xT3CzgAAAABJRU5ErkJggg==" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -266,8 +266,8 @@ JSON の配列とオブジェクトにエンコードされます。</p>
         <tr>
           <td class="docs">
             <p>デコードされたマップの値を使うためには、
-適切な型へキャストする必要があります。例えば、
-次の例では <code>num</code> の値を <code>float64</code> にキャストします。</p>
+適切な型へ変換する必要があります。例えば、
+次の例では <code>num</code> の値を <code>float64</code> に変換します。</p>
 
           </td>
           <td class="code leading">
@@ -282,7 +282,7 @@ JSON の配列とオブジェクトにエンコードされます。</p>
         <tr>
           <td class="docs">
             <p>ネストしたデータにアクセスするためには、
-一連のキャストが必要になります。</p>
+一連の型変換が必要になります。</p>
 
           </td>
           <td class="code leading">
