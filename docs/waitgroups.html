@@ -24,8 +24,7 @@
         
         <tr>
           <td class="docs">
-            <p>To wait for multiple goroutines to finish, we can
-use a <em>wait group</em>.</p>
+            <p>複数のゴルーチンの完了を待つために、<em>WaitGroup</em> を使うことができます。</p>
 
           </td>
           <td class="code empty leading">
@@ -39,7 +38,7 @@ use a <em>wait group</em>.</p>
             
           </td>
           <td class="code leading">
-	        <a href="http://play.golang.org/p/gLLmgcR7YkP"><img title="Run code" class="run" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ1SURBVCjPY/j//z8DMu7o6GAAgpQgD9tLqcmJH4KDg14aaik/MtdXe2ZjY6OCrh6Fs2jRYmZ9Pd05M9uL/u9dPfU/CLS0dfxvKIz/X5Dg/z8pKdkGqwGpqakMUdExDHJSYqt37tjxf+qUSf9rc2P+79298/+RA3v+H1zV///o6r7/DrbWFQkJiQwxMTGoBjAxMTpKiQmuqMuP/f/xw/v/J0+f/W9tbvTfxVLn/8rJVf+v757z/96hRf8TQtxuCQmLMjk4OKAawMfDVWVvrvd85eTq/7tXTP6/e/XM/22lif9LCnL+b13Q/v/Kzln/L++c/X/7/Jb/VpYWuZFRUagGAAErEBtlxvi+vn944f9L26cDNcz6v21R9/8zm6aC2SBDbu+f/78kK+4/L79AO7oBYCAqxD/57JZp/y/tmPX/wrYZ/6+CbAayD6zs/78daBjIgPayFJAGG6wGAIFAcpjH/dv7F4ANABuya/b/Od3l/ye2V/+/tnv2/7ldxSANmrgMYGBhZg7fuagD7GyYIeeBrrqwdRrQgLn/l02sBGkwwWkAEAjV5EZ/vQV0LswAGAYZsLC3DKTBAJ8BzCkRni/uHFyIYcAtoNc6ypL/ANVIohigrKwMxqqqqgxMzKzM6VHeL+6iGQAKzDtAV5XlJv3n5uFLRTHgzZs3YPzz50+GwqJiPitD9Y8Pjy4BB+CNvfP+3wUmIpAhhckhr3X19LodHZ28UQxQU1MDYw0NDQYBAQEeoBOTK7JjP2xf3Pt/bkfB/4KkoDcKMmIL5OXlFerq6hhu3rzJgC8MwMDYxGSfm5vbVn9/f0cgVxAkpqioyFBfX49iAACbTAK+xT3CzgAAAABJRU5ErkJggg==" /></a>
+	        <a href="http://play.golang.org/p/V7ecMc8dfl__H"><img title="Run code" class="run" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ1SURBVCjPY/j//z8DMu7o6GAAgpQgD9tLqcmJH4KDg14aaik/MtdXe2ZjY6OCrh6Fs2jRYmZ9Pd05M9uL/u9dPfU/CLS0dfxvKIz/X5Dg/z8pKdkGqwGpqakMUdExDHJSYqt37tjxf+qUSf9rc2P+79298/+RA3v+H1zV///o6r7/DrbWFQkJiQwxMTGoBjAxMTpKiQmuqMuP/f/xw/v/J0+f/W9tbvTfxVLn/8rJVf+v757z/96hRf8TQtxuCQmLMjk4OKAawMfDVWVvrvd85eTq/7tXTP6/e/XM/22lif9LCnL+b13Q/v/Kzln/L++c/X/7/Jb/VpYWuZFRUagGAAErEBtlxvi+vn944f9L26cDNcz6v21R9/8zm6aC2SBDbu+f/78kK+4/L79AO7oBYCAqxD/57JZp/y/tmPX/wrYZ/6+CbAayD6zs/78daBjIgPayFJAGG6wGAIFAcpjH/dv7F4ANABuya/b/Od3l/ye2V/+/tnv2/7ldxSANmrgMYGBhZg7fuagD7GyYIeeBrrqwdRrQgLn/l02sBGkwwWkAEAjV5EZ/vQV0LswAGAYZsLC3DKTBAJ8BzCkRni/uHFyIYcAtoNc6ypL/ANVIohigrKwMxqqqqgxMzKzM6VHeL+6iGQAKzDtAV5XlJv3n5uFLRTHgzZs3YPzz50+GwqJiPitD9Y8Pjy4BB+CNvfP+3wUmIpAhhckhr3X19LodHZ28UQxQU1MDYw0NDQYBAQEeoBOTK7JjP2xf3Pt/bkfB/4KkoDcKMmIL5OXlFerq6hhu3rzJgC8MwMDYxGSfm5vbVn9/f0cgVxAkpqioyFBfX49iAACbTAK+xT3CzgAAAABJRU5ErkJggg==" /></a>
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -64,9 +63,8 @@ use a <em>wait group</em>.</p>
         
         <tr>
           <td class="docs">
-            <p>This is the function we&rsquo;ll run in every goroutine.
-Note that a WaitGroup must be passed to functions by
-pointer.</p>
+            <p>これは、ゴルーチンで実行する関数です。
+WaitGroup はポインタで関数に渡さなければならない点に注意してください。</p>
 
           </td>
           <td class="code leading">
@@ -80,7 +78,7 @@ pointer.</p>
         
         <tr>
           <td class="docs">
-            <p>Sleep to simulate an expensive task.</p>
+            <p>時間のかかるタスクをシミュレートするためにスリープします。</p>
 
           </td>
           <td class="code leading">
@@ -94,7 +92,7 @@ pointer.</p>
         
         <tr>
           <td class="docs">
-            <p>Notify the WaitGroup that this worker is done.</p>
+            <p>このワーカーが完了したことを WaitGroup に通知します。</p>
 
           </td>
           <td class="code leading">
@@ -120,8 +118,8 @@ pointer.</p>
         
         <tr>
           <td class="docs">
-            <p>This WaitGroup is used to wait for all the
-goroutines launched here to finish.</p>
+            <p>この WaitGroup は、ここで起動したすべてのゴルーチンが完了するのを
+待つために使われます。</p>
 
           </td>
           <td class="code leading">
@@ -134,8 +132,8 @@ goroutines launched here to finish.</p>
         
         <tr>
           <td class="docs">
-            <p>Launch several goroutines and increment the WaitGroup
-counter for each.</p>
+            <p>いくつかのゴルーチンを起動し、そのたびに WaitGroup のカウンターを
+インクリメントします。</p>
 
           </td>
           <td class="code leading">
@@ -151,8 +149,8 @@ counter for each.</p>
         
         <tr>
           <td class="docs">
-            <p>Block until the WaitGroup counter goes back to 0;
-all the workers notified they&rsquo;re done.</p>
+            <p>WaitGroup のカウンターが 0 に戻るまで（つまり、すべてのワーカーが
+完了したと通知してくるまで）ブロックします。</p>
 
           </td>
           <td class="code">
@@ -192,8 +190,7 @@ all the workers notified they&rsquo;re done.</p>
         
         <tr>
           <td class="docs">
-            <p>The order of workers starting up and finishing
-is likely to be different for each invocation.</p>
+            <p>ワーカーが起動および終了する順序は、実行するたびに変わりえます。</p>
 
           </td>
           <td class="code empty">
