@@ -10,5 +10,4 @@ Worker 2 done
 Worker 5 done
 Worker 3 done
 
-# The order of workers starting up and finishing
-# is likely to be different for each invocation.
+# ワーカーが起動および終了する順序は、実行するたびに変わりえます。
