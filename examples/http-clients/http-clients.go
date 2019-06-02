@@ -1,7 +1,6 @@
-// The Go standard library comes with excellent support
-// for HTTP clients and servers in the `net/http`
-// package. In this example we'll use it to issue simple
-// HTTP requests.
+// Go の標準ライブラリは、`net/http` パッケージに
+// HTTP クライアントとサーバーに対する素晴らしいサポートを含んでいます。
+// この例では、簡単な HTTP リクエストを発行するためにそれを使います。
 package main
 
 import (
@@ -12,21 +11,21 @@ import (
 
 func main() {
 
-    // Issue an HTTP GET request to a server. `http.Get` is a
-    // convenient shortcut around creating an `http.Client`
-    // object and calling its `Get` method; it uses the
-    // `http.DefaultClient` object which has useful default
-    // settings.
+    // サーバーに HTTP GET リクエストを発行します。
+    // `http.Get` は、`http.Client` オブジェクトを作り、
+    // `Get` メソッドを呼ぶ便利なショートカットです。
+    // それは、有用なデフォルト設定をもつ `http.DefaultClient`
+    // オブジェクトを使います。
     resp, err := http.Get("http://gobyexample.com")
     if err != nil {
         panic(err)
     }
     defer resp.Body.Close()
 
-    // Print the HTTP response status.
+    // HTTP レスポンスステータスを出力します。
     fmt.Println("Response status:", resp.Status)
 
-    // Print the first 5 lines of the response body.
+    // レスポンスボディの最初の 5 行を出力します。
     scanner := bufio.NewScanner(resp.Body)
     for i := 0; scanner.Scan() && i < 5; i++ {
         fmt.Println(scanner.Text())
