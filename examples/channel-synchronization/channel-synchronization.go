@@ -12,20 +12,20 @@ import "time"
 // この関数が完了したことを別のゴルーチンに通知するために、
 // `done` チャネルが使われます。
 func worker(done chan bool) {
-    fmt.Print("working...")
-    time.Sleep(time.Second)
-    fmt.Println("done")
+	fmt.Print("working...")
+	time.Sleep(time.Second)
+	fmt.Println("done")
 
-    // 完了したことを通知するために値を送信します。
-    done <- true
+	// 完了したことを通知するために値を送信します。
+	done <- true
 }
 
 func main() {
 
-    // 通知用のチャネルを渡して、`worker` ゴルーチンを開始します。
-    done := make(chan bool, 1)
-    go worker(done)
+	// 通知用のチャネルを渡して、`worker` ゴルーチンを開始します。
+	done := make(chan bool, 1)
+	go worker(done)
 
-    // チャネルへの完了通知を受信するまでブロックします。
-    <-done
+	// チャネルへの完了通知を受信するまでブロックします。
+	<-done
 }

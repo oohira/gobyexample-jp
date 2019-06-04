@@ -12,27 +12,27 @@ import "fmt"
 
 func main() {
 
-    // タイマーは、将来の 1 回限りのイベントを表します。
-    // タイマーに待ち時間を指定すると、指定した時間が
-    // 経過した後で通知してくれるチャネルが提供されます。
-    // このタイマーは、2 秒間待ちます。
-    timer1 := time.NewTimer(2 * time.Second)
+	// タイマーは、将来の 1 回限りのイベントを表します。
+	// タイマーに待ち時間を指定すると、指定した時間が
+	// 経過した後で通知してくれるチャネルが提供されます。
+	// このタイマーは、2 秒間待ちます。
+	timer1 := time.NewTimer(2 * time.Second)
 
-    // `<-timer1.C` は、タイマーのチャネル `C`
-    // が時間になったことを知らせる値を送信するまでブロックします。
-    <-timer1.C
-    fmt.Println("Timer 1 expired")
+	// `<-timer1.C` は、タイマーのチャネル `C`
+	// が時間になったことを知らせる値を送信するまでブロックします。
+	<-timer1.C
+	fmt.Println("Timer 1 expired")
 
-    // ただ待ちたいだけであれば、`time.Sleep` が使えます。
-    // タイマーが役に立つ 1 つの理由は、指定時間が経過する前に
-    // キャンセルすることができる点です。これがその例です。
-    timer2 := time.NewTimer(time.Second)
-    go func() {
-        <-timer2.C
-        fmt.Println("Timer 2 expired")
-    }()
-    stop2 := timer2.Stop()
-    if stop2 {
-        fmt.Println("Timer 2 stopped")
-    }
+	// ただ待ちたいだけであれば、`time.Sleep` が使えます。
+	// タイマーが役に立つ 1 つの理由は、指定時間が経過する前に
+	// キャンセルすることができる点です。これがその例です。
+	timer2 := time.NewTimer(time.Second)
+	go func() {
+		<-timer2.C
+		fmt.Println("Timer 2 expired")
+	}()
+	stop2 := timer2.Stop()
+	if stop2 {
+		fmt.Println("Timer 2 stopped")
+	}
 }

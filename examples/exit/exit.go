@@ -8,12 +8,12 @@ import "os"
 
 func main() {
 
-    // `os.Exit` を使う場合は、`defer` は実行 _されません_ 。
-    // そのため、この `fmt.Println` は決して呼ばれません。
-    defer fmt.Println("!")
+	// `os.Exit` を使う場合は、`defer` は実行 _されません_ 。
+	// そのため、この `fmt.Println` は決して呼ばれません。
+	defer fmt.Println("!")
 
-    // ステータス 3 で終了します。
-    os.Exit(3)
+	// ステータス 3 で終了します。
+	os.Exit(3)
 }
 
 // 例えば C とは異なり、Go は終了ステータスを示すために、

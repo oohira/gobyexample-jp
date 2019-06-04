@@ -12,31 +12,31 @@ import "os"
 // `defer` を使って実現する方法は次の通りです。
 func main() {
 
-    // `createFile` 関数でファイルオブジェクトを取得した後ですぐに、
-    // `closeFile` 関数によるファイルクローズを遅延実行します。
-    // これは、`writeFile` 関数が完了した後で、
-    // 呼び出し元の関数 (`main`) の最後で実行されます。
-    f := createFile("/tmp/defer.txt")
-    defer closeFile(f)
-    writeFile(f)
+	// `createFile` 関数でファイルオブジェクトを取得した後ですぐに、
+	// `closeFile` 関数によるファイルクローズを遅延実行します。
+	// これは、`writeFile` 関数が完了した後で、
+	// 呼び出し元の関数 (`main`) の最後で実行されます。
+	f := createFile("/tmp/defer.txt")
+	defer closeFile(f)
+	writeFile(f)
 }
 
 func createFile(p string) *os.File {
-    fmt.Println("creating")
-    f, err := os.Create(p)
-    if err != nil {
-        panic(err)
-    }
-    return f
+	fmt.Println("creating")
+	f, err := os.Create(p)
+	if err != nil {
+		panic(err)
+	}
+	return f
 }
 
 func writeFile(f *os.File) {
-    fmt.Println("writing")
-    fmt.Fprintln(f, "data")
+	fmt.Println("writing")
+	fmt.Fprintln(f, "data")
 
 }
 
 func closeFile(f *os.File) {
-    fmt.Println("closing")
-    f.Close()
+	fmt.Println("closing")
+	f.Close()
 }

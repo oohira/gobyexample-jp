@@ -24,86 +24,86 @@ import "fmt"
 // Index は、目的の文字列 `t` の最初のインデックスを返します。
 // 見つからなかった場合は、`-1` になります。
 func Index(vs []string, t string) int {
-    for i, v := range vs {
-        if v == t {
-            return i
-        }
-    }
-    return -1
+	for i, v := range vs {
+		if v == t {
+			return i
+		}
+	}
+	return -1
 }
 
 // Include は、文字列 `t` がスライスに含まれる場合に
 // `true` を返します。
 func Include(vs []string, t string) bool {
-    return Index(vs, t) >= 0
+	return Index(vs, t) >= 0
 }
 
 // Any は、スライスの文字列が 1 つでも述語 `f` を満たす場合に
 // `true` を返します。
 func Any(vs []string, f func(string) bool) bool {
-    for _, v := range vs {
-        if f(v) {
-            return true
-        }
-    }
-    return false
+	for _, v := range vs {
+		if f(v) {
+			return true
+		}
+	}
+	return false
 }
 
 // All は、スライスの全ての文字列が述語 `f` を満たす場合に
 // `true` を返します。
 func All(vs []string, f func(string) bool) bool {
-    for _, v := range vs {
-        if !f(v) {
-            return false
-        }
-    }
-    return true
+	for _, v := range vs {
+		if !f(v) {
+			return false
+		}
+	}
+	return true
 }
 
 // Filter は、述語 `f` を満たす全ての文字列を含む、新しいスライスを返します。
 func Filter(vs []string, f func(string) bool) []string {
-    vsf := make([]string, 0)
-    for _, v := range vs {
-        if f(v) {
-            vsf = append(vsf, v)
-        }
-    }
-    return vsf
+	vsf := make([]string, 0)
+	for _, v := range vs {
+		if f(v) {
+			vsf = append(vsf, v)
+		}
+	}
+	return vsf
 }
 
 // Map は、元のスライスの各文字列に関数 `f` を適用した結果を含む、
 // 新しいスライスを返します。
 func Map(vs []string, f func(string) string) []string {
-    vsm := make([]string, len(vs))
-    for i, v := range vs {
-        vsm[i] = f(v)
-    }
-    return vsm
+	vsm := make([]string, len(vs))
+	for i, v := range vs {
+		vsm[i] = f(v)
+	}
+	return vsm
 }
 
 func main() {
 
-    // 色々なコレクション関数を試します。
-    var strs = []string{"peach", "apple", "pear", "plum"}
+	// 色々なコレクション関数を試します。
+	var strs = []string{"peach", "apple", "pear", "plum"}
 
-    fmt.Println(Index(strs, "pear"))
+	fmt.Println(Index(strs, "pear"))
 
-    fmt.Println(Include(strs, "grape"))
+	fmt.Println(Include(strs, "grape"))
 
-    fmt.Println(Any(strs, func(v string) bool {
-        return strings.HasPrefix(v, "p")
-    }))
+	fmt.Println(Any(strs, func(v string) bool {
+		return strings.HasPrefix(v, "p")
+	}))
 
-    fmt.Println(All(strs, func(v string) bool {
-        return strings.HasPrefix(v, "p")
-    }))
+	fmt.Println(All(strs, func(v string) bool {
+		return strings.HasPrefix(v, "p")
+	}))
 
-    fmt.Println(Filter(strs, func(v string) bool {
-        return strings.Contains(v, "e")
-    }))
+	fmt.Println(Filter(strs, func(v string) bool {
+		return strings.Contains(v, "e")
+	}))
 
-    // 上の例は全て無名関数を使っていますが、
-    // 正しい型の名前付き関数を使うこともできます。
-    fmt.Println(Map(strs, strings.ToUpper))
+	// 上の例は全て無名関数を使っていますが、
+	// 正しい型の名前付き関数を使うこともできます。
+	fmt.Println(Map(strs, strings.ToUpper))
 
 }
