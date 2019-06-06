@@ -41,7 +41,7 @@ func main() {
 	b1 := make([]byte, 5)
 	n1, err := f.Read(b1)
 	check(err)
-	fmt.Printf("%d bytes: %s\n", n1, string(b1))
+	fmt.Printf("%d bytes: %s\n", n1, string(b1[:n1]))
 
 	// ファイルの特定の位置を `Seek` して、
 	// そこから `Read` することもできます。
@@ -50,7 +50,8 @@ func main() {
 	b2 := make([]byte, 2)
 	n2, err := f.Read(b2)
 	check(err)
-	fmt.Printf("%d bytes @ %d: %s\n", n2, o2, string(b2))
+	fmt.Printf("%d bytes @ %d: ", n2, o2)
+	fmt.Printf("%v\n", string(b2[:n2]))
 
 	// `io` パッケージは、ファイル読み込みに便利な関数を提供しています。
 	// 例えば、前述の例のような読み込みは、`ReadAtLeast`
@@ -78,5 +79,4 @@ func main() {
 	// 処理が完了したらファイルをクローズします
 	// (普通は、`defer` を使って `Open` の直後に予約します)。
 	f.Close()
-
 }

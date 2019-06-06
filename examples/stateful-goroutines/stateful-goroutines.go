@@ -41,8 +41,8 @@ func main() {
 
 	// `reads` および `writes` チャネルは、ほかのゴルーチンから
 	// 読み書きのリクエストを発行するために使われます。
-	reads := make(chan *readOp)
-	writes := make(chan *writeOp)
+	reads := make(chan readOp)
+	writes := make(chan writeOp)
 
 	// これは前回の例と同様にマップ `state` を持つゴルーチンですが、
 	// ゴルーチンにプライベートな変数となっている点が異なります。
@@ -71,7 +71,7 @@ func main() {
 	for r := 0; r < 100; r++ {
 		go func() {
 			for {
-				read := &readOp{
+				read := readOp{
 					key:  rand.Intn(5),
 					resp: make(chan int)}
 				reads <- read
@@ -86,7 +86,7 @@ func main() {
 	for w := 0; w < 10; w++ {
 		go func() {
 			for {
-				write := &writeOp{
+				write := writeOp{
 					key:  rand.Intn(5),
 					val:  rand.Intn(100),
 					resp: make(chan bool)}
