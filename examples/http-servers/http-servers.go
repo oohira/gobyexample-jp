@@ -1,5 +1,5 @@
-// Writing a basic HTTP server is easy using the
-// `net/http` package.
+// `net/http` パッケージを使えば、基本的な HTTP サーバーを
+// 書くのは簡単です。
 package main
 
 import (
@@ -7,26 +7,25 @@ import (
 	"net/http"
 )
 
-// A fundamental concept in `net/http` servers is
-// *handlers*. A handler is an object implementing the
-// `http.Handler` interface. A common way to write
-// a handler is by using the `http.HandlerFunc` adapter
-// on functions with the appropriate signature.
+// `net/http` サーバーの基本コンセプトは、*ハンドラ* です。
+// ハンドラは、`http.Handler` インターフェースを実装した
+// オブジェクトです。ハンドラを書く一般的な方法は、
+// 適切なシグネチャをもつ関数に対して、`http.HandlerFunc`
+// アダプタを使うことです。
 func hello(w http.ResponseWriter, req *http.Request) {
 
-	// Functions serving as handlers take a
-	// `http.ResponseWriter` and a `http.Request` as
-	// arguments. The response writer is used to fill in the
-	// HTTP response. Here out simple response is just
-	// "hello\n".
+	// ハンドラとして動作する関数は、引数として
+	// `http.ResponseWriter` と `http.Request` を受け取ります。
+	// `ResponseWriter` は、HTTP レスポンスを書き込むために
+	// 使われます。ここでは単に "hello\n" とレスポンスします。
 	fmt.Fprintf(w, "hello\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
 
-	// This handler does something a little more
-	// sophisticated by reading all the HTTP request
-	// headers and echoing them into the response body.
+	// このハンドラはもう少しだけ高度です。
+	// すべてのHTTPリクエストヘッダを読み込み、
+	// それらをレスポンスボディにエコーバックします。
 	for name, headers := range req.Header {
 		for _, h := range headers {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
@@ -36,15 +35,14 @@ func headers(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 
-	// We register our handlers on server routes using the
-	// `http.HandleFunc` convenience function. It sets up
-	// the *default router* in the `net/http` package and
-	// takes a function as an argument.
+	// 便利関数 `http.HandleFunc` を使ってハンドラをサーバーの
+	// ルーティングに登録します。これは、`net/http` パッケージ内の
+	// *デフォルトルーター* を設定し、関数を引数に取ります。
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 
-	// Finally, we call the `ListenAndServe` with the port
-	// and a handler. `nil` tells it to use the default
-	// router we've just set up.
+	// 最後に、ポート番号とハンドラを指定して `ListenAndServe`
+	// を呼び出します。`nil` は、上で設定したデフォルトルーターを
+	// 使用することを意味します。
 	http.ListenAndServe(":8090", nil)
 }

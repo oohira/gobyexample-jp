@@ -1,6 +1,6 @@
-# Run the server in the background.
+# サーバーをバックグラウンドで実行します。
 $ go run http-servers.go &
 
-# Access the `/hello` route.
+# `/hello` にアクセスします。
 $ curl localhost:8090/hello
 hello
