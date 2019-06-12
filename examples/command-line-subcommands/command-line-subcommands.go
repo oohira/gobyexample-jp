@@ -1,9 +1,9 @@
-// Some command-line tools, like the `go` tool or `git`
-// have many *subcommands*, each with its own set of
-// flags. For example, `go build` and `go get` are two
-// different subcommands of the `go` tool.
-// The `flag` package lets us easily define simple
-// subcommands that have their own flags.
+// `go` や `git` のようなコマンドラインツールには多くの
+// *サブコマンド* があり、それぞれが固有のフラグをもっています。
+// 例えば、`go build` と `go get` は、`go` ツールの
+// サブコマンドのうちの 2 つです。
+// `flag` パッケージを使うと、固有のフラグをもつシンプルな
+// サブコマンドを簡単に定義できます。
 
 package main
 
@@ -15,30 +15,27 @@ import (
 
 func main() {
 
-	// We declare a subcommand using the `NewFlagSet`
-	// function, and proceed to define new flags specific
-	// for this subcommand.
+	// `NewFlagSet` 関数を使ってサブコマンドを宣言し、
+	// 続けてこのサブコマンド固有のフラグを定義します。
 	fooCmd := flag.NewFlagSet("foo", flag.ExitOnError)
 	fooEnable := fooCmd.Bool("enable", false, "enable")
 	fooName := fooCmd.String("name", "", "name")
 
-	// For a different subcommand we can define different
-	// supported flags.
+	// 異なるサブコマンドに対して、異なるフラグを定義できます。
 	barCmd := flag.NewFlagSet("bar", flag.ExitOnError)
 	barLevel := barCmd.Int("level", 0, "level")
 
-	// The subcommand is expected as the first argument
-	// to the program.
+	// サブコマンドは、プログラムの最初の引数となる想定です。
 	if len(os.Args) < 2 {
 		fmt.Println("expected 'foo' or 'bar' subcommands")
 		os.Exit(1)
 	}
 
-	// Check which subcommand is invoked.
+	// どのサブコマンドが呼ばれたか確認します。
 	switch os.Args[1] {
 
-	// For every subcommand, we parse its own flags and
-	// have access to trailing positional arguments.
+	// 各サブコマンドに対して、そのフラグをパースし、
+	// 残りの引数にアクセスします。
 	case "foo":
 		fooCmd.Parse(os.Args[2:])
 		fmt.Println("subcommand 'foo'")

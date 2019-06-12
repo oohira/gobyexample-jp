@@ -1,19 +1,19 @@
 $ go build command-line-subcommands.go 
 
-# First invoke the foo subcommand.
+# まず、foo サブコマンドを実行します。
 $ ./command-line-subcommands foo -enable -name=joe a1 a2
 subcommand 'foo'
   enable: true
   name: joe
   tail: [a1 a2]
 
-# Now try bar.
+# 次に、bar を試します。
 $ ./command-line-subcommands bar -level 8 a1
 subcommand 'bar'
   level: 8
   tail: [a1]
 
-# But bar won't accept foo's flags.
+# ただし、bar は foo のフラグは受け付けません。
 $ ./command-line-subcommands bar -enable a1
 flag provided but not defined: -enable
 Usage of bar:
