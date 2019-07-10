@@ -53,6 +53,3 @@ $ ./command-line-flags -wat
 flag provided but not defined: -wat
 Usage of ./command-line-flags:
 ...
-
-# 次は、プログラムをパラメーター化する別の一般的な方法である、
-# 環境変数を見ていきます。

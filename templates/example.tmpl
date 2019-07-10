@@ -16,6 +16,20 @@
       ga('send', 'pageview');
     }
   </script>
+  <script>
+      onkeydown = (e) => {
+          {{if .PrevExample}}
+          if (e.key == "ArrowLeft") {
+              window.location.href = '{{.PrevExample.ID}}.html';
+          }
+          {{end}}
+          {{if .NextExample}}
+          if (e.key == "ArrowRight") {
+              window.location.href = '{{.NextExample.ID}}.html';
+          }
+          {{end}}
+      }
+  </script>
   <body>
     <div class="example" id="{{.ID}}">
       <h2><a href="./">Go by Example</a>: {{.Name}}</h2>

@@ -38,5 +38,11 @@ func writeFile(f *os.File) {
 
 func closeFile(f *os.File) {
 	fmt.Println("closing")
-	f.Close()
+	err := f.Close()
+	// ファイルをクローズする場合には、遅延実行する関数の中であっても
+	// エラーを確認することが重要です。
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
+	}
 }
