@@ -18,8 +18,10 @@
 
 package main
 
-import "strings"
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Index は、目的の文字列 `t` の最初のインデックスを返します。
 // 見つからなかった場合は、`-1` になります。

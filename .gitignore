@@ -1,2 +1,4 @@
 public/
 *.pyc
+.idea
+.vscode

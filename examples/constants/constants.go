@@ -3,8 +3,10 @@
 
 package main
 
-import "fmt"
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // `const` は定数を宣言します。
 const s string = "constant"

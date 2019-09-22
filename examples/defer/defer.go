@@ -5,8 +5,10 @@
 
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 // ファイルを作成して、何か書き込み、最後にクローズしたいとします。
 // `defer` を使って実現する方法は次の通りです。
@@ -38,5 +40,11 @@ func writeFile(f *os.File) {
 
 func closeFile(f *os.File) {
 	fmt.Println("closing")
-	f.Close()
+	err := f.Close()
+	// ファイルをクローズする場合には、遅延実行する関数の中であっても
+	// エラーを確認することが重要です。
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
+	}
 }

@@ -4,8 +4,10 @@
 
 package main
 
-import s "strings"
-import "fmt"
+import (
+	"fmt"
+	s "strings"
+)
 
 // あとで何回も使うので、`fmt.Println`
 // に短い名前のエイリアスを定義します。

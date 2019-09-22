@@ -8,9 +8,11 @@
 
 package main
 
-import "syscall"
-import "os"
-import "os/exec"
+import (
+	"os"
+	"os/exec"
+	"syscall"
+)
 
 func main() {
 

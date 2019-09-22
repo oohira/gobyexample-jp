@@ -8,40 +8,43 @@
 
 package main
 
-import "fmt"
-import "time"
-import "sync/atomic"
+import (
+	"fmt"
+	"sync"
+	"sync/atomic"
+)
 
 func main() {
 
-	// カウンターのために符号なし整数を使います。
+	// 正数カウンターのために符号なし整数を使います。
 	var ops uint64
 
-	// 同時更新をシミュレートするために、1 ミリ秒に
-	// 1 回カウンターをインクリメントするゴルーチンを
+	// WaitGroup は、すべてのゴルーチンがタスクを完了するのを
+	// 待つときに使えます。
+	var wg sync.WaitGroup
+
+	// カウンターをちょうど 1000 回インクリメントするゴルーチンを
 	// 50 個開始します。
 	for i := 0; i < 50; i++ {
+		wg.Add(1)
+
 		go func() {
-			for {
+			for c := 0; c < 1000; c++ {
 				// カウンターをアトミックにインクリメントするため、
 				// `&` 構文で `ops` カウンターのメモリアドレスを
 				// `AddUint64` に与えます。
 				atomic.AddUint64(&ops, 1)
-
-				// 次のインクリメントまで少しだけ待ちます。
-				time.Sleep(time.Millisecond)
 			}
+			wg.Done()
 		}()
 	}
 
-	// 加算が進むよう 1 秒間待ちます。
-	time.Sleep(time.Second)
+	// すべてのゴルーチンが完了するまで待ちます。
+	wg.Wait()
 
-	// まだ他のゴルーチンで更新され続けているカウンターを
-	// 安全に使うため、`LoadUint64` で現在の値のコピーを
-	// `opsFinal` に取り出します。先の例と同様に、
-	// この関数にも `&ops` で値の取得元のメモリアドレスを
-	// 与える必要があります。
-	opsFinal := atomic.LoadUint64(&ops)
-	fmt.Println("ops:", opsFinal)
+	// 書き込み中のゴルーチンがないことを知っているので、
+	// `ops` に安全にアクセスできます。`atomic.LoadUint64`
+	// のような関数を使えば、更新され続けているカウンターを安全に
+	// 読み込むことも可能です。
+	fmt.Println("ops:", ops)
 }

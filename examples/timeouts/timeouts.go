@@ -5,13 +5,19 @@
 
 package main
 
-import "time"
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 
 	// 例として、2 秒後にチャネル `c1` へ結果を返す
 	// 外部呼び出しを実行していると仮定しましょう。
+	// このチャネルはバッファリングされるので、ゴルーチン内の
+	// 送信はブロックしないことに注意してください。
+	// これは、チャネルが受信されない場合にゴルーチンの
+	// リークを防ぐ一般的な方法です。
 	c1 := make(chan string, 1)
 	go func() {
 		time.Sleep(2 * time.Second)
