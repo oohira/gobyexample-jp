@@ -3,8 +3,10 @@
 
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 type point struct {
 	x, y int

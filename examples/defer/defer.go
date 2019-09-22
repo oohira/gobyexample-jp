@@ -5,8 +5,10 @@
 
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 // ファイルを作成して、何か書き込み、最後にクローズしたいとします。
 // `defer` を使って実現する方法は次の通りです。

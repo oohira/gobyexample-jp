@@ -6,8 +6,10 @@ package main
 // この構文は、`encoding/base64` パッケージをデフォルトの
 // `base64` の代わりに `b64` という名前でインポートします。
 // サンプルコードのスペースを多少省略できます。
-import b64 "encoding/base64"
-import "fmt"
+import (
+	b64 "encoding/base64"
+	"fmt"
+)
 
 func main() {
 

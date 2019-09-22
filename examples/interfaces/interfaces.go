@@ -3,8 +3,10 @@
 
 package main
 
-import "fmt"
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // これは図形に対する基本的なインターフェースです。
 type geometry interface {

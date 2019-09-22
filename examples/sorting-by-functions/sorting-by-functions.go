@@ -5,8 +5,10 @@
 
 package main
 
-import "sort"
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 // Go でカスタム関数を使ってソートするためには、
 // 対応する型が必要です。ここでは、`byLength`

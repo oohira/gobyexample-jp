@@ -9,8 +9,10 @@ package main
 // `flag` パッケージを提供しています。
 // サンプルのコマンドラインプログラムを実装するために、
 // このパッケージを使いましょう。
-import "flag"
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 func main() {
 

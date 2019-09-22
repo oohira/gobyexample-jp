@@ -5,8 +5,10 @@
 
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // ゴルーチンで実行する関数は次の通りです。
 // この関数が完了したことを別のゴルーチンに通知するために、

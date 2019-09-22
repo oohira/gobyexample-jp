@@ -8,8 +8,10 @@
 
 package main
 
-import "errors"
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // 慣例的に、エラーは戻り値の最後にし、
 // 組み込みインターフェースである `error` 型をもちます。

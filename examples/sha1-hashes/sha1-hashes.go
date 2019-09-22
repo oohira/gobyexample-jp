@@ -10,8 +10,10 @@ package main
 
 // Go は様々な `crypto/*` パッケージで、
 // 複数のハッシュ関数を実装しています。
-import "crypto/sha1"
-import "fmt"
+import (
+	"crypto/sha1"
+	"fmt"
+)
 
 func main() {
 	s := "sha1 this string"

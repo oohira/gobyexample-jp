@@ -13,6 +13,15 @@ type person struct {
 	age  int
 }
 
+// NewPerson は、指定した名前で新しい person 構造体を作ります。
+func NewPerson(name string) *person {
+	// ローカル変数は関数のスコープを超えて存続するので、
+	// ローカル変数へのポインタを安全に返すことができます。
+	p := person{name: name}
+	p.age = 42
+	return &p
+}
+
 func main() {
 
 	// この構文は新しい構造体を作ります。
@@ -27,6 +36,9 @@ func main() {
 
 	// `&` を頭につけると構造体へのポインタになります。
 	fmt.Println(&person{name: "Ann", age: 40})
+
+	// 構造体の生成をコンストラクタ関数でカプセル化する慣用記法です。
+	fmt.Println(NewPerson("Jon"))
 
 	// ドットを使ってフィールドにアクセスします。
 	s := person{name: "Sean", age: 50}

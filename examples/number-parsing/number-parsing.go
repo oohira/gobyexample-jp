@@ -4,8 +4,10 @@
 package main
 
 // 組み込みパッケージの `strconv` が数値のパース機能を提供します。
-import "strconv"
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
 

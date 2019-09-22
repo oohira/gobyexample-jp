@@ -3,8 +3,10 @@
 
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // これは、複数インスタンスが並行実行されるワーカーです。
 // これらのワーカーは、`jobs` チャネルからタスクを受信し、
