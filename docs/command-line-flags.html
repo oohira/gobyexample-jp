@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Go by Example: Command-Line Flags</title>
+    <link rel="icon" href="favicon.ico">
     <link rel=stylesheet href="site.css">
   </head>
   <script type="text/javascript">
@@ -15,6 +16,20 @@
       ga('create', 'UA-88560400-2', 'auto');
       ga('send', 'pageview');
     }
+  </script>
+  <script>
+      onkeydown = (e) => {
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'command-line-arguments.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'command-line-subcommands.html';
+          }
+          
+      }
   </script>
   <body>
     <div class="example" id="command-line-flags">
@@ -32,7 +47,7 @@
           </td>
           <td class="code empty leading">
             
-            
+          
           </td>
         </tr>
         
@@ -41,10 +56,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/C_iLtx24eaR">
-              <img title="Run code" class="run" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ1SURBVCjPY/j//z8DMu7o6GAAgpQgD9tLqcmJH4KDg14aaik/MtdXe2ZjY6OCrh6Fs2jRYmZ9Pd05M9uL/u9dPfU/CLS0dfxvKIz/X5Dg/z8pKdkGqwGpqakMUdExDHJSYqt37tjxf+qUSf9rc2P+79298/+RA3v+H1zV///o6r7/DrbWFQkJiQwxMTGoBjAxMTpKiQmuqMuP/f/xw/v/J0+f/W9tbvTfxVLn/8rJVf+v757z/96hRf8TQtxuCQmLMjk4OKAawMfDVWVvrvd85eTq/7tXTP6/e/XM/22lif9LCnL+b13Q/v/Kzln/L++c/X/7/Jb/VpYWuZFRUagGAAErEBtlxvi+vn944f9L26cDNcz6v21R9/8zm6aC2SBDbu+f/78kK+4/L79AO7oBYCAqxD/57JZp/y/tmPX/wrYZ/6+CbAayD6zs/78daBjIgPayFJAGG6wGAIFAcpjH/dv7F4ANABuya/b/Od3l/ye2V/+/tnv2/7ldxSANmrgMYGBhZg7fuagD7GyYIeeBrrqwdRrQgLn/l02sBGkwwWkAEAjV5EZ/vQV0LswAGAYZsLC3DKTBAJ8BzCkRni/uHFyIYcAtoNc6ypL/ANVIohigrKwMxqqqqgxMzKzM6VHeL+6iGQAKzDtAV5XlJv3n5uFLRTHgzZs3YPzz50+GwqJiPitD9Y8Pjy4BB+CNvfP+3wUmIpAhhckhr3X19LodHZ28UQxQU1MDYw0NDQYBAQEeoBOTK7JjP2xf3Pt/bkfB/4KkoDcKMmIL5OXlFerq6hhu3rzJgC8MwMDYxGSfm5vbVn9/f0cgVxAkpqioyFBfX49iAACbTAK+xT3CzgAAAABJRU5ErkJggg==" />
-            </a>
-            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+            <a href="http://play.golang.org/p/jQoxRdoaWN_9"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
           </td>
@@ -60,8 +73,10 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;flag&quot;</span>
-<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+          <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;flag&quot;</span>
+    <span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 </pre></div>
 
           </td>
@@ -73,7 +88,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 </pre></div>
 
           </td>
@@ -91,7 +106,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="nx">wordPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;word&quot;</span><span class="p">,</span> <span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;a string&quot;</span><span class="p">)</span>
+          <div class="highlight"><pre>    <span class="nx">wordPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;word&quot;</span><span class="p">,</span> <span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;a string&quot;</span><span class="p">)</span>
 </pre></div>
 
           </td>
@@ -105,7 +120,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="nx">numbPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;numb&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&quot;an int&quot;</span><span class="p">)</span>
+          <div class="highlight"><pre>    <span class="nx">numbPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;numb&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&quot;an int&quot;</span><span class="p">)</span>
     <span class="nx">boolPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="s">&quot;fork&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&quot;a bool&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -122,7 +137,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">svar</span> <span class="kt">string</span>
+          <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">svar</span> <span class="kt">string</span>
     <span class="nx">flag</span><span class="p">.</span><span class="nx">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">svar</span><span class="p">,</span> <span class="s">&quot;svar&quot;</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">,</span> <span class="s">&quot;a string var&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -137,7 +152,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+          <div class="highlight"><pre>    <span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
 </pre></div>
 
           </td>
@@ -153,7 +168,7 @@
           </td>
           <td class="code">
             
-            <div class="highlight"><pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;word:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">wordPtr</span><span class="p">)</span>
+          <div class="highlight"><pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;word:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">wordPtr</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;numb:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">numbPtr</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;fork:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">boolPtr</span><span class="p">)</span>
     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;svar:&quot;</span><span class="p">,</span> <span class="nx">svar</span><span class="p">)</span>
@@ -176,7 +191,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> go build command-line-flags.go
+          <div class="highlight"><pre><span class="gp">$</span> go build command-line-flags.go
 </pre></div>
 
           </td>
@@ -190,7 +205,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt -numb<span class="o">=</span><span class="m">7</span> -fork -svar<span class="o">=</span>flag
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt -numb<span class="o">=</span><span class="m">7</span> -fork -svar<span class="o">=</span>flag
 <span class="go">word: opt</span>
 <span class="go">numb: 7</span>
 <span class="go">fork: true</span>
@@ -209,7 +224,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt
 <span class="go">word: opt</span>
 <span class="go">numb: 42</span>
 <span class="go">fork: false</span>
@@ -227,7 +242,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt a1 a2 a3
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt a1 a2 a3
 <span class="go">word: opt</span>
 <span class="go">...</span>
 <span class="go">tail: [a1 a2 a3]</span>
@@ -245,7 +260,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt a1 a2 a3 -numb<span class="o">=</span>7
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -word<span class="o">=</span>opt a1 a2 a3 -numb<span class="o">=</span>7
 <span class="go">word: opt</span>
 <span class="go">numb: 42</span>
 <span class="go">fork: false</span>
@@ -265,7 +280,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -h
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -h
 <span class="go">Usage of ./command-line-flags:</span>
 <span class="go">  -fork=false: a bool</span>
 <span class="go">  -numb=42: an int</span>
@@ -283,26 +298,14 @@
 再度表示します。</p>
 
           </td>
-          <td class="code leading">
+          <td class="code">
             
-            <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -wat
+          <div class="highlight"><pre><span class="gp">$</span> ./command-line-flags -wat
 <span class="go">flag provided but not defined: -wat</span>
 <span class="go">Usage of ./command-line-flags:</span>
 <span class="go">...</span>
 </pre></div>
 
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>次は、プログラムをパラメーター化する別の一般的な方法である、
-環境変数を見ていきます。</p>
-
-          </td>
-          <td class="code empty">
-            
-            
           </td>
         </tr>
         
@@ -317,5 +320,10 @@
         by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
       </p>
     </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"flag\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    wordPtr := flag.String(\"word\", \"foo\", \"a string\")\u000A');codeLines.push('    numbPtr := flag.Int(\"numb\", 42, \"an int\")\u000A    boolPtr := flag.Bool(\"fork\", false, \"a bool\")\u000A');codeLines.push('    var svar string\u000A    flag.StringVar(&svar, \"svar\", \"bar\", \"a string var\")\u000A');codeLines.push('    flag.Parse()\u000A');codeLines.push('    fmt.Println(\"word:\", *wordPtr)\u000A    fmt.Println(\"numb:\", *numbPtr)\u000A    fmt.Println(\"fork:\", *boolPtr)\u000A    fmt.Println(\"svar:\", svar)\u000A    fmt.Println(\"tail:\", flag.Args())\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
   </body>
 </html>

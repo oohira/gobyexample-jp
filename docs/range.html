@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Go by Example: Range</title>
+    <link rel="icon" href="favicon.ico">
     <link rel=stylesheet href="site.css">
   </head>
   <script type="text/javascript">
@@ -15,6 +16,20 @@
       ga('create', 'UA-88560400-2', 'auto');
       ga('send', 'pageview');
     }
+  </script>
+  <script>
+      onkeydown = (e) => {
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'maps.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'functions.html';
+          }
+          
+      }
   </script>
   <body>
     <div class="example" id="range">
@@ -31,7 +46,7 @@
           </td>
           <td class="code empty leading">
             
-            
+          
           </td>
         </tr>
         
@@ -40,10 +55,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/DX-UFIpHc8W">
-              <img title="Run code" class="run" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABGdBTUEAANbY1E9YMgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ1SURBVCjPY/j//z8DMu7o6GAAgpQgD9tLqcmJH4KDg14aaik/MtdXe2ZjY6OCrh6Fs2jRYmZ9Pd05M9uL/u9dPfU/CLS0dfxvKIz/X5Dg/z8pKdkGqwGpqakMUdExDHJSYqt37tjxf+qUSf9rc2P+79298/+RA3v+H1zV///o6r7/DrbWFQkJiQwxMTGoBjAxMTpKiQmuqMuP/f/xw/v/J0+f/W9tbvTfxVLn/8rJVf+v757z/96hRf8TQtxuCQmLMjk4OKAawMfDVWVvrvd85eTq/7tXTP6/e/XM/22lif9LCnL+b13Q/v/Kzln/L++c/X/7/Jb/VpYWuZFRUagGAAErEBtlxvi+vn944f9L26cDNcz6v21R9/8zm6aC2SBDbu+f/78kK+4/L79AO7oBYCAqxD/57JZp/y/tmPX/wrYZ/6+CbAayD6zs/78daBjIgPayFJAGG6wGAIFAcpjH/dv7F4ANABuya/b/Od3l/ye2V/+/tnv2/7ldxSANmrgMYGBhZg7fuagD7GyYIeeBrrqwdRrQgLn/l02sBGkwwWkAEAjV5EZ/vQV0LswAGAYZsLC3DKTBAJ8BzCkRni/uHFyIYcAtoNc6ypL/ANVIohigrKwMxqqqqgxMzKzM6VHeL+6iGQAKzDtAV5XlJv3n5uFLRTHgzZs3YPzz50+GwqJiPitD9Y8Pjy4BB+CNvfP+3wUmIpAhhckhr3X19LodHZ28UQxQU1MDYw0NDQYBAQEeoBOTK7JjP2xf3Pt/bkfB/4KkoDcKMmIL5OXlFerq6hhu3rzJgC8MwMDYxGSfm5vbVn9/f0cgVxAkpqioyFBfX49iAACbTAK+xT3CzgAAAABJRU5ErkJggg==" />
-            </a>
-            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+            <a href="http://play.golang.org/p/DX-UFIpHc8W"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
           </td>
@@ -55,7 +68,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+          <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
 </pre></div>
 
           </td>
@@ -67,7 +80,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 </pre></div>
 
           </td>
@@ -81,7 +94,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+          <div class="highlight"><pre>    <span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
     <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
         <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">num</span>
@@ -103,7 +116,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
+          <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
         <span class="k">if</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
             <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;index:&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
         <span class="p">}</span>
@@ -120,7 +133,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="nx">kvs</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">:</span> <span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">:</span> <span class="s">&quot;banana&quot;</span><span class="p">}</span>
+          <div class="highlight"><pre>    <span class="nx">kvs</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">:</span> <span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">:</span> <span class="s">&quot;banana&quot;</span><span class="p">}</span>
     <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">kvs</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s -&gt; %s\n&quot;</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
     <span class="p">}</span>
@@ -136,7 +149,7 @@
           </td>
           <td class="code leading">
             
-            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">k</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">kvs</span> <span class="p">{</span>
+          <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">k</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">kvs</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;key:&quot;</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span>
     <span class="p">}</span>
 </pre></div>
@@ -154,7 +167,7 @@
           </td>
           <td class="code">
             
-            <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="s">&quot;go&quot;</span> <span class="p">{</span>
+          <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="s">&quot;go&quot;</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -173,7 +186,7 @@
           </td>
           <td class="code">
             
-            <div class="highlight"><pre><span class="gp">$</span> go run range.go
+          <div class="highlight"><pre><span class="gp">$</span> go run range.go
 <span class="go">sum: 9</span>
 <span class="go">index: 1</span>
 <span class="go">a -&gt; apple</span>
@@ -198,5 +211,10 @@
         by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
       </p>
     </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A');codeLines.push('    nums := []int{2, 3, 4}\u000A    sum := 0\u000A    for _, num := range nums {\u000A        sum += num\u000A    }\u000A    fmt.Println(\"sum:\", sum)\u000A');codeLines.push('    for i, num := range nums {\u000A        if num == 3 {\u000A            fmt.Println(\"index:\", i)\u000A        }\u000A    }\u000A');codeLines.push('    kvs := map[string]string{\"a\": \"apple\", \"b\": \"banana\"}\u000A    for k, v := range kvs {\u000A        fmt.Printf(\"%s -\x3E %s\\n\", k, v)\u000A    }\u000A');codeLines.push('    for k := range kvs {\u000A        fmt.Println(\"key:\", k)\u000A    }\u000A');codeLines.push('    for i, c := range \"go\" {\u000A        fmt.Println(i, c)\u000A    }\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
   </body>
 </html>
