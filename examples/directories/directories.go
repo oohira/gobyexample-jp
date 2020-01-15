@@ -1,5 +1,5 @@
-// Go has several useful functions for working with
-// *directories* in the file system.
+// Go には、ファイルシステムの *ディレクトリ* を扱うための
+// 便利な関数があります。
 
 package main
 
@@ -18,18 +18,16 @@ func check(e error) {
 
 func main() {
 
-	// Create a new sub-directory in the current working
-	// directory.
+	// 現在の作業ディレクトリに、新しい作業ディレクトリを作ります。
 	err := os.Mkdir("subdir", 0755)
 	check(err)
 
-	// When creating temporary directories, it's good
-	// practice to `defer` their removal. `os.RemoveAll`
-	// will delete a whole directory tree (similarly to
-	// `rm -rf`).
+	// 一時ディレクトリを作る場合は、`defer` でそのディレクトリを
+	// 遅延削除するとよいでしょう。`os.RemoveAll` は、
+	// すべてのディレクトリツリーを削除します（ `rm -rf` と同じ）。
 	defer os.RemoveAll("subdir")
 
-	// Helper function to create a new empty file.
+	// これは、空のファイルを新規に作成するヘルパー関数です。
 	createEmptyFile := func(name string) {
 		d := []byte("")
 		check(ioutil.WriteFile(name, d, 0644))
@@ -37,9 +35,8 @@ func main() {
 
 	createEmptyFile("subdir/file1")
 
-	// We can create a hierarchy of directories, including
-	// parents with `MkdirAll`. This is similar to the
-	// command-line `mkdir -p`.
+	// `MkdirAll` を使うと、親ディレクトリも含めてディレクトリ階層を
+	// 作成することができます。コマンドラインの `mkdir -p` と同様です。
 	err = os.MkdirAll("subdir/parent/child", 0755)
 	check(err)
 
@@ -47,8 +44,8 @@ func main() {
 	createEmptyFile("subdir/parent/file3")
 	createEmptyFile("subdir/parent/child/file4")
 
-	// `ReadDir` lists directory contents, returning a
-	// slice of `os.FileInfo` objects.
+	// `ReadDir` は、ディレクトリの内容を一覧し、`os.FileInfo`
+	// オブジェクトのスライスを返します。
 	c, err := ioutil.ReadDir("subdir/parent")
 	check(err)
 
@@ -57,13 +54,13 @@ func main() {
 		fmt.Println(" ", entry.Name(), entry.IsDir())
 	}
 
-	// `Chdir` lets us change the current working directory,
-	// similarly to `cd`.
+	// `Chdir` は、現在の作業ディレクトリを変更します。
+	// `cd` コマンドのようなものです。
 	err = os.Chdir("subdir/parent/child")
 	check(err)
 
-	// Now we'll see the contents of `subdir/parent/child`
-	// when listing the *current* directory.
+	// *カレント* ディレクトリの内容を一覧すると、
+	// `subdir/parent/child` の結果が表示されます。
 	c, err = ioutil.ReadDir(".")
 	check(err)
 
@@ -72,20 +69,19 @@ func main() {
 		fmt.Println(" ", entry.Name(), entry.IsDir())
 	}
 
-	// `cd` back to where we started.
+	// 最初のディレクトリに戻ります。
 	err = os.Chdir("../../..")
 	check(err)
 
-	// We can also visit a directory *recursively*,
-	// including all its sub-directories. `Walk` accepts
-	// a callback function to handle every file or
-	// directory visited.
+	// サブディレクトリも含めたすべてのディレクトリを *再帰的に*
+	// 走査することもできます。`Walk` に、見つかったファイル
+	// またはディレクトリを処理するコールバック関数を指定します。
 	fmt.Println("Visiting subdir")
 	err = filepath.Walk("subdir", visit)
 }
 
-// `visit` is called for every file or directory found
-// recursively by `filepath.Walk`.
+// `visit` は、`filepath.Walk` でファイルやディレクトリが
+// 再帰的に見つかるたびに実行されます。
 func visit(p string, info os.FileInfo, err error) error {
 	if err != nil {
 		return err
