@@ -1,8 +1,7 @@
-// Throughout program execution, we often want to create
-// data that isn't needed after the program exits.
-// *Temporary files and directories* are useful for this
-// purpose since they don't pollute the file system over
-// time.
+// プログラムの実行中に、終了後は必要がなくなるデータを
+// 作りたくなることがよくあります。
+// *一時ファイルと一時ディレクトリ* は、ファイルシステムを
+// 汚さないので、そのために使えます。
 
 package main
 
@@ -21,44 +20,40 @@ func check(e error) {
 
 func main() {
 
-	// The easiest way to create a temporary file is by
-	// calling `ioutil.TempFile`. It creates a file *and*
-	// opens it for reading and writing. We provide `""`
-	// as the first argument, so `ioutil.TempFile` will
-	// create the file in the default location for our OS.
+	// 一時ファイルを作成する最も簡単な方法は、`ioutil.TempFile`
+	// を実行することです。これは、ファイルを作成し、*かつ*
+	// 読み書きのためにオープンします。この例では、`ioutil.TempFile`
+	// が OS デフォルトの場所にファイルを作成するよう
+	// 第1引数に `""` を指定しています。
 	f, err := ioutil.TempFile("", "sample")
 	check(err)
 
-	// Display the name of the temporary file. On
-	// Unix-based OSes the directory will likely be `/tmp`.
-	// The file name starts with the prefix given as the
-	// second argument to `ioutil.TempFile` and the rest
-	// is chosen automatically to ensure that concurrent
-	// calls will always create different file names.
+	// 一時ファイルの名前を表示します。Unix ベースの OS では、
+	// ディレクトリは `/tmp` のようになるでしょう。
+	// ファイル名は、`ioutil.TempFile` の第2引数で指定された
+	// 接頭辞から始まり、残りの部分は並列呼び出しされても常に
+	// 異なる名前になるよう自動的に決定されます。
 	fmt.Println("Temp file name:", f.Name())
 
-	// Clean up the file after we're done. The OS is
-	// likely to clean up temporary files by itself after
-	// some time, but it's good practice to do this
-	// explicitly.
+	// ファイルを後始末します。OS は一時ファイルを適当なタイミングで
+	// 削除してくれることが多いですが、明示的に実行する方がよいです。
 	defer os.Remove(f.Name())
 
-	// We can write some data to the file.
+	// ファイルにデータを書き出すこともできます。
 	_, err = f.Write([]byte{1, 2, 3, 4})
 	check(err)
 
-	// If we intend to write many temporary files, we may
-	// prefer to create a temporary *directory*.
-	// `ioutil.TempDir`'s arguments are the same as
-	// `TempFile`'s, but it returns a directory *name*
-	// rather than an open file.
+	// 多くの一時ファイルに書き出すことを想定している場合、
+	// 一時 *ディレクトリ* を作った方がよいかもしれません。
+	// `ioutil.TempDir` の引数は `TempFile` と同じですが、
+	// ファイルを開く代わりにディレクトリの *名前* を返します。
 	dname, err := ioutil.TempDir("", "sampledir")
 	fmt.Println("Temp dir name:", dname)
 
 	defer os.RemoveAll(dname)
 
-	// Now we can synthesize temporary file names by
-	// prefixing them with our temporary directory.
+	// この一時ディレクトリを使って、一時ファイルの名前を
+	// 合成することができます。
 	fname := filepath.Join(dname, "file1")
 	err = ioutil.WriteFile(fname, []byte{1, 2}, 0666)
 	check(err)
