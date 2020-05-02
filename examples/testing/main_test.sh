@@ -1,4 +1,4 @@
-# Run all tests in the current project in verbose mode.
+# カレントプロジェクトのすべてのテストを verbose モードで実行する。
 $ go test -v
 == RUN   TestIntMinBasic
 --- PASS: TestIntMinBasic (0.00s)
