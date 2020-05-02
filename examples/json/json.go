@@ -17,8 +17,8 @@ type response1 struct {
 	Fruits []string
 }
 
-// Only exported fields will be encoded/decoded in JSON.
-// Fields must start with capital letters to be exported.
+// エクスポートされたフィールドだけが JSON にエンコード/デコードされます。
+// そのため、フィールド名は大文字から始まる必要があります。
 type response2 struct {
 	Page   int      `json:"page"`
 	Fruits []string `json:"fruits"`
