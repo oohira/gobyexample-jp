@@ -56,7 +56,7 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/Saf3bNVhKsL"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="http://play.golang.org/p/Er89x1mGFOm"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -113,7 +113,7 @@
             <p>環境に定義されたすべてのキーと値のペアを列挙するには、
 <code>os.Environ</code> を使います。これは、<code>KEY=value</code>
 という形式の文字列のスライスを返します。
-キーと値をそれぞれ取得するために、<code>strings.Split</code>
+キーと値をそれぞれ取得するために、<code>strings.SplitN</code>
 することができます。次の例は、すべてのキーを出力します。</p>
 
           </td>
@@ -121,7 +121,7 @@
             
           <div class="highlight"><pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
     <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Environ</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">pair</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nx">pair</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">SplitN</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&quot;=&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -196,7 +196,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"os\"\u000A    \"strings\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    os.Setenv(\"FOO\", \"1\")\u000A    fmt.Println(\"FOO:\", os.Getenv(\"FOO\"))\u000A    fmt.Println(\"BAR:\", os.Getenv(\"BAR\"))\u000A');codeLines.push('    fmt.Println()\u000A    for _, e :\x3D range os.Environ() {\u000A        pair :\x3D strings.Split(e, \"\x3D\")\u000A        fmt.Println(pair[0])\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"os\"\u000A    \"strings\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    os.Setenv(\"FOO\", \"1\")\u000A    fmt.Println(\"FOO:\", os.Getenv(\"FOO\"))\u000A    fmt.Println(\"BAR:\", os.Getenv(\"BAR\"))\u000A');codeLines.push('    fmt.Println()\u000A    for _, e :\x3D range os.Environ() {\u000A        pair :\x3D strings.SplitN(e, \"\x3D\", 2)\u000A        fmt.Println(pair[0])\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

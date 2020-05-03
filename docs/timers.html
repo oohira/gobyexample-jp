@@ -58,7 +58,7 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/jzQLx7E0WKH"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="http://play.golang.org/p/3lqYEYIqnRB"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -117,7 +117,7 @@
           <td class="code leading">
             
           <div class="highlight"><pre>    <span class="o">&lt;-</span><span class="nx">timer1</span><span class="p">.</span><span class="nx">C</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Timer 1 expired&quot;</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Timer 1 fired&quot;</span><span class="p">)</span>
 </pre></div>
 
           </td>
@@ -130,17 +130,31 @@
 キャンセルすることができる点です。これがその例です。</p>
 
           </td>
-          <td class="code">
+          <td class="code leading">
             
           <div class="highlight"><pre>    <span class="nx">timer2</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">NewTimer</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
     <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
         <span class="o">&lt;-</span><span class="nx">timer2</span><span class="p">.</span><span class="nx">C</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Timer 2 expired&quot;</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Timer 2 fired&quot;</span><span class="p">)</span>
     <span class="p">}()</span>
     <span class="nx">stop2</span> <span class="o">:=</span> <span class="nx">timer2</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
     <span class="k">if</span> <span class="nx">stop2</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Timer 2 stopped&quot;</span><span class="p">)</span>
     <span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>timer2</code> が継続していれば発火するのに十分な時間を
+与え、実際には停止していることを確認する。</p>
+
+          </td>
+          <td class="code">
+            
+          <div class="highlight"><pre>    <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -154,14 +168,14 @@
         <tr>
           <td class="docs">
             <p>1 つ目のタイマーは、プログラムを開始してから高々 2
-秒後には完了しますが、2 つ目のタイマーは完了する前に
+秒後には発火しますが、2 つ目のタイマーは発火する前に
 停止させられるはずです。</p>
 
           </td>
           <td class="code">
             
           <div class="highlight"><pre><span class="gp">$</span> go run timers.go
-<span class="go">Timer 1 expired</span>
+<span class="go">Timer 1 fired</span>
 <span class="go">Timer 2 stopped</span>
 </pre></div>
 
@@ -181,7 +195,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    timer1 :\x3D time.NewTimer(2 * time.Second)\u000A');codeLines.push('    \x3C-timer1.C\u000A    fmt.Println(\"Timer 1 expired\")\u000A');codeLines.push('    timer2 :\x3D time.NewTimer(time.Second)\u000A    go func() {\u000A        \x3C-timer2.C\u000A        fmt.Println(\"Timer 2 expired\")\u000A    }()\u000A    stop2 :\x3D timer2.Stop()\u000A    if stop2 {\u000A        fmt.Println(\"Timer 2 stopped\")\u000A    }\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    timer1 :\x3D time.NewTimer(2 * time.Second)\u000A');codeLines.push('    \x3C-timer1.C\u000A    fmt.Println(\"Timer 1 fired\")\u000A');codeLines.push('    timer2 :\x3D time.NewTimer(time.Second)\u000A    go func() {\u000A        \x3C-timer2.C\u000A        fmt.Println(\"Timer 2 fired\")\u000A    }()\u000A    stop2 :\x3D timer2.Stop()\u000A    if stop2 {\u000A        fmt.Println(\"Timer 2 stopped\")\u000A    }\u000A');codeLines.push('    time.Sleep(2 * time.Second)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>
