@@ -11,14 +11,14 @@ import (
 // これは、ゴルーチンで実行する関数です。
 // WaitGroup はポインタで関数に渡さなければならない点に注意してください。
 func worker(id int, wg *sync.WaitGroup) {
+	// return するときに、完了したことを WaitGroup に通知します。
+	defer wg.Done()
+
 	fmt.Printf("Worker %d starting\n", id)
 
 	// 時間のかかるタスクをシミュレートするためにスリープします。
 	time.Sleep(time.Second)
 	fmt.Printf("Worker %d done\n", id)
-
-	// このワーカーが完了したことを WaitGroup に通知します。
-	wg.Done()
 }
 
 func main() {

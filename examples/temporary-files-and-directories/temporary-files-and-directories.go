@@ -48,6 +48,7 @@ func main() {
 	// `ioutil.TempDir` の引数は `TempFile` と同じですが、
 	// ファイルを開く代わりにディレクトリの *名前* を返します。
 	dname, err := ioutil.TempDir("", "sampledir")
+	check(err)
 	fmt.Println("Temp dir name:", dname)
 
 	defer os.RemoveAll(dname)

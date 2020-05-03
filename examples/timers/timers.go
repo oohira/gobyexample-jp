@@ -23,7 +23,7 @@ func main() {
 	// `<-timer1.C` は、タイマーのチャネル `C`
 	// が時間になったことを知らせる値を送信するまでブロックします。
 	<-timer1.C
-	fmt.Println("Timer 1 expired")
+	fmt.Println("Timer 1 fired")
 
 	// ただ待ちたいだけであれば、`time.Sleep` が使えます。
 	// タイマーが役に立つ 1 つの理由は、指定時間が経過する前に
@@ -31,10 +31,14 @@ func main() {
 	timer2 := time.NewTimer(time.Second)
 	go func() {
 		<-timer2.C
-		fmt.Println("Timer 2 expired")
+		fmt.Println("Timer 2 fired")
 	}()
 	stop2 := timer2.Stop()
 	if stop2 {
 		fmt.Println("Timer 2 stopped")
 	}
+
+	// `timer2` が継続していれば発火するのに十分な時間を
+	// 与え、実際には停止していることを確認する。
+	time.Sleep(2 * time.Second)
 }

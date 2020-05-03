@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func f(from string) {
 	for i := 0; i < 3; i++ {
@@ -28,7 +31,8 @@ func main() {
 
 	// 上の 2 つの関数呼び出しは別々のゴルーチンで非同期に
 	// 実行されるので、プログラムの実行はすぐにここへきます。
-	// この `Scanln` は、キーを押すまでプログラムを終了させません。
-	fmt.Scanln()
+	// それらが完了するまで待ちます（より堅牢な方法としては、
+	// [WaitGroup](waitgroups) を使ってください）。
+	time.Sleep(time.Second)
 	fmt.Println("done")
 }

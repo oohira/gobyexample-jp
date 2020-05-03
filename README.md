@@ -25,7 +25,6 @@ To build the site you'll need Go and Python installed. Run:
 ```console
 $ go get github.com/russross/blackfriday
 $ tools/build
-$ open public/index.html
 ```
 
 To build continuously in a loop:
@@ -33,6 +32,14 @@ To build continuously in a loop:
 ```console
 $ tools/build-loop
 ```
+
+To see the site locally:
+
+```
+$ tools/serve
+```
+
+and open `http://127.0.0.1:8000/` in your browser.
 
 ### Publishing
 
@@ -58,14 +65,15 @@ The Go Gopher is copyright [Renée French](http://reneefrench.blogspot.com/) and
 
 Contributor translations of the Go by Example site are available in:
 
-* [Chinese](https://gobyexample.xgwang.me/) by [xg-wang](https://github.com/xg-wang/gobyexample)
+* [Chinese](https://gobyexample-cn.github.io/) by [gobyexample-cn](https://github.com/gobyexample-cn)
 * [Czech](http://gobyexamples.sweb.cz/) by [martinkunc](https://github.com/martinkunc/gobyexample-cz)
 * [French](http://le-go-par-l-exemple.keiruaprod.fr) by [keirua](https://github.com/keirua/gobyexample)
 * [Italian](http://gobyexample.it) by the [Go Italian community](https://github.com/golangit/gobyexample-it)
 * [Japanese](http://spinute.org/go-by-example) by [spinute](https://github.com/spinute)
 * [Korean](https://mingrammer.com/gobyexample/) by [mingrammer](https://github.com/mingrammer)
+* [Russian](https://gobyexample.com.ru/) by [badkaktus](https://github.com/badkaktus)
 * [Spanish](http://goconejemplos.com) by the [Go Mexico community](https://github.com/dabit/gobyexample)
-* [Ukrainian](http://gobyexample.com.ua/) by [butuzov](https://github.com/butuzov/gobyexample)
+* [Ukrainian](http://butuzov.github.io/gobyexample/) by [butuzov](https://github.com/butuzov/gobyexample)
 
 ### Thanks
 

@@ -10,7 +10,6 @@ goroutine : 0
 going
 goroutine : 1
 goroutine : 2
-<enter>
 done
 
 # 次回は、Go の並行プログラムを補完するチャネルを見ていきます。

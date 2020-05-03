@@ -23,11 +23,11 @@ func main() {
 	// 環境に定義されたすべてのキーと値のペアを列挙するには、
 	// `os.Environ` を使います。これは、`KEY=value`
 	// という形式の文字列のスライスを返します。
-	// キーと値をそれぞれ取得するために、`strings.Split`
+	// キーと値をそれぞれ取得するために、`strings.SplitN`
 	// することができます。次の例は、すべてのキーを出力します。
 	fmt.Println()
 	for _, e := range os.Environ() {
-		pair := strings.Split(e, "=")
+		pair := strings.SplitN(e, "=", 2)
 		fmt.Println(pair[0])
 	}
 }

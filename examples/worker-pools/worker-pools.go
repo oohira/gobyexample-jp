@@ -27,8 +27,9 @@ func main() {
 	// ワーカープールを使うためには、タスクをワーカーに送信し、
 	// それらの結果を集める必要があります。
 	// そのために、2 つのチャネルを作成します。
-	jobs := make(chan int, 100)
-	results := make(chan int, 100)
+	const numJobs = 5
+	jobs := make(chan int, numJobs)
+	results := make(chan int, numJobs)
 
 	// ここで、3 つのワーカーを開始しますが、
 	// 最初はまだジョブがないためブロックします。
@@ -38,7 +39,7 @@ func main() {
 
 	// 次に、5 つのジョブを送信し、それがすべてであることを
 	// 伝えるためにチャネルを `close` します。
-	for j := 1; j <= 5; j++ {
+	for j := 1; j <= numJobs; j++ {
 		jobs <- j
 	}
 	close(jobs)
@@ -47,7 +48,7 @@ func main() {
 	// これにより、ワーカーのゴルーチンが完了することも保証します。
 	// 複数のゴルーチンを待つ別の方法としては、
 	// [WaitGroup](waitgroups) が使えます。
-	for a := 1; a <= 5; a++ {
+	for a := 1; a <= numJobs; a++ {
 		<-results
 	}
 }

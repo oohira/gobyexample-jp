@@ -39,6 +39,7 @@ func main() {
 
 	// `WriteString` 関数も使えます。
 	n3, err := f.WriteString("writes\n")
+	check(err)
 	fmt.Printf("wrote %d bytes\n", n3)
 
 	// 書き込みをストレージにフラッシュするには
@@ -49,6 +50,7 @@ func main() {
 	// バッファ書き込みをサポートしています。
 	w := bufio.NewWriter(f)
 	n4, err := w.WriteString("buffered\n")
+	check(err)
 	fmt.Printf("wrote %d bytes\n", n4)
 
 	// バッファリングされた操作が下位の `Writer`

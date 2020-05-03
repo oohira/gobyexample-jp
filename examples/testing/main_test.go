@@ -19,9 +19,8 @@ import (
 func IntMin(a, b int) int {
 	if a < b {
 		return a
-	} else {
-		return b
 	}
+	return b
 }
 
 // テストは、`Test` から始まる名前の関数を書くことで作ります。

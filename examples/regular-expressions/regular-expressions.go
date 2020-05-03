@@ -59,10 +59,10 @@ func main() {
 	// を除いた関数に、`[]byte` 型の引数を渡すこともできます。
 	fmt.Println(r.Match([]byte("peach")))
 
-	// 正規表現の定数を作る場合は、`Compile` の
+	// 正規表現のグローバル変数を作る場合は、`Compile` の
 	// バリエーションとして `MustCompile` を使えます。
-	// ただの `Compile` は、2 つの戻り値を返すため、
-	// 定数には使えません。
+	// `MustCompile` はエラーを返す代わりに panic になるため、
+	// グローバル変数での利用をより安全にします。
 	r = regexp.MustCompile("p([a-z]+)ch")
 	fmt.Println(r)
 

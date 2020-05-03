@@ -153,11 +153,10 @@ func resetURLHashFile(codehash, code, sourcePath string) string {
 	}
 	payload := strings.NewReader(code)
 	resp, err := http.Post("https://play.golang.org/share", "text/plain", payload)
-	if err != nil {
-		panic(err)
-	}
+	check(err)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
+	check(err)
 	urlkey := string(body)
 	data := fmt.Sprintf("%s\n%s\n", codehash, urlkey)
 	ioutil.WriteFile(sourcePath, []byte(data), 0644)
@@ -165,12 +164,16 @@ func resetURLHashFile(codehash, code, sourcePath string) string {
 }
 
 func parseSegs(sourcePath string) ([]*Seg, string) {
-	var lines []string
+	var (
+		lines  []string
+		source []string
+	)
 	// Convert tabs to spaces for uniform rendering.
 	for _, line := range readLines(sourcePath) {
 		lines = append(lines, strings.Replace(line, "\t", "    ", -1))
+		source = append(source, line)
 	}
-	filecontent := strings.Join(lines, "\n")
+	filecontent := strings.Join(source, "\n")
 	segs := []*Seg{}
 	lastSeen := ""
 	for _, line := range lines {
