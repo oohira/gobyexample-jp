@@ -16,7 +16,7 @@ func main() {
 	fmt.Println("emp:", a)
 
 	// `array[index] = value` で指定位置に値を設定し、
-	// `array[index]` で値を取得することができます。
+	// `array[index]` によって値を取得できます。
 	a[4] = 100
 	fmt.Println("set:", a)
 	fmt.Println("get:", a[4])
@@ -29,7 +29,7 @@ func main() {
 	b := [5]int{1, 2, 3, 4, 5}
 	fmt.Println("dcl:", b)
 
-	// 配列型は一次元ですが、多次元のデータ構造を
+	// 配列型は 1 次元ですが、多次元のデータ構造を
 	// 表す型を構成することもできます。
 	var twoD [2][3]int
 	for i := 0; i < 2; i++ {

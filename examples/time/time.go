@@ -21,7 +21,7 @@ func main() {
 		2009, 11, 17, 20, 34, 58, 651387237, time.UTC)
 	p(then)
 
-	// 時刻の様々な要素を期待通り取得することができます。
+	// 時刻の様々な要素を期待通り取得できます。
 	p(then.Year())
 	p(then.Month())
 	p(then.Day())
@@ -35,7 +35,7 @@ func main() {
 	p(then.Weekday())
 
 	// これらのメソッドは 2 つの時刻を比較し、1 つ目の時刻が
-	// 2 つ目の時刻の前か、後か、あるいは同じかを判定します。
+	// 2 つ目の時刻の前・後・同じのいずれかを判定します。
 	p(then.Before(now))
 	p(then.After(now))
 	p(then.Equal(now))
@@ -52,7 +52,7 @@ func main() {
 	p(diff.Nanoseconds())
 
 	// `Add` を使って、指定した期間だけ時刻を進めたり、
-	// あるいは `-` を使って戻したりすることができます。
+	// あるいは `-` を使って戻したりできます。
 	p(then.Add(diff))
 	p(then.Add(-diff))
 }

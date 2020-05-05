@@ -41,7 +41,7 @@ func main() {
 
 	// プログラムはシグナルを受信するまで
 	// (前述の `done` に値を送信するゴルーチンで知らされる)
-	// ここで待機した後、終了します。
+	// 待機した後、終了します。
 	fmt.Println("awaiting signal")
 	<-done
 	fmt.Println("exiting")

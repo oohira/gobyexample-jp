@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// 同じ `case` の中で複数の式をカンマで
-	// 区切って指定することができます。
+	// 区切って指定することもできます。
 	// また、`default` ケースを使うこともできます。
 	switch time.Now().Weekday() {
 	case time.Saturday, time.Sunday:

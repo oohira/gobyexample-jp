@@ -6,4 +6,4 @@ $ go run number-parsing.go
 135
 strconv.ParseInt: parsing "wat": invalid syntax
 
-# 次は、もう一つの一般的なパース処理として URL を見ていきます。
+# 次は、もう 1 つの一般的なパース処理として URL を見ていきます。

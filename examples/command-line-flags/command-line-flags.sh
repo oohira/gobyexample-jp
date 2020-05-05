@@ -20,7 +20,7 @@ fork: false
 svar: bar
 tail: []
 
-# 位置引数は、任意のフラグの後に続けて指定することができます。
+# 位置引数は、任意のフラグの後に続けて指定できます。
 $ ./command-line-flags -word=opt a1 a2 a3
 word: opt
 ...

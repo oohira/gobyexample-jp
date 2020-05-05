@@ -4,7 +4,7 @@ $ go run exit.go
 exit status 3
 
 # バイナリをビルドして実行した場合は、
-# ターミナルでステータスを確認することができます。
+# ターミナルでステータスを確認できます。
 $ go build exit.go
 $ ./exit
 $ echo $?

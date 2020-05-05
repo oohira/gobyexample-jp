@@ -15,7 +15,7 @@ func (r *rect) area() int {
 }
 
 // メソッドは、ポインタまたは値のどちらのレシーバ型に対しても
-// 定義することができます。これは値レシーバの例です。
+// 定義できます。これは値レシーバの例です。
 func (r rect) perim() int {
 	return 2*r.width + 2*r.height
 }

@@ -36,7 +36,7 @@ func main() {
 	createEmptyFile("subdir/file1")
 
 	// `MkdirAll` を使うと、親ディレクトリも含めてディレクトリ階層を
-	// 作成することができます。コマンドラインの `mkdir -p` と同様です。
+	// 作成できます。コマンドラインの `mkdir -p` と同様です。
 	err = os.MkdirAll("subdir/parent/child", 0755)
 	check(err)
 

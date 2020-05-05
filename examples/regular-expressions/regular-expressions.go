@@ -46,12 +46,12 @@ func main() {
 	// 次の通りです。
 	fmt.Println(r.FindAllString("peach punch pinch", -1))
 
-	// 同様に、前述した他の関数にも `All` がつく関数があります。
+	// 同様に、前述した他の関数にも `All` のつく関数があります。
 	fmt.Println(r.FindAllStringSubmatchIndex(
 		"peach punch pinch", -1))
 
 	// これらの関数の第 2 引数に非負の整数を与えると、
-	// マッチする数を制限することができます。
+	// マッチする数を制限できます。
 	fmt.Println(r.FindAllString("peach punch pinch", 2))
 
 	// これまでの例では、文字列型の引数をもち、`MatchString`
@@ -61,7 +61,7 @@ func main() {
 
 	// 正規表現のグローバル変数を作る場合は、`Compile` の
 	// バリエーションとして `MustCompile` を使えます。
-	// `MustCompile` はエラーを返す代わりに panic になるため、
+	// `MustCompile` はエラーを返す代わりに panic するため、
 	// グローバル変数での利用をより安全にします。
 	r = regexp.MustCompile("p([a-z]+)ch")
 	fmt.Println(r)

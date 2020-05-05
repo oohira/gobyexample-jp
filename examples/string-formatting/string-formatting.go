@@ -99,6 +99,6 @@ func main() {
 	fmt.Println(s)
 
 	// また、`Fprintf` 関数を使えば、フォーマットした文字列を
-	// `os.Stdout` 以外の `io.Writers` へ出力することができます。
+	// `os.Stdout` 以外の `io.Writers` へ出力できます。
 	fmt.Fprintf(os.Stderr, "an %s\n", "error")
 }

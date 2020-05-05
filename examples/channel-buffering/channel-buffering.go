@@ -3,7 +3,7 @@
 // できません。
 // しかし、_バッファリングされたチャネル (Buffered channels)_
 // は、対応する受信側がいなくても決められた量までなら
-// 値を送信することができます。
+// 値を送信できます。
 
 package main
 
@@ -16,11 +16,11 @@ func main() {
 	messages := make(chan string, 2)
 
 	// このチャネルはバッファリングされるので、対応する受信側が
-	// いなくても値をチャネルに送信することができます。
+	// いなくても値をチャネルに送信できます。
 	messages <- "buffered"
 	messages <- "channel"
 
-	// そして、あとで通常通り 2 つの値を受信することができます。
+	// そして、あとで通常通り 2 つの値を受信できます。
 	fmt.Println(<-messages)
 	fmt.Println(<-messages)
 }

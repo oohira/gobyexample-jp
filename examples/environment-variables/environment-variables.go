@@ -24,7 +24,7 @@ func main() {
 	// `os.Environ` を使います。これは、`KEY=value`
 	// という形式の文字列のスライスを返します。
 	// キーと値をそれぞれ取得するために、`strings.SplitN`
-	// することができます。次の例は、すべてのキーを出力します。
+	// を使えます。次の例は、すべてのキーを出力します。
 	fmt.Println()
 	for _, e := range os.Environ() {
 		pair := strings.SplitN(e, "=", 2)

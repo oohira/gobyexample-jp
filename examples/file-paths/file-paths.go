@@ -22,7 +22,7 @@ func main() {
 	fmt.Println(filepath.Join("dir1//", "filename"))
 	fmt.Println(filepath.Join("dir1/../dir1", "filename"))
 
-	// `Dir` や `Base` は、パスをディレクトリとファイルに
+	// `Dir` や `Base` は、パスをディレクトリとファイルへ
 	// 分割するのに使えます。`Split` は、1回の呼び出しで
 	// その両方を返します。
 	fmt.Println("Dir(p):", filepath.Dir(p))

@@ -51,7 +51,7 @@ func main() {
 	tomato.Origin = []string{"Mexico", "California"}
 
 	// `parent>child>plant` フィールドタグは、すべての `plant`
-	// を `<parent><child>...` の下にネストするようエンコーダーに
+	// を `<parent><child>...` の下へネストするようエンコーダーに
 	// 指示します。
 	type Nesting struct {
 		XMLName xml.Name `xml:"nesting"`

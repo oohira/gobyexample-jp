@@ -29,7 +29,7 @@ func main() {
 	limiter := time.Tick(200 * time.Millisecond)
 
 	// 各リクエストを処理する前に `limiter` チャネルからの
-	// 受信でブロックさせることで、200 ミリ秒に
+	// 受信をブロックさせることで、200 ミリ秒に
 	// 1 リクエストしか処理できないよう制限しています。
 	for req := range requests {
 		<-limiter

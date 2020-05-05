@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// 条件式がない `for` は、 `break` でループから抜けるか、
-	// `return` で関数自体から抜けるまでループし続けます。
+	// `return` によって関数自体から抜けるまでループし続けます。
 	for {
 		fmt.Println("loop")
 		break

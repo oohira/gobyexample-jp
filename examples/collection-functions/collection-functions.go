@@ -34,7 +34,7 @@ func Index(vs []string, t string) int {
 	return -1
 }
 
-// Include は、文字列 `t` がスライスに含まれる場合に
+// Include は、文字列 `t` がスライスに含まれる場合
 // `true` を返します。
 func Include(vs []string, t string) bool {
 	return Index(vs, t) >= 0

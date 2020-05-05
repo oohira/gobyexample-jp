@@ -54,7 +54,7 @@ func main() {
 	defer os.RemoveAll(dname)
 
 	// この一時ディレクトリを使って、一時ファイルの名前を
-	// 合成することができます。
+	// 合成できます。
 	fname := filepath.Join(dname, "file1")
 	err = ioutil.WriteFile(fname, []byte{1, 2}, 0666)
 	check(err)
