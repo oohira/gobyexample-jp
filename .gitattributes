@@ -1,4 +1,4 @@
 docs/* linguist-generated=true
 public/* linguist-generated=true
 vendor/* linguist-vendored=true
-
+package-lock.json linguist-generated=true
