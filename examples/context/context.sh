@@ -1,9 +1,8 @@
-# Run the server in the background.
+# サーバーをバックグラウンドで実行します。
 $ go run context-in-http-servers.go &
 
-# Simulate a client request to `/hello`, hitting
-# Ctrl+C shortly after starting to signal
-# cancellation.
+# クライアントから `/hello` へのリクエストをシミュレートし、
+# 少し後で Ctrl+C を押してキャンセルのシグナルを送ります。
 $ curl localhost:8090/hello
 server: hello handler started
 ^C
