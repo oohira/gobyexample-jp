@@ -1,7 +1,7 @@
 // 前回の例では、[アトミックな操作](atomic-counters) を使って、
 // シンプルなカウンターの状態を管理する方法を見ました。
 // より複雑な状態の場合は、複数のゴルーチンから安全にデータへ
-// アクセスするために <em>[ミューテックス (mutex)](http://en.wikipedia.org/wiki/Mutual_exclusion)</em> を使えます。
+// アクセスするために [_ミューテックス (mutex)_](http://en.wikipedia.org/wiki/Mutual_exclusion) を使えます。
 
 package main
 

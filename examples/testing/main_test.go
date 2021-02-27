@@ -28,7 +28,7 @@ func TestIntMinBasic(t *testing.T) {
 	ans := IntMin(2, -2)
 	if ans != -2 {
 		// `t.Error*` はテストの失敗を報告しますが、テストの実行は継続します。
-		// `t.Fail*` はテストの失敗を報告し、テストの実行を即座に停止します。
+		// `t.Fatal*` はテストの失敗を報告し、テストの実行を即座に停止します。
 		t.Errorf("IntMin(2, -2) = %d; want -2", ans)
 	}
 }

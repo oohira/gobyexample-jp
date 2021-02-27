@@ -20,6 +20,6 @@
     }
   },
   "lint-staged": {
-    "*.html": "textlint"
+    "docs/*.html": "textlint"
   }
 }

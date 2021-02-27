@@ -56,7 +56,7 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/Ys6ycU4lu8l"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="http://play.golang.org/p/MuM4vYeCRr6"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -115,7 +115,7 @@
         <tr>
           <td class="docs">
             <p><code>select</code> を使ったタイムアウトの実装は次の通りです。
-<code>res := &lt;-c1</code> が結果を待ち、<code>&lt;-Time.After</code> は
+<code>res := &lt;-c1</code> が結果を待ち、<code>&lt;-time.After</code> は
 1 秒のタイムアウト後に送信されてくる値を待ちます。
 <code>select</code> は最初に受信したものを処理するので、操作が
 1 秒以上かかるとタイムアウトのケースが選択されます。</p>
@@ -192,7 +192,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\x3D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c1 \x3C- \"result 1\"\u000A    }()\u000A');codeLines.push('    select {\u000A    case res :\x3D \x3C-c1:\u000A        fmt.Println(res)\u000A    case \x3C-time.After(1 * time.Second):\u000A        fmt.Println(\"timeout 1\")\u000A    }\u000A');codeLines.push('    c2 :\x3D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \x3C- \"result 2\"\u000A    }()\u000A    select {\u000A    case res :\x3D \x3C-c2:\u000A        fmt.Println(res)\u000A    case \x3C-time.After(3 * time.Second):\u000A        fmt.Println(\"timeout 2\")\u000A    }\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c1 \u003C- \"result 1\"\u000A    }()\u000A');codeLines.push('    select {\u000A    case res :\u003D \u003C-c1:\u000A        fmt.Println(res)\u000A    case \u003C-time.After(1 * time.Second):\u000A        fmt.Println(\"timeout 1\")\u000A    }\u000A');codeLines.push('    c2 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \u003C- \"result 2\"\u000A    }()\u000A    select {\u000A    case res :\u003D \u003C-c2:\u000A        fmt.Println(res)\u000A    case \u003C-time.After(3 * time.Second):\u000A        fmt.Println(\"timeout 2\")\u000A    }\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,4 +1,4 @@
-// <em>[レートリミット (Rate limiting)](http://en.wikipedia.org/wiki/Rate_limiting)</em>
+// [_レートリミット (Rate limiting)_](http://en.wikipedia.org/wiki/Rate_limiting)
 // は、リソースの使用量を制御し、サービスの品質を維持するための、
 // とても重要な仕組みです。
 // Go は、ゴルーチンとチャネル、[ティッカー](tickers) により、

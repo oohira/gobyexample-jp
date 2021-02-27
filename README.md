@@ -10,7 +10,7 @@ comments from source files in `examples` and rendering
 them via the `templates` into a static `public`
 directory. The programs implementing this build process
 are in `tools`, along with some vendor'd dependencies
-in `vendor`.
+in `vendor` and `third_party`.
 
 The built `public` directory can be served by any
 static content system. The production site uses S3 and
@@ -23,7 +23,6 @@ CloudFront, for example.
 To build the site you'll need Go and Python installed. Run:
 
 ```console
-$ go get github.com/russross/blackfriday
 $ tools/build
 ```
 
