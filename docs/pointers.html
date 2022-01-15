@@ -56,9 +56,8 @@
           </td>
           <td class="code leading">
             <a href="http://play.golang.org/p/Hy0eEtgDDt4"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
-</pre></div>
-
+          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
+</pre>
           </td>
         </tr>
         
@@ -68,9 +67,8 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
-</pre></div>
-
+          <pre class="chroma"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</pre>
           </td>
         </tr>
         
@@ -85,11 +83,11 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">zeroval</span><span class="p">(</span><span class="nx">ival</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+          <pre class="chroma">
+<span class="kd">func</span> <span class="nf">zeroval</span><span class="p">(</span><span class="nx">ival</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">ival</span> <span class="p">=</span> <span class="mi">0</span>
 <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
@@ -105,11 +103,11 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">zeroptr</span><span class="p">(</span><span class="nx">iptr</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+          <pre class="chroma">
+<span class="kd">func</span> <span class="nf">zeroptr</span><span class="p">(</span><span class="nx">iptr</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
     <span class="o">*</span><span class="nx">iptr</span> <span class="p">=</span> <span class="mi">0</span>
 <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
@@ -119,11 +117,10 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;initial:&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-</pre></div>
-
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;initial:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</pre>
           </td>
         </tr>
         
@@ -133,10 +130,9 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="nx">zeroval</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;zeroval:&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-</pre></div>
-
+          <pre class="chroma">    <span class="nf">zeroval</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;zeroval:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</pre>
           </td>
         </tr>
         
@@ -148,10 +144,10 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="nx">zeroptr</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;zeroptr:&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-</pre></div>
-
+          <pre class="chroma">
+    <span class="nf">zeroptr</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;zeroptr:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</pre>
           </td>
         </tr>
         
@@ -162,10 +158,10 @@
           </td>
           <td class="code">
             
-          <div class="highlight"><pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;pointer:&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
+          <pre class="chroma">
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;pointer:&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
@@ -182,13 +178,12 @@
           </td>
           <td class="code">
             
-          <div class="highlight"><pre><span class="gp">$</span> go run pointers.go
-<span class="go">initial: 1</span>
-<span class="go">zeroval: 1</span>
-<span class="go">zeroptr: 0</span>
-<span class="go">pointer: 0x42131100</span>
-</pre></div>
-
+          <pre class="chroma">
+<span class="gp">$</span> go run pointers.go
+<span class="go">initial: 1
+</span><span class="go">zeroval: 1
+</span><span class="go">zeroptr: 0
+</span><span class="go">pointer: 0x42131100</span></pre>
           </td>
         </tr>
         
@@ -199,9 +194,11 @@
         Next example: <a href="structs.html">Structs</a>.
       </p>
       
-      <p class="footer">
-        by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
-      </p>
+
+    <p class="footer">
+      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+    </p>
+
     </div>
     <script>
       var codeLines = [];

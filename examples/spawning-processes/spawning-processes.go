@@ -1,16 +1,11 @@
 // ときには、私たちの Go プログラムは他の Go
 // でないプロセスを生成する必要があります。
-// 例えば、このサイトのシンタックスハイライトは、
-// Go プログラムから [`pygmentize`](http://pygments.org/)
-// プロセスを起動することで
-// [実装されています](https://github.com/mmcgrana/gobyexample/blob/master/tools/generate.go)。
-// Go からプロセスを生成する例をいくつか見ていきましょう。
 
 package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os/exec"
 )
 
@@ -46,7 +41,7 @@ func main() {
 	grepCmd.Start()
 	grepIn.Write([]byte("hello grep\ngoodbye grep"))
 	grepIn.Close()
-	grepBytes, _ := ioutil.ReadAll(grepOut)
+	grepBytes, _ := io.ReadAll(grepOut)
 	grepCmd.Wait()
 
 	// 上の例ではエラーチェックを省略しましたが、いつもの

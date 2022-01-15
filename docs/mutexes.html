@@ -56,10 +56,9 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/cYbqtZrWkPF"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
-</pre></div>
-
+            <a href="http://play.golang.org/p/Mk5P-6FRU5b"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
+</pre>
           </td>
         </tr>
         
@@ -69,15 +68,44 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&quot;fmt&quot;</span>
-    <span class="s">&quot;math/rand&quot;</span>
-    <span class="s">&quot;sync&quot;</span>
-    <span class="s">&quot;sync/atomic&quot;</span>
-    <span class="s">&quot;time&quot;</span>
+          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;sync&#34;</span>
 <span class="p">)</span>
-</pre></div>
+</pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Container は、カウンタのマップを保持します。
+複数のゴルーチンから並行して更新したいので、
+アクセスを同期化するために <code>Mutex</code> を追加しています。
+ミューテックスはコピーできないので、この <code>struct</code>
+を渡すときはポインタで渡す必要があります。</p>
 
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma">
+<span class="kd">type</span> <span class="nx">Container</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">mu</span>       <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+    <span class="nx">counters</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span>
+<span class="p">}</span>
+</pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>counters</code> へアクセスする前にミューテックスをロックし、
+<a href="defer">defer</a> 文を使って関数の最後でアンロックします。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Container</span><span class="p">)</span> <span class="nf">inc</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</pre>
           </td>
         </tr>
         
@@ -87,175 +115,99 @@
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-</pre></div>
-
+          <pre class="chroma">    <span class="nx">c</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nx">counters</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">++</span>
+<span class="p">}</span>
+</pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>例として、マップ <code>state</code> の状態を管理します。</p>
+            <p>ミューテックスはゼロ値がそのまま使えるので、
+ここでは初期化が不要である点に注意してください。</p>
 
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">state</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
-</pre></div>
-
+          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Container</span><span class="p">{</span>
+</pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>この <code>mutex</code> は、<code>state</code> へのアクセスを同期します。</p>
-
+            
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">mutex</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{}</span>
-</pre></div>
-
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>読み書き操作をした回数も記録しましょう。</p>
-
-          </td>
-          <td class="code leading">
-            
-          <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">readOps</span> <span class="kt">uint64</span>
-    <span class="kd">var</span> <span class="nx">writeOps</span> <span class="kt">uint64</span>
-</pre></div>
-
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>ここで、1 ミリ秒に 1 回 <code>state</code> から読み込み処理を実行する
-ゴルーチンを 100 個開始します。</p>
-
-          </td>
-          <td class="code leading">
-            
-          <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">r</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">r</span><span class="o">++</span> <span class="p">{</span>
-        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">total</span> <span class="o">:=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="p">{</span>
-</pre></div>
-
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>各読み込み毎に、アクセスするキーを選択し、
-<code>state</code> へ排他的にアクセスするため <code>mutex</code> を
-<code>Lock()</code> します。選択したキーの値を読み込み、
-<code>mutex</code> を <code>Unlock()</code> して、最後に
-<code>readOps</code> の数をインクリメントします。</p>
-
-          </td>
-          <td class="code leading">
-            
-          <div class="highlight"><pre>                <span class="nx">key</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-                <span class="nx">mutex</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
-                <span class="nx">total</span> <span class="o">+=</span> <span class="nx">state</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
-                <span class="nx">mutex</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
-                <span class="nx">atomic</span><span class="p">.</span><span class="nx">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">readOps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>次の読み込みまでちょっとだけ待ちます。</p>
-
-          </td>
-          <td class="code leading">
-            
-          <div class="highlight"><pre>                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">}()</span>
+          <pre class="chroma">        <span class="nx">counters</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
     <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>同様に、書き込みをシミュレートするゴルーチンを
-10 個開始します。</p>
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma">    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>この関数はループを使って名前付きのカウンタをインクリメントします。</p>
 
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="k">for</span> <span class="nx">w</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">w</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">w</span><span class="o">++</span> <span class="p">{</span>
-        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-            <span class="k">for</span> <span class="p">{</span>
-                <span class="nx">key</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-                <span class="nx">val</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-                <span class="nx">mutex</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
-                <span class="nx">state</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="nx">val</span>
-                <span class="nx">mutex</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
-                <span class="nx">atomic</span><span class="p">.</span><span class="nx">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">writeOps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">}()</span>
+          <pre class="chroma">
+    <span class="nx">doIncrement</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+            <span class="nx">c</span><span class="p">.</span><span class="nf">inc</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
     <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>10 個のゴルーチンを 1 秒間だけ <code>state</code> と <code>mutex</code>
-に対して動かします。</p>
+            <p>複数のゴルーチンを並行実行します。これらはすべて同じ
+<code>Container</code> にアクセスし、そのうちの 2 つは
+カウンタも同じであることに注意してください。</p>
 
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre>    <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</pre></div>
-
+          <pre class="chroma">
+    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">go</span> <span class="nf">doIncrement</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+    <span class="k">go</span> <span class="nf">doIncrement</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+    <span class="k">go</span> <span class="nf">doIncrement</span><span class="p">(</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+</pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>最終的な操作の回数を取得してレポートします。</p>
-
-          </td>
-          <td class="code leading">
-            
-          <div class="highlight"><pre>    <span class="nx">readOpsFinal</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">readOps</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;readOps:&quot;</span><span class="p">,</span> <span class="nx">readOpsFinal</span><span class="p">)</span>
-    <span class="nx">writeOpsFinal</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">writeOps</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;writeOps:&quot;</span><span class="p">,</span> <span class="nx">writeOpsFinal</span><span class="p">)</span>
-</pre></div>
-
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>最後に <code>state</code> をロックして、どうなったかを確認します。</p>
+            <p>ゴルーチンが完了するのを待ちます。</p>
 
           </td>
           <td class="code">
             
-          <div class="highlight"><pre>    <span class="nx">mutex</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;state:&quot;</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span>
-    <span class="nx">mutex</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+          <pre class="chroma">
+    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">counters</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></div>
-
+</pre>
           </td>
         </tr>
         
@@ -265,18 +217,15 @@
         
         <tr>
           <td class="docs">
-            <p>プログラムを実行すると、<code>mutex</code> で同期された <code>state</code>
-を合計で 90,000 回操作したことが分かります。</p>
+            <p>プログラムを実行すると、カウンタが期待通りに
+更新されたことが分かります。</p>
 
           </td>
           <td class="code leading">
             
-          <div class="highlight"><pre><span class="gp">$</span> go run mutexes.go
-<span class="go">readOps: 83285</span>
-<span class="go">writeOps: 8320</span>
-<span class="go">state: map[1:97 4:53 0:33 2:15 3:2]</span>
-</pre></div>
-
+          <pre class="chroma">
+<span class="gp">$</span> go run mutexes.go
+<span class="go">map[a:20000 b:10000]</span></pre>
           </td>
         </tr>
         
@@ -299,13 +248,15 @@
         Next example: <a href="stateful-goroutines.html">Stateful Goroutines</a>.
       </p>
       
-      <p class="footer">
-        by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
-      </p>
+
+    <p class="footer">
+      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+    </p>
+
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"math/rand\"\u000A    \"sync\"\u000A    \"sync/atomic\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    var state \u003D make(map[int]int)\u000A');codeLines.push('    var mutex \u003D \u0026sync.Mutex{}\u000A');codeLines.push('    var readOps uint64\u000A    var writeOps uint64\u000A');codeLines.push('    for r :\u003D 0; r \u003C 100; r++ {\u000A        go func() {\u000A            total :\u003D 0\u000A            for {\u000A');codeLines.push('                key :\u003D rand.Intn(5)\u000A                mutex.Lock()\u000A                total +\u003D state[key]\u000A                mutex.Unlock()\u000A                atomic.AddUint64(\u0026readOps, 1)\u000A');codeLines.push('                time.Sleep(time.Millisecond)\u000A            }\u000A        }()\u000A    }\u000A');codeLines.push('    for w :\u003D 0; w \u003C 10; w++ {\u000A        go func() {\u000A            for {\u000A                key :\u003D rand.Intn(5)\u000A                val :\u003D rand.Intn(100)\u000A                mutex.Lock()\u000A                state[key] \u003D val\u000A                mutex.Unlock()\u000A                atomic.AddUint64(\u0026writeOps, 1)\u000A                time.Sleep(time.Millisecond)\u000A            }\u000A        }()\u000A    }\u000A');codeLines.push('    time.Sleep(time.Second)\u000A');codeLines.push('    readOpsFinal :\u003D atomic.LoadUint64(\u0026readOps)\u000A    fmt.Println(\"readOps:\", readOpsFinal)\u000A    writeOpsFinal :\u003D atomic.LoadUint64(\u0026writeOps)\u000A    fmt.Println(\"writeOps:\", writeOpsFinal)\u000A');codeLines.push('    mutex.Lock()\u000A    fmt.Println(\"state:\", state)\u000A    mutex.Unlock()\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"sync\"\u000A)\u000A');codeLines.push('type Container struct {\u000A    mu       sync.Mutex\u000A    counters map[string]int\u000A}\u000A');codeLines.push('func (c *Container) inc(name string) {\u000A');codeLines.push('    c.mu.Lock()\u000A    defer c.mu.Unlock()\u000A    c.counters[name]++\u000A}\u000A');codeLines.push('func main() {\u000A    c :\u003D Container{\u000A');codeLines.push('        counters: map[string]int{\"a\": 0, \"b\": 0},\u000A    }\u000A');codeLines.push('    var wg sync.WaitGroup\u000A');codeLines.push('    doIncrement :\u003D func(name string, n int) {\u000A        for i :\u003D 0; i \u003C n; i++ {\u000A            c.inc(name)\u000A        }\u000A        wg.Done()\u000A    }\u000A');codeLines.push('    wg.Add(3)\u000A    go doIncrement(\"a\", 10000)\u000A    go doIncrement(\"a\", 10000)\u000A    go doIncrement(\"b\", 10000)\u000A');codeLines.push('    wg.Wait()\u000A    fmt.Println(c.counters)\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

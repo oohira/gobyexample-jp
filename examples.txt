@@ -18,6 +18,7 @@ Pointers
 Structs
 Methods
 Interfaces
+Embedding
 Errors
 Goroutines
 Channels
@@ -41,6 +42,7 @@ Sorting
 Sorting by Functions
 Panic
 Defer
+Recover
 Collection Functions
 String Functions
 String Formatting
@@ -61,7 +63,7 @@ Line Filters
 File Paths
 Directories
 Temporary Files and Directories
-Testing
+Testing and Benchmarking
 Command-Line Arguments
 Command-Line Flags
 Command-Line Subcommands

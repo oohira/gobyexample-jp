@@ -6,7 +6,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -20,7 +19,7 @@ func main() {
 
 	// まず初めに、文字列 (または単なるバイト列) を書き出す方法です。
 	d1 := []byte("hello\ngo\n")
-	err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
+	err := os.WriteFile("/tmp/dat1", d1, 0644)
 	check(err)
 
 	// より細かく書き込むには、ファイルをオープンします。

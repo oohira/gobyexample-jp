@@ -27,7 +27,7 @@ func main() {
 	// 次の例は、`word` フラグと同じ方法を使って、
 	// `numb` フラグと `fork` フラグを宣言しています。
 	numbPtr := flag.Int("numb", 42, "an int")
-	boolPtr := flag.Bool("fork", false, "a bool")
+	forkPtr := flag.Bool("fork", false, "a bool")
 
 	// プログラムの別の場所で宣言された変数を使うような
 	// オプションを宣言することも可能です。
@@ -46,7 +46,7 @@ func main() {
 	// 必要がある点に気をつけてください。
 	fmt.Println("word:", *wordPtr)
 	fmt.Println("numb:", *numbPtr)
-	fmt.Println("fork:", *boolPtr)
+	fmt.Println("fork:", *forkPtr)
 	fmt.Println("svar:", svar)
 	fmt.Println("tail:", flag.Args())
 }

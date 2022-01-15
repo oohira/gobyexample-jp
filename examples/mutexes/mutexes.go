@@ -7,76 +7,53 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"sync"
-	"sync/atomic"
-	"time"
 )
 
+// Container は、カウンタのマップを保持します。
+// 複数のゴルーチンから並行して更新したいので、
+// アクセスを同期化するために `Mutex` を追加しています。
+// ミューテックスはコピーできないので、この `struct`
+// を渡すときはポインタで渡す必要があります。
+type Container struct {
+	mu       sync.Mutex
+	counters map[string]int
+}
+
+func (c *Container) inc(name string) {
+	// `counters` へアクセスする前にミューテックスをロックし、
+	// [defer](defer) 文を使って関数の最後でアンロックします。
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.counters[name]++
+}
+
 func main() {
-
-	// 例として、マップ `state` の状態を管理します。
-	var state = make(map[int]int)
-
-	// この `mutex` は、`state` へのアクセスを同期します。
-	var mutex = &sync.Mutex{}
-
-	// 読み書き操作をした回数も記録しましょう。
-	var readOps uint64
-	var writeOps uint64
-
-	// ここで、1 ミリ秒に 1 回 `state` から読み込み処理を実行する
-	// ゴルーチンを 100 個開始します。
-	for r := 0; r < 100; r++ {
-		go func() {
-			total := 0
-			for {
-
-				// 各読み込み毎に、アクセスするキーを選択し、
-				// `state` へ排他的にアクセスするため `mutex` を
-				// `Lock()` します。選択したキーの値を読み込み、
-				// `mutex` を `Unlock()` して、最後に
-				// `readOps` の数をインクリメントします。
-				key := rand.Intn(5)
-				mutex.Lock()
-				total += state[key]
-				mutex.Unlock()
-				atomic.AddUint64(&readOps, 1)
-
-				// 次の読み込みまでちょっとだけ待ちます。
-				time.Sleep(time.Millisecond)
-			}
-		}()
+	c := Container{
+		// ミューテックスはゼロ値がそのまま使えるので、
+		// ここでは初期化が不要である点に注意してください。
+		counters: map[string]int{"a": 0, "b": 0},
 	}
 
-	// 同様に、書き込みをシミュレートするゴルーチンを
-	// 10 個開始します。
-	for w := 0; w < 10; w++ {
-		go func() {
-			for {
-				key := rand.Intn(5)
-				val := rand.Intn(100)
-				mutex.Lock()
-				state[key] = val
-				mutex.Unlock()
-				atomic.AddUint64(&writeOps, 1)
-				time.Sleep(time.Millisecond)
-			}
-		}()
+	var wg sync.WaitGroup
+
+	// この関数はループを使って名前付きのカウンタをインクリメントします。
+	doIncrement := func(name string, n int) {
+		for i := 0; i < n; i++ {
+			c.inc(name)
+		}
+		wg.Done()
 	}
 
-	// 10 個のゴルーチンを 1 秒間だけ `state` と `mutex`
-	// に対して動かします。
-	time.Sleep(time.Second)
+	// 複数のゴルーチンを並行実行します。これらはすべて同じ
+	// `Container` にアクセスし、そのうちの 2 つは
+	// カウンタも同じであることに注意してください。
+	wg.Add(3)
+	go doIncrement("a", 10000)
+	go doIncrement("a", 10000)
+	go doIncrement("b", 10000)
 
-	// 最終的な操作の回数を取得してレポートします。
-	readOpsFinal := atomic.LoadUint64(&readOps)
-	fmt.Println("readOps:", readOpsFinal)
-	writeOpsFinal := atomic.LoadUint64(&writeOps)
-	fmt.Println("writeOps:", writeOpsFinal)
-
-	// 最後に `state` をロックして、どうなったかを確認します。
-	mutex.Lock()
-	fmt.Println("state:", state)
-	mutex.Unlock()
+	// ゴルーチンが完了するのを待ちます。
+	wg.Wait()
+	fmt.Println(c.counters)
 }

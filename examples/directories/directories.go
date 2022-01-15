@@ -5,7 +5,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -30,7 +29,7 @@ func main() {
 	// これは、空のファイルを新規に作成するヘルパー関数です。
 	createEmptyFile := func(name string) {
 		d := []byte("")
-		check(ioutil.WriteFile(name, d, 0644))
+		check(os.WriteFile(name, d, 0644))
 	}
 
 	createEmptyFile("subdir/file1")
@@ -44,9 +43,9 @@ func main() {
 	createEmptyFile("subdir/parent/file3")
 	createEmptyFile("subdir/parent/child/file4")
 
-	// `ReadDir` は、ディレクトリの内容を一覧し、`os.FileInfo`
+	// `ReadDir` は、ディレクトリの内容を一覧し、`os.DirEntry`
 	// オブジェクトのスライスを返します。
-	c, err := ioutil.ReadDir("subdir/parent")
+	c, err := os.ReadDir("subdir/parent")
 	check(err)
 
 	fmt.Println("Listing subdir/parent")
@@ -61,7 +60,7 @@ func main() {
 
 	// *カレント* ディレクトリの内容を一覧すると、
 	// `subdir/parent/child` の結果が表示されます。
-	c, err = ioutil.ReadDir(".")
+	c, err = os.ReadDir(".")
 	check(err)
 
 	fmt.Println("Listing subdir/parent/child")

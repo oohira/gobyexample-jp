@@ -29,7 +29,7 @@ func main() {
 
 	// これも最初にマッチする部分を検索しますが、文字列の代わりに、
 	// 開始および終了インデックスを返します。
-	fmt.Println(r.FindStringIndex("peach punch"))
+	fmt.Println("idx:", r.FindStringIndex("peach punch"))
 
 	// `Submatch` は、全体のパターンにマッチした部分と、
 	// その中でサブマッチした部分の情報を含みます。
@@ -47,7 +47,7 @@ func main() {
 	fmt.Println(r.FindAllString("peach punch pinch", -1))
 
 	// 同様に、前述した他の関数にも `All` のつく関数があります。
-	fmt.Println(r.FindAllStringSubmatchIndex(
+	fmt.Println("all:", r.FindAllStringSubmatchIndex(
 		"peach punch pinch", -1))
 
 	// これらの関数の第 2 引数に非負の整数を与えると、
@@ -64,7 +64,7 @@ func main() {
 	// `MustCompile` はエラーを返す代わりに panic するため、
 	// グローバル変数での利用をより安全にします。
 	r = regexp.MustCompile("p([a-z]+)ch")
-	fmt.Println(r)
+	fmt.Println("regexp:", r)
 
 	// `regexp` パッケージは、文字列の一部を他の文字列で
 	// 置換するためにも使えます。
