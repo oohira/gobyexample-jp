@@ -63,13 +63,13 @@ func TestIntMinTableDriven(t *testing.T) {
 	}
 }
 
-// Benchmark tests typically go in `_test.go` files and are
-// named beginning with `Benchmark`. The `testing` runner
-// executes each benchmark function several times, increasing
-// `b.N` on each run until it collects a precise measurement.
+// ベンチマークテストは通常 `_test.go` ファイルの中で定義され、
+// `Benchmark` という名前から始まります。`testing` ランナーは、
+// 各ベンチマーク関数を複数回実行し、
+// 正確な測定結果が得られるまで実行ごとに `b.N` を増やします。
 func BenchmarkIntMin(b *testing.B) {
-	// Typically the benchmark runs a function we're
-	// benchmarking in a loop `b.N` times.
+	// 典型的なベンチマークテストでは、ベンチマークしたい
+	// 関数をループで `b.N` 回実行します。
 	for i := 0; i < b.N; i++ {
 		IntMin(1, 2)
 	}
