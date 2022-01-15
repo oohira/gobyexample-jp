@@ -1,41 +1,39 @@
-// Go makes it possible to _recover_ from a panic, by
-// using the `recover` built-in function. A `recover` can
-// stop a `panic` from aborting the program and let it
-// continue with execution instead.
+// Go は、`recover` ビルトイン関数を使うことで、
+// panic から _recover_ できるようになっています。
+// `recover` は、`panic` がプログラムを異常終了するのを止め、
+// 実行を継続させます。
 
-// An example of where this can be useful: a server
-// wouldn't want to crash if one of the client connections
-// exhibits a critical error. Instead, the server would
-// want to close that connection and continue serving
-// other clients. In fact, this is what Go's `net/http`
-// does by default for HTTP servers.
+// これが役に立つ例として、サーバーがあります。
+// サーバーは、クライアント接続の1つが致命的なエラーを出したとしても
+// クラッシュさせたくありません。代わりに、サーバーはその接続を閉じ、
+// ほかのクライアントの処理を継続したいでしょう。実際、Go の
+// `net/http` は、HTTP サーバーに同じことをしています。
 
 package main
 
 import "fmt"
 
-// This function panics.
+// この関数は panic を起こします。
 func mayPanic() {
 	panic("a problem")
 }
 
 func main() {
-	// `recover` must be called within a deferred function.
-	// When the enclosing function panics, the defer will
-	// activate and a `recover` call within it will catch
-	// the panic.
+	// `recover` は、defer 関数の中で実行する必要があります。
+	// 外側の関数が panic を起こした場合、defer が起動し、
+	// その中の `recover` 呼び出しが panic をキャッチします。
 	defer func() {
 		if r := recover(); r != nil {
-			// The return value of `recover` is the error raised in
-			// the call to `panic`.
+			// `recover` の戻り値は、`panic`
+			// の呼び出しに渡された error です。
 			fmt.Println("Recovered. Error:\n", r)
 		}
 	}()
 
 	mayPanic()
 
-	// This code will not run, because `mayPanic` panics.
-	// The execution of `main` stops at the point of the
-	// panic and resumes in the deferred closure.
+	// `mayPanic` が panic を起こすので、このコードは実行されません。
+	// `main` の実行は panic の時点でストップし、defer クロージャの
+	// 中で再開されます。
 	fmt.Println("After mayPanic()")
 }
