@@ -1,5 +1,6 @@
-// Go support _embedding_ of structs and interfaces
-// to express a more seamless _composition_ of types.
+// Go は、よりシームレスな型の _コンポジション (composition)_
+// を表現できるよう、構造体やインターフェースの _埋め込み (embedding)_
+// をサポートしています。
 
 package main
 
@@ -13,8 +14,8 @@ func (b base) describe() string {
 	return fmt.Sprintf("base with num=%v", b.num)
 }
 
-// A `container` _embeds_ a `base`. An embedding looks
-// like a field without a name.
+// `container` は、`base` を _埋め込み_ ます。
+// 埋め込みは、名前のないフィールドのように見えます。
 type container struct {
 	base
 	str string
@@ -22,9 +23,9 @@ type container struct {
 
 func main() {
 
-	// When creating structs with literals, we have to
-	// initialize the embedding explicitly; here the
-	// embedded type serves as the field name.
+	// リテラルを使って構造体を作成する場合には、
+	// 埋め込まれた型を明示的に初期化する必要があります。
+	// このとき、埋め込まれた型がフィールド名として機能します。
 	co := container{
 		base: base{
 			num: 1,
@@ -32,28 +33,27 @@ func main() {
 		str: "some name",
 	}
 
-	// We can access the base's fields directly on `co`,
-	// e.g. `co.num`.
+	// `co` に対して、`co.num` のように base のフィールドに
+	// 直接アクセスできます。
 	fmt.Printf("co={num: %v, str: %v}\n", co.num, co.str)
 
-	// Alternatively, we can spell out the full path using
-	// the embedded type name.
+	// 代わりに、埋め込まれた型の名前を使って、
+	// フルパスで指定することもできます。
 	fmt.Println("also num:", co.base.num)
 
-	// Since `container` embeds `base`, the methods of
-	// `base` also become methods of a `container`. Here
-	// we invoke a method that was embedded from `base`
-	// directly on `co`.
+	// `container` は `base` を埋め込んでいるので、`base`
+	// のメソッドも `container` のメソッドになります。ここでは、
+	// `co` に対して `base` から埋め込まれたメソッドを直接呼び出しています。
 	fmt.Println("describe:", co.describe())
 
 	type describer interface {
 		describe() string
 	}
 
-	// Embedding structs with methods may be used to bestow
-	// interface implementations onto other structs. Here
-	// we see that a `container` now implements the
-	// `describer` interface because it embeds `base`.
+	// メソッドをもつ構造体の埋め込みは、ほかの構造体にインターフェース
+	// 実装を与えるために利用されることがあります。
+	// この例では、`container` が `base` を埋め込んでいるため、
+	// `describer` インターフェースを実装していることになります。
 	var d describer = co
 	fmt.Println("describer:", d.describe())
 }
