@@ -16,6 +16,6 @@ apple
 
 
 # Go における JSON の基本をここで学びましたが、さらなる情報は、
-# ブログ記事の [JSON と Go](http://blog.golang.org/2011/01/json-and-go.html)
-# および、[JSON パッケージドキュメント](http://golang.org/pkg/encoding/json/)
+# ブログ記事の [JSON と Go](https://go.dev/blog/json)
+# および、[JSON パッケージドキュメント](https://pkg.go.dev/encoding/json)
 # を確認してください。

@@ -7,6 +7,7 @@ sent job 3
 received job 3
 sent all jobs
 received all jobs
+received more jobs: false
 
 # クローズされたチャネルのアイデアは、次に学ぶ例である、
 # チャネルに対する `range` につながります。

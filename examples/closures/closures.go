@@ -1,5 +1,5 @@
-// Go は、 [_無名関数 (anonymous functions)_](http://en.wikipedia.org/wiki/Anonymous_function)
-// をサポートするため、<a href="http://en.wikipedia.org/wiki/Closure_(computer_science)"><em>クロージャ (closures)</em></a>
+// Go は、 [_無名関数 (anonymous functions)_](https://en.wikipedia.org/wiki/Anonymous_function)
+// をサポートするため、<a href="https://en.wikipedia.org/wiki/Closure_(computer_science)"><em>クロージャ (closures)</em></a>
 // を作れます。無名関数は、名前をつけずに
 // インラインで関数を定義したい場合に便利です。
 

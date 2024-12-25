@@ -1,12 +1,12 @@
+# Some of the generated numbers may be
+# different when you run the sample.
 $ go run random-numbers.go
-81,87
-0.6645600532184904
-7.123187485356329,8.434115364335547
-0,28
-5,87
-5,87
-
+68,56
+0.8090228139659177
+5.840125017402497,6.937056298890035
+94,49
+94,49
 
 # Go が提供するその他の乱数については、
-# [`math/rand`](http://golang.org/pkg/math/rand/)
+# [`math/rand/v2`](https://pkg.go.dev/math/rand/v2)
 # パッケージのドキュメントを参照してください。

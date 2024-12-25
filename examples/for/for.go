@@ -15,8 +15,14 @@ func main() {
 	}
 
 	// 初期化・条件式・後処理をもつ典型的な `for` ループです。
-	for j := 7; j <= 9; j++ {
+	for j := 0; j < 3; j++ {
 		fmt.Println(j)
+	}
+
+	// "N 回繰り返す" を実現するための別の方法は、整数に対して
+	// `range` を使うことです。
+	for i := range 3 {
+		fmt.Println("range", i)
 	}
 
 	// 条件式がない `for` は、 `break` でループから抜けるか、
@@ -27,7 +33,7 @@ func main() {
 	}
 
 	// `continue` でループの次の実行に進むこともできます。
-	for n := 0; n <= 5; n++ {
+	for n := range 6 {
 		if n%2 == 0 {
 			continue
 		}

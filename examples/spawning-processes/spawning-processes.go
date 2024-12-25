@@ -17,9 +17,8 @@ func main() {
 	// この外部プロセスを表すオブジェクトを作成します。
 	dateCmd := exec.Command("date")
 
-	// `Output` は、もう 1 つのヘルパーです。
-	// コマンドを実行して終了を待ち、出力を取得する
-	// という一般的なケースを扱えます。エラーがなければ、
+	// `Output` メソッドは、コマンドを実行して終了を待ち、
+	// その標準出力を取得します。エラーがなければ、
 	// `dateOut` は日付情報のバイト列を保持します。
 	dateOut, err := dateCmd.Output()
 	if err != nil {
@@ -27,6 +26,23 @@ func main() {
 	}
 	fmt.Println("> date")
 	fmt.Println(string(dateOut))
+
+	// `Output` メソッドや `Command` のその他のメソッドは、
+	// コマンドを実行するのに問題（例. パス誤り）が見つかると
+	// `*exec.Error` を返します。また、コマンドは実行できたが
+	// 終了コードが0以外だった場合は、 `*exec.ExitError`
+	// を返します。
+	_, err = exec.Command("date", "-x").Output()
+	if err != nil {
+		switch e := err.(type) {
+		case *exec.Error:
+			fmt.Println("failed executing:", err)
+		case *exec.ExitError:
+			fmt.Println("command exit rc =", e.ExitCode())
+		default:
+			panic(err)
+		}
+	}
 
 	// 次に、もう少し複雑なケースとして、
 	// パイプを使って外部プロセスの `stdin` にデータを与え、

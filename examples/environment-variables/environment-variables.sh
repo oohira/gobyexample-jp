@@ -9,6 +9,7 @@ TERM_PROGRAM
 PATH
 SHELL
 ...
+FOO
 
 # もし環境変数 `BAR` を先に設定すると、
 # 実行したプログラムはその値を取得できます。

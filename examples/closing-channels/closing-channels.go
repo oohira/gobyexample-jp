@@ -45,4 +45,14 @@ func main() {
 	// すでに学んだチャネルの [同期](channel-synchronization)
 	// 手法を使って、ワーカーの完了を待ちます。
 	<-done
+
+	// Reading from a closed channel succeeds immediately,
+	// returning the zero value of the underlying type.
+	// The optional second return value is `true` if the
+	// value received was delivered by a successful send
+	// operation to the channel, or `false` if it was a
+	// zero value generated because the channel is closed
+	// and empty.
+	_, ok := <-jobs
+	fmt.Println("received more jobs:", ok)
 }

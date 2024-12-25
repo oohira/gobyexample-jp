@@ -21,25 +21,31 @@
     <div id="intro">
       <h2><a href="./">Go by Example</a></h2>
       <p>
-        <a href="http://golang.org">Go</a> は、シンプルで高速な、
-        信頼性の高いソフトウェアを開発するために設計された、
-        オープンソースのプログラミング言語です。
-        Go のコードやツールのパッケージ、モジュールについて学ぶには、公式
-        <a href="https://golang.org/doc/tutorial/getting-started">ドキュメント</a>
-        を読んでください。</p>
+        この文書は、<a href="https://gobyexample.com/">Go by Example</a>
+        の日本語訳となります。
+      </p>
+      <p></p>
+      <p>
+        <a href="https://go.dev">Go</a> は、オープンソースの
+        プログラミング言語です。スケールしやすく、安全で、信頼性が高い
+        ソフトウェアを開発できるように設計されています。詳しく知るには、
+        <a href="https://go.dev/doc/tutorial/getting-started">公式ドキュメント</a>
+        を読んでください。
+      </p>
 
       <p>
         <em>Go by Example</em> は、コメント付きの
-        サンプルプログラムを使った、ハンズオン形式の
-        Go の入門編です。
+        サンプルプログラムを使った、ハンズオン形式の Go 入門です。
         <a href="hello-world.html">最初のサンプル</a> に進むか、
-        下のリストから読んでください。</p>
+        下のリストから選んで読んでください。
+      </p>
 
       <p>
-        この文書は、<a href="https://twitter.com/mmcgrana">@mmcgrana</a>
-        さんにより作成された <a href="https://gobyexample.com/">Go by Example</a>
-        の日本語訳となります。</p>
-      <p></p>
+        特にことわりがない限り、ここでのサンプルは
+        <a href="https://go.dev/doc/devel/release">Go の最新メジャーリリース</a>
+        を前提としており、新しい言語機能を使っている可能性があります。うまく動作しない場合は、
+        最新版にアップグレードしてください。
+      </p>
 
       <ul>
       
@@ -63,8 +69,6 @@
       
         <li><a href="maps.html">Maps</a></li>
       
-        <li><a href="range.html">Range</a></li>
-      
         <li><a href="functions.html">Functions</a></li>
       
         <li><a href="multiple-return-values.html">Multiple Return Values</a></li>
@@ -75,7 +79,11 @@
       
         <li><a href="recursion.html">Recursion</a></li>
       
+        <li><a href="range-over-built-in-types.html">Range over Built-in Types</a></li>
+      
         <li><a href="pointers.html">Pointers</a></li>
+      
+        <li><a href="strings-and-runes.html">Strings and Runes</a></li>
       
         <li><a href="structs.html">Structs</a></li>
       
@@ -83,9 +91,17 @@
       
         <li><a href="interfaces.html">Interfaces</a></li>
       
-        <li><a href="embedding.html">Embedding</a></li>
+        <li><a href="enums.html">Enums</a></li>
+      
+        <li><a href="struct-embedding.html">Struct Embedding</a></li>
+      
+        <li><a href="generics.html">Generics</a></li>
+      
+        <li><a href="range-over-iterators.html">Range over Iterators</a></li>
       
         <li><a href="errors.html">Errors</a></li>
+      
+        <li><a href="custom-errors.html">Custom Errors</a></li>
       
         <li><a href="goroutines.html">Goroutines</a></li>
       
@@ -133,11 +149,11 @@
       
         <li><a href="recover.html">Recover</a></li>
       
-        <li><a href="collection-functions.html">Collection Functions</a></li>
-      
         <li><a href="string-functions.html">String Functions</a></li>
       
         <li><a href="string-formatting.html">String Formatting</a></li>
+      
+        <li><a href="text-templates.html">Text Templates</a></li>
       
         <li><a href="regular-expressions.html">Regular Expressions</a></li>
       
@@ -157,7 +173,7 @@
       
         <li><a href="url-parsing.html">URL Parsing</a></li>
       
-        <li><a href="sha1-hashes.html">SHA1 Hashes</a></li>
+        <li><a href="sha256-hashes.html">SHA256 Hashes</a></li>
       
         <li><a href="base64-encoding.html">Base64 Encoding</a></li>
       
@@ -173,6 +189,8 @@
       
         <li><a href="temporary-files-and-directories.html">Temporary Files and Directories</a></li>
       
+        <li><a href="embed-directive.html">Embed Directive</a></li>
+      
         <li><a href="testing-and-benchmarking.html">Testing and Benchmarking</a></li>
       
         <li><a href="command-line-arguments.html">Command-Line Arguments</a></li>
@@ -183,9 +201,11 @@
       
         <li><a href="environment-variables.html">Environment Variables</a></li>
       
-        <li><a href="http-clients.html">HTTP Clients</a></li>
+        <li><a href="logging.html">Logging</a></li>
       
-        <li><a href="http-servers.html">HTTP Servers</a></li>
+        <li><a href="http-client.html">HTTP Client</a></li>
+      
+        <li><a href="http-server.html">HTTP Server</a></li>
       
         <li><a href="context.html">Context</a></li>
       

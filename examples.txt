@@ -8,18 +8,23 @@ Switch
 Arrays
 Slices
 Maps
-Range
 Functions
 Multiple Return Values
 Variadic Functions
 Closures
 Recursion
+Range over Built-in Types
 Pointers
+Strings and Runes
 Structs
 Methods
 Interfaces
-Embedding
+Enums
+Struct Embedding
+Generics
+Range over Iterators
 Errors
+Custom Errors
 Goroutines
 Channels
 Channel Buffering
@@ -43,9 +48,9 @@ Sorting by Functions
 Panic
 Defer
 Recover
-Collection Functions
 String Functions
 String Formatting
+Text Templates
 Regular Expressions
 JSON
 XML
@@ -55,7 +60,7 @@ Time Formatting / Parsing
 Random Numbers
 Number Parsing
 URL Parsing
-SHA1 Hashes
+SHA256 Hashes
 Base64 Encoding
 Reading Files
 Writing Files
@@ -63,13 +68,15 @@ Line Filters
 File Paths
 Directories
 Temporary Files and Directories
+Embed Directive
 Testing and Benchmarking
 Command-Line Arguments
 Command-Line Flags
 Command-Line Subcommands
 Environment Variables
-HTTP Clients
-HTTP Servers
+Logging
+HTTP Client
+HTTP Server
 Context
 Spawning Processes
 Exec'ing Processes

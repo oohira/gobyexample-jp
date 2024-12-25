@@ -6,37 +6,46 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
-	"sort"
+	"slices"
 )
 
-// Go でカスタム関数を使ってソートするためには、
-// 対応する型が必要です。ここでは、`byLength`
-// 型を作りました。これは、
-// 組み込みの `[]string` 型のただのエイリアスです。
-type byLength []string
-
-// `sort` パッケージの `Sort` 関数を使えるように、
-// `sort.Interface` すなわち `Len`, `Less`, `Swap`
-// 関数を実装します。
-// `Len` と `Swap` はどの型でもだいたい同じになり、
-// `Less` が実際のカスタムソートのロジックをもちます。
-// この例では、文字列の長さの昇順でソートしたいので、
-// `len(s[i])` と `len(s[j])` を使っています。
-func (s byLength) Len() int {
-	return len(s)
-}
-func (s byLength) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-func (s byLength) Less(i, j int) bool {
-	return len(s[i]) < len(s[j])
-}
-
-// 元の `fruits` スライスを `byLength` に型変換し、
-// `sort.Sort` 関数を使うことでカスタムソートを実現できます。
 func main() {
 	fruits := []string{"peach", "banana", "kiwi"}
-	sort.Sort(byLength(fruits))
+
+	// 文字列の長さに対する比較関数を実装します。
+	// `cmp.Compare` を使うのが便利です。
+	lenCmp := func(a, b string) int {
+		return cmp.Compare(len(a), len(b))
+	}
+
+	// このカスタムの比較関数を使って `slices.SortFunc`
+	// を呼び出せば、`fruits` を名前の長さ順にソートできます。
+	slices.SortFunc(fruits, lenCmp)
 	fmt.Println(fruits)
+
+	// 同じ方法を使って、組み込み型ではない値のスライスもソートできます。
+	type Person struct {
+		name string
+		age  int
+	}
+
+	people := []Person{
+		Person{name: "Jax", age: 37},
+		Person{name: "TJ", age: 25},
+		Person{name: "Alex", age: 72},
+	}
+
+	// `slices.SortFunc` を使って `people` を年齢でソートします。
+	//
+	// 注意: `Person` 構造体が大きな場合は、スライスには `*Person`
+	// を含め、それに合わせたソート関数を使った方がよいかもしれません。
+	// 疑わしい場合は、 [ベンチマーク](testing-and-benchmarking)
+	// を取ってください！
+	slices.SortFunc(people,
+		func(a, b Person) int {
+			return cmp.Compare(a.age, b.age)
+		})
+	fmt.Println(people)
 }

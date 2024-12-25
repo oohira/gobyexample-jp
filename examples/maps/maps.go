@@ -1,10 +1,13 @@
-// _マップ (Maps)_ は、Go における [連想配列](http://en.wikipedia.org/wiki/Associative_array)
+// _マップ (Maps)_ は、Go における [連想配列](https://en.wikipedia.org/wiki/Associative_array)
 // のための組み込み型です。別の言語では、_ハッシュ (hashes)_
 // や _辞書 (dicts)_ と呼ばれることもあります。
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"maps"
+)
 
 func main() {
 
@@ -23,7 +26,13 @@ func main() {
 
 	// `name[key]` でキーに対する値を取得できます。
 	v1 := m["k1"]
-	fmt.Println("v1: ", v1)
+	fmt.Println("v1:", v1)
+
+	// キーが存在しない場合、その値に対する
+	// [ゼロ値](https://go.dev/ref/spec#The_zero_value)
+	// が返されます。
+	v3 := m["k3"]
+	fmt.Println("v3:", v3)
 
 	// `len` ビルトイン関数は、マップに対しては
 	// キーと値のペアの数を返します。
@@ -32,6 +41,11 @@ func main() {
 	// `delete` ビルトイン関数は、マップから
 	// キーと値のペアを削除します。
 	delete(m, "k2")
+	fmt.Println("map:", m)
+
+	// To remove *all* key/value pairs from a map, use
+	// the `clear` builtin.
+	clear(m)
 	fmt.Println("map:", m)
 
 	// マップから値を取得するときの戻り値にはオプションで
@@ -48,4 +62,11 @@ func main() {
 	// 同じ行で書くこともできます。
 	n := map[string]int{"foo": 1, "bar": 2}
 	fmt.Println("map:", n)
+
+	// The `maps` package contains a number of useful
+	// utility functions for maps.
+	n2 := map[string]int{"foo": 1, "bar": 2}
+	if maps.Equal(n, n2) {
+		fmt.Println("n == n2")
+	}
 }

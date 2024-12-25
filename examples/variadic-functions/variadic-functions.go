@@ -1,4 +1,4 @@
-// [_可変長引数関数 (Variadic functions)_](http://en.wikipedia.org/wiki/Variadic_function)
+// [_可変長引数関数 (Variadic functions)_](https://en.wikipedia.org/wiki/Variadic_function)
 // は、任意個の引数で呼び出すことができます。
 // 例えば、 `fmt.Println` は一般的な可変長引数関数です。
 
@@ -10,6 +10,9 @@ import "fmt"
 func sum(nums ...int) {
 	fmt.Print(nums, " ")
 	total := 0
+	// 関数の中では、 `nums` の型は `[]int` と同等です。
+	// `len(nums)` を呼び出したり、 `range` で順に
+	// 処理したりできます。
 	for _, num := range nums {
 		total += num
 	}

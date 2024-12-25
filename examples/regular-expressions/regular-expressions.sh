@@ -13,5 +13,5 @@ regexp: p([a-z]+)ch
 a <fruit>
 a PEACH
 
-# Go の正規表現の完全なリファレンスは、[`regexp`](http://golang.org/pkg/regexp/)
+# Go の正規表現の完全なリファレンスは、[`regexp`](https://pkg.go.dev/regexp)
 # パッケージのドキュメントを参照してください。

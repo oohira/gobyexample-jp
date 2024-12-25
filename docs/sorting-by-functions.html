@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'sorting.html';
@@ -56,9 +59,8 @@ Go のカスタムソートの例は次の通りです。</p>
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/bhbRIveGUb4"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/G7Dx4oh8q4-"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -68,72 +70,98 @@ Go のカスタムソートの例は次の通りです。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;sort&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;cmp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;slices&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Go でカスタム関数を使ってソートするためには、
-対応する型が必要です。ここでは、<code>byLength</code>
-型を作りました。これは、
-組み込みの <code>[]string</code> 型のただのエイリアスです。</p>
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fruits</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;banana&#34;</span><span class="p">,</span> <span class="s">&#34;kiwi&#34;</span><span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>文字列の長さに対する比較関数を実装します。
+<code>cmp.Compare</code> を使うのが便利です。</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">type</span> <span class="nx">byLength</span> <span class="p">[]</span><span class="kt">string</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">lenCmp</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">cmp</span><span class="p">.</span><span class="nf">Compare</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>sort</code> パッケージの <code>Sort</code> 関数を使えるように、
-<code>sort.Interface</code> すなわち <code>Len</code>, <code>Less</code>, <code>Swap</code>
-関数を実装します。
-<code>Len</code> と <code>Swap</code> はどの型でもだいたい同じになり、
-<code>Less</code> が実際のカスタムソートのロジックをもちます。
-この例では、文字列の長さの昇順でソートしたいので、
-<code>len(s[i])</code> と <code>len(s[j])</code> を使っています。</p>
+            <p>このカスタムの比較関数を使って <code>slices.SortFunc</code>
+を呼び出せば、<code>fruits</code> を名前の長さ順にソートできます。</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">byLength</span><span class="p">)</span> <span class="nf">Len</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">byLength</span><span class="p">)</span> <span class="nf">Swap</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">byLength</span><span class="p">)</span> <span class="nf">Less</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">fruits</span><span class="p">,</span> <span class="nx">lenCmp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">fruits</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>元の <code>fruits</code> スライスを <code>byLength</code> に型変換し、
-<code>sort.Sort</code> 関数を使うことでカスタムソートを実現できます。</p>
+            <p>同じ方法を使って、組み込み型ではない値のスライスもソートできます。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">age</span>  <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">people</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">Person</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;Jax&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">37</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;TJ&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;Alex&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">72</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>slices.SortFunc</code> を使って <code>people</code> を年齢でソートします。</p>
+
+<p>注意: <code>Person</code> 構造体が大きな場合は、スライスには <code>*Person</code>
+を含め、それに合わせたソート関数を使った方がよいかもしれません。
+疑わしい場合は、 <a href="testing-and-benchmarking">ベンチマーク</a>
+を取ってください！</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma">
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fruits</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;banana&#34;</span><span class="p">,</span> <span class="s">&#34;kiwi&#34;</span><span class="p">}</span>
-    <span class="nx">sort</span><span class="p">.</span><span class="nf">Sort</span><span class="p">(</span><span class="nf">byLength</span><span class="p">(</span><span class="nx">fruits</span><span class="p">))</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">fruits</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">people</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">func</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">Person</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">cmp</span><span class="p">.</span><span class="nf">Compare</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">people</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -143,28 +171,13 @@ Go のカスタムソートの例は次の通りです。</p>
         
         <tr>
           <td class="docs">
-            <p>プログラムを実行すると、期待通り文字列の長さ順にソートされた
-リストが表示されます。</p>
-
-          </td>
-          <td class="code leading">
             
-          <pre class="chroma">
-<span class="gp">$</span> go run sorting-by-functions.go
-<span class="go">[kiwi peach banana]</span></pre>
           </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            <p>ユーザー定義型を作成して 3 つの <code>Interface</code> メソッドを実装し、
-<code>sort.Sort</code> 関数を呼び出す、という同じパターンに従うことで、
-Go のスライスを任意の関数でソートができます。</p>
-
-          </td>
-          <td class="code empty">
+          <td class="code">
             
-          
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run sorting-by-functions.go
+</span></span><span class="line"><span class="cl"><span class="go">[kiwi peach banana]
+</span></span></span><span class="line"><span class="cl"><span class="go">[{TJ 25} {Jax 37} {Alex 72}]</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -183,7 +196,7 @@ Go のスライスを任意の関数でソートができます。</p>
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"sort\"\u000A)\u000A');codeLines.push('type byLength []string\u000A');codeLines.push('func (s byLength) Len() int {\u000A    return len(s)\u000A}\u000Afunc (s byLength) Swap(i, j int) {\u000A    s[i], s[j] \u003D s[j], s[i]\u000A}\u000Afunc (s byLength) Less(i, j int) bool {\u000A    return len(s[i]) \u003C len(s[j])\u000A}\u000A');codeLines.push('func main() {\u000A    fruits :\u003D []string{\"peach\", \"banana\", \"kiwi\"}\u000A    sort.Sort(byLength(fruits))\u000A    fmt.Println(fruits)\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"cmp\"\u000A    \"fmt\"\u000A    \"slices\"\u000A)\u000A');codeLines.push('func main() {\u000A    fruits :\u003D []string{\"peach\", \"banana\", \"kiwi\"}\u000A');codeLines.push('    lenCmp :\u003D func(a, b string) int {\u000A        return cmp.Compare(len(a), len(b))\u000A    }\u000A');codeLines.push('    slices.SortFunc(fruits, lenCmp)\u000A    fmt.Println(fruits)\u000A');codeLines.push('    type Person struct {\u000A        name string\u000A        age  int\u000A    }\u000A');codeLines.push('    people :\u003D []Person{\u000A        Person{name: \"Jax\", age: 37},\u000A        Person{name: \"TJ\", age: 25},\u000A        Person{name: \"Alex\", age: 72},\u000A    }\u000A');codeLines.push('    slices.SortFunc(people,\u000A        func(a, b Person) int {\u000A            return cmp.Compare(a.age, b.age)\u000A        })\u000A    fmt.Println(people)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

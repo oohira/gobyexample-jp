@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'spawning-processes.html';
@@ -44,7 +47,7 @@
 必要がある場合に使います。しかし、ときには現在の Go プロセスを完全に別の
 (おそらく Go 以外の) プロセスに置き換えたいだけの場合もあります。
 そのためには、古典的な
-<a href="http://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
+<a href="https://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
 関数の Go 実装を使います。</p>
 
           </td>
@@ -59,9 +62,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/1DSg9hE6PmC"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/szUSqn-Gr5N"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -71,12 +73,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;os&#34;</span>
-    <span class="s">&#34;os/exec&#34;</span>
-    <span class="s">&#34;syscall&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os/exec&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -86,8 +87,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -100,12 +100,10 @@ Go は、実行したいバイナリの絶対パスを要求するので、
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">binary</span><span class="p">,</span> <span class="nx">lookErr</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">LookPath</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">lookErr</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nb">panic</span><span class="p">(</span><span class="nx">lookErr</span><span class="p">)</span>
-    <span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">binary</span><span class="p">,</span> <span class="nx">lookErr</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">LookPath</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">lookErr</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">lookErr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -118,9 +116,7 @@ Go は、実行したいバイナリの絶対パスを要求するので、
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">args</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-h&#34;</span><span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">args</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-h&#34;</span><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -132,9 +128,7 @@ Go は、実行したいバイナリの絶対パスを要求するので、
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">env</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Environ</span><span class="p">()</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">env</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Environ</span><span class="p">()</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -148,13 +142,11 @@ Go は、実行したいバイナリの絶対パスを要求するので、
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">execErr</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="nx">binary</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">execErr</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nb">panic</span><span class="p">(</span><span class="nx">execErr</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">execErr</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="nx">binary</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">execErr</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">execErr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -169,12 +161,11 @@ Go は、実行したいバイナリの絶対パスを要求するので、
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="gp">$</span> go run execing-processes.go
-<span class="go">total 16
-</span><span class="go">drwxr-xr-x  4 mark 136B Oct 3 16:29 .
-</span><span class="go">drwxr-xr-x 91 mark 3.0K Oct 3 12:50 ..
-</span><span class="go">-rw-r--r--  1 mark 1.3K Oct 3 16:28 execing-processes.go</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run execing-processes.go
+</span></span><span class="line"><span class="cl"><span class="go">total 16
+</span></span></span><span class="line"><span class="cl"><span class="go">drwxr-xr-x  4 mark 136B Oct 3 16:29 .
+</span></span></span><span class="line"><span class="cl"><span class="go">drwxr-xr-x 91 mark 3.0K Oct 3 12:50 ..
+</span></span></span><span class="line"><span class="cl"><span class="go">-rw-r--r--  1 mark 1.3K Oct 3 16:28 execing-processes.go</span></span></span></code></pre>
           </td>
         </tr>
         

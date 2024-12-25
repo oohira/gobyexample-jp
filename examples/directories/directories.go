@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 )
@@ -73,18 +74,18 @@ func main() {
 	check(err)
 
 	// サブディレクトリも含めたすべてのディレクトリを *再帰的に*
-	// 走査することもできます。`Walk` に、見つかったファイル
+	// 走査することもできます。`WalkDir` に、見つかったファイル
 	// またはディレクトリを処理するコールバック関数を指定します。
 	fmt.Println("Visiting subdir")
-	err = filepath.Walk("subdir", visit)
+	err = filepath.WalkDir("subdir", visit)
 }
 
-// `visit` は、`filepath.Walk` でファイルやディレクトリが
+// `visit` は、`filepath.WalkDir` でファイルやディレクトリが
 // 再帰的に見つかるたびに実行されます。
-func visit(p string, info os.FileInfo, err error) error {
+func visit(path string, d fs.DirEntry, err error) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(" ", p, info.IsDir())
+	fmt.Println(" ", path, d.IsDir())
 	return nil
 }

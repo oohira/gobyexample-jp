@@ -1,4 +1,4 @@
-// [_コマンドラインフラグ_](http://en.wikipedia.org/wiki/Command-line_interface#Command-line_option)
+// [_コマンドラインフラグ_](https://en.wikipedia.org/wiki/Command-line_interface#Command-line_option)
 // は、コマンドラインプログラムに対してオプションを指定する
 // 一般的な方法です。例えば、`wc -l` での `-l`
 // がコマンドラインフラグになります。

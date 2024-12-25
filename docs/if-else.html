@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'for.html';
@@ -53,9 +56,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/qtoyFKqTY-N"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/s7yRxBpoOai"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -65,8 +67,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -76,8 +77,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -88,13 +88,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">if</span> <span class="mi">7</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 is even&#34;</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 is odd&#34;</span><span class="p">)</span>
-    <span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">if</span> <span class="mi">7</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 is even&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 is odd&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -105,11 +103,22 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">if</span> <span class="mi">8</span><span class="o">%</span><span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;8 is divisible by 4&#34;</span><span class="p">)</span>
-    <span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">if</span> <span class="mi">8</span><span class="o">%</span><span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;8 is divisible by 4&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>&amp;&amp;</code> や <code>||</code> のような論理演算子は条件式で役立ちます。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">if</span> <span class="mi">8</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="mi">7</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;either 8 or 7 are even&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -122,16 +131,14 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">if</span> <span class="nx">num</span> <span class="o">:=</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">num</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;is negative&#34;</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">num</span> <span class="p">&lt;</span> <span class="mi">10</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;has 1 digit&#34;</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;has multiple digits&#34;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">num</span> <span class="o">:=</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">num</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;is negative&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">num</span> <span class="p">&lt;</span> <span class="mi">10</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;has 1 digit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;has multiple digits&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -158,16 +165,17 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="gp">$</span> go run if-else.go 
-<span class="go">7 is odd
-</span><span class="go">8 is divisible by 4
-</span><span class="go">9 has 1 digit</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run if-else.go
+</span></span><span class="line"><span class="cl"><span class="go">7 is odd
+</span></span></span><span class="line"><span class="cl"><span class="go">8 is divisible by 4
+</span></span></span><span class="line"><span class="cl"><span class="go">either 8 or 7 are even
+</span></span></span><span class="line"><span class="cl"><span class="go">9 has 1 digit</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Go には <a href="http://en.wikipedia.org/wiki/%3F:">三項演算子</a>
+            <p>Go には <a href="https://en.wikipedia.org/wiki/%3F:">三項演算子</a>
 がないため、単純な条件文でも完全な <code>if</code> ステートメントを
 使う必要があります。</p>
 
@@ -193,7 +201,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A');codeLines.push('    if 7%2 \u003D\u003D 0 {\u000A        fmt.Println(\"7 is even\")\u000A    } else {\u000A        fmt.Println(\"7 is odd\")\u000A    }\u000A');codeLines.push('    if 8%4 \u003D\u003D 0 {\u000A        fmt.Println(\"8 is divisible by 4\")\u000A    }\u000A');codeLines.push('    if num :\u003D 9; num \u003C 0 {\u000A        fmt.Println(num, \"is negative\")\u000A    } else if num \u003C 10 {\u000A        fmt.Println(num, \"has 1 digit\")\u000A    } else {\u000A        fmt.Println(num, \"has multiple digits\")\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A');codeLines.push('    if 7%2 \u003D\u003D 0 {\u000A        fmt.Println(\"7 is even\")\u000A    } else {\u000A        fmt.Println(\"7 is odd\")\u000A    }\u000A');codeLines.push('    if 8%4 \u003D\u003D 0 {\u000A        fmt.Println(\"8 is divisible by 4\")\u000A    }\u000A');codeLines.push('    if 8%2 \u003D\u003D 0 || 7%2 \u003D\u003D 0 {\u000A        fmt.Println(\"either 8 or 7 are even\")\u000A    }\u000A');codeLines.push('    if num :\u003D 9; num \u003C 0 {\u000A        fmt.Println(num, \"is negative\")\u000A    } else if num \u003C 10 {\u000A        fmt.Println(num, \"has 1 digit\")\u000A    } else {\u000A        fmt.Println(num, \"has multiple digits\")\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

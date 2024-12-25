@@ -15,8 +15,10 @@ type person struct {
 
 // `newPerson` は、指定した名前で新しい person 構造体を作ります。
 func newPerson(name string) *person {
-	// ローカル変数は関数のスコープを超えて存続するので、
-	// ローカル変数へのポインタを安全に返すことができます。
+	// Go はガベージコレクション機能をもつ言語です。
+	// ローカル変数へのポインタでも関数から安全に返すことができます。
+	// 変数へのアクティブな参照がなくなったときのみ、
+	// ガベージコレクタによって解放されます。
 	p := person{name: name}
 	p.age = 42
 	return &p
@@ -52,4 +54,16 @@ func main() {
 	// 構造体は変更可能 (mutable) です。
 	sp.age = 51
 	fmt.Println(sp.age)
+
+	// 構造体型が単一の値だけで使用される場合、名前を付ける必要はありません。
+	// その場合、値は無名の構造体型をもつことになります。この手法は、
+	// [テーブル駆動テスト](testing-and-benchmarking) でよく使用されます。
+	dog := struct {
+		name   string
+		isGood bool
+	}{
+		"Rex",
+		true,
+	}
+	fmt.Println(dog)
 }

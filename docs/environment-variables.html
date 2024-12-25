@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'command-line-subcommands.html';
@@ -26,7 +29,7 @@
           
           
           if (e.key == "ArrowRight") {
-              window.location.href = 'http-clients.html';
+              window.location.href = 'logging.html';
           }
           
       }
@@ -39,8 +42,8 @@
         
         <tr>
           <td class="docs">
-            <p><a href="http://en.wikipedia.org/wiki/Environment_variable">環境変数</a>
-は、<a href="http://www.12factor.net/config">設定情報を Unix プログラムに渡す</a>
+            <p><a href="https://en.wikipedia.org/wiki/Environment_variable">環境変数</a>
+は、<a href="https://www.12factor.net/config">設定情報を Unix プログラムに渡す</a>
 ための、一般的な仕組みです。
 環境変数を設定、取得、一覧する方法を見ていきましょう。</p>
 
@@ -56,9 +59,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/1XTJFHvbG0X"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/6ARj7dcZL5N"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -68,12 +70,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;os&#34;</span>
-    <span class="s">&#34;strings&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;strings&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -83,8 +84,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -97,11 +97,9 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">os</span><span class="p">.</span><span class="nf">Setenv</span><span class="p">(</span><span class="s">&#34;FOO&#34;</span><span class="p">,</span> <span class="s">&#34;1&#34;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;FOO:&#34;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;FOO&#34;</span><span class="p">))</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;BAR:&#34;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;BAR&#34;</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">os</span><span class="p">.</span><span class="nf">Setenv</span><span class="p">(</span><span class="s">&#34;FOO&#34;</span><span class="p">,</span> <span class="s">&#34;1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;FOO:&#34;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;FOO&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;BAR:&#34;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;BAR&#34;</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -116,14 +114,12 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">()</span>
-    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Environ</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">pair</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">SplitN</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&#34;=&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Environ</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">pair</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">SplitN</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s">&#34;=&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -139,10 +135,9 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="gp">$</span> go run environment-variables.go
-<span class="go">FOO: 1
-</span><span class="go">BAR:</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run environment-variables.go
+</span></span><span class="line"><span class="cl"><span class="go">FOO: 1
+</span></span></span><span class="line"><span class="cl"><span class="go">BAR:</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -153,11 +148,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="go">TERM_PROGRAM
-</span><span class="go">PATH
-</span><span class="go">SHELL
-</span><span class="go">...</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">TERM_PROGRAM
+</span></span></span><span class="line"><span class="cl"><span class="go">PATH
+</span></span></span><span class="line"><span class="cl"><span class="go">SHELL
+</span></span></span><span class="line"><span class="cl"><span class="go">...
+</span></span></span><span class="line"><span class="cl"><span class="go">FOO</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -169,11 +164,10 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">
-<span class="gp">$</span> BAR=2 go run environment-variables.go
-<span class="go">FOO: 1
-</span><span class="go">BAR: 2
-</span><span class="go">...</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> BAR=2 go run environment-variables.go
+</span></span><span class="line"><span class="cl"><span class="go">FOO: 1
+</span></span></span><span class="line"><span class="cl"><span class="go">BAR: 2
+</span></span></span><span class="line"><span class="cl"><span class="go">...</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -181,7 +175,7 @@
       
       
       <p class="next">
-        Next example: <a href="http-clients.html">HTTP Clients</a>.
+        Next example: <a href="logging.html">Logging</a>.
       </p>
       
 

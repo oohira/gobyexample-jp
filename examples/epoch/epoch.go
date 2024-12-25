@@ -1,4 +1,4 @@
-// [Unix エポック](http://en.wikipedia.org/wiki/Unix_time)
+// [Unix エポック](https://en.wikipedia.org/wiki/Unix_time)
 // からの秒数やミリ秒数、ナノ秒数を取得することは、
 // プログラムの一般的な要件です。Go での方法は、次の通りです。
 

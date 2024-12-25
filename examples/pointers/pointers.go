@@ -1,4 +1,4 @@
-// Go は <em><a href="http://en.wikipedia.org/wiki/Pointer_(computer_programming)">ポインタ (pointers)</a></em>
+// Go は <em><a href="https://en.wikipedia.org/wiki/Pointer_(computer_programming)">ポインタ (pointers)</a></em>
 // をサポートするので、プログラムの中で
 // 値やレコードへの参照を渡すことができます。
 

@@ -1,5 +1,5 @@
 // ときには、Go プログラムで
-// [Unix シグナル](http://en.wikipedia.org/wiki/Unix_signal)
+// [Unix シグナル](https://en.wikipedia.org/wiki/Unix_signal)
 // を扱いたいこともあります。例えば、`SIGTERM`
 // を受け取ったらサーバーを正常に終了させたり、`SIGINT`
 // を受け取ったらコマンドラインツールの入力処理を止めたり、

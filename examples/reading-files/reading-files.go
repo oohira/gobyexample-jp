@@ -44,7 +44,7 @@ func main() {
 
 	// ファイルの特定の位置を `Seek` して、
 	// そこから `Read` することもできます。
-	o2, err := f.Seek(6, 0)
+	o2, err := f.Seek(6, io.SeekStart)
 	check(err)
 	b2 := make([]byte, 2)
 	n2, err := f.Read(b2)
@@ -52,10 +52,18 @@ func main() {
 	fmt.Printf("%d bytes @ %d: ", n2, o2)
 	fmt.Printf("%v\n", string(b2[:n2]))
 
+	// 現在のカーソルからの相対位置でシークする方法です。
+	_, err = f.Seek(4, io.SeekCurrent)
+	check(err)
+
+	// ファイルの末尾からの相対位置でシークする方法です。
+	_, err = f.Seek(-10, io.SeekEnd)
+	check(err)
+
 	// `io` パッケージは、ファイル読み込みに便利な関数を提供しています。
 	// 例えば、前述の例のような読み込みは、`ReadAtLeast`
-	// を使ってより頑強に実装できます。
-	o3, err := f.Seek(6, 0)
+	// を使ってより堅牢に実装できます。
+	o3, err := f.Seek(6, io.SeekStart)
 	check(err)
 	b3 := make([]byte, 2)
 	n3, err := io.ReadAtLeast(f, b3, 2)
@@ -63,8 +71,8 @@ func main() {
 	fmt.Printf("%d bytes @ %d: %s\n", n3, o3, string(b3))
 
 	// 組み込みのファイル巻き戻し機能はありませんが、
-	// `Seek(0, 0)` で実現できます。
-	_, err = f.Seek(0, 0)
+	// `Seek(0, io.SeekStart)` で実現できます。
+	_, err = f.Seek(0, io.SeekStart)
 	check(err)
 
 	// `bufio` パッケージは、バッファ読み込みを実装しており、

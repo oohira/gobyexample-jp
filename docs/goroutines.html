@@ -18,10 +18,13 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
-              window.location.href = 'errors.html';
+              window.location.href = 'custom-errors.html';
           }
           
           
@@ -53,9 +56,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/r-AKeOurl97"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/r-AKeOurl97"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -65,11 +67,10 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -79,12 +80,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">from</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">from</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -94,8 +94,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -107,9 +106,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nf">f</span><span class="p">(</span><span class="s">&#34;direct&#34;</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">f</span><span class="p">(</span><span class="s">&#34;direct&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -122,9 +119,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">go</span> <span class="nf">f</span><span class="p">(</span><span class="s">&#34;goroutine&#34;</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">go</span> <span class="nf">f</span><span class="p">(</span><span class="s">&#34;goroutine&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -135,11 +130,9 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
-    <span class="p">}(</span><span class="s">&#34;going&#34;</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="s">&#34;going&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -153,11 +146,9 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;done&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;done&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -175,16 +166,15 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="gp">$</span> go run goroutines.go
-<span class="go">direct : 0
-</span><span class="go">direct : 1
-</span><span class="go">direct : 2
-</span><span class="go">goroutine : 0
-</span><span class="go">going
-</span><span class="go">goroutine : 1
-</span><span class="go">goroutine : 2
-</span><span class="go">done</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run goroutines.go
+</span></span><span class="line"><span class="cl"><span class="go">direct : 0
+</span></span></span><span class="line"><span class="cl"><span class="go">direct : 1
+</span></span></span><span class="line"><span class="cl"><span class="go">direct : 2
+</span></span></span><span class="line"><span class="cl"><span class="go">goroutine : 0
+</span></span></span><span class="line"><span class="cl"><span class="go">going
+</span></span></span><span class="line"><span class="cl"><span class="go">goroutine : 1
+</span></span></span><span class="line"><span class="cl"><span class="go">goroutine : 2
+</span></span></span><span class="line"><span class="cl"><span class="go">done</span></span></span></code></pre>
           </td>
         </tr>
         
