@@ -43,7 +43,7 @@ func main() {
 	fmt.Printf("%d bytes: %s\n", n1, string(b1[:n1]))
 
 	// ファイルの特定の位置を `Seek` して、
-	// そこから `Read` することもできます。
+	// そこから `Read` もできます。
 	o2, err := f.Seek(6, io.SeekStart)
 	check(err)
 	b2 := make([]byte, 2)

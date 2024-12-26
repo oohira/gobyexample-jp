@@ -24,7 +24,7 @@ func main() {
 	// 実行元とは並行して実行されます。
 	go f("goroutine")
 
-	// 無名関数に対してゴルーチンを開始することもできます。
+	// 無名関数に対してもゴルーチンを開始できます。
 	go func(msg string) {
 		fmt.Println(msg)
 	}("going")

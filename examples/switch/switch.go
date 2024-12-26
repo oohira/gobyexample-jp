@@ -22,9 +22,8 @@ func main() {
 		fmt.Println("three")
 	}
 
-	// 同じ `case` の中で複数の式をカンマで
-	// 区切って指定することもできます。
-	// また、`default` ケースを使うこともできます。
+	// 同じ `case` の中で複数の式をカンマで区切って指定できます。
+	// また、`default` ケースも使えます。
 	switch time.Now().Weekday() {
 	case time.Saturday, time.Sunday:
 		fmt.Println("It's the weekend")

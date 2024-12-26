@@ -22,7 +22,7 @@ func main() {
 	fmt.Println(rand.Float64())
 
 	// 次のようにすれば、例えば `5.0 <= f < 10.0`
-	// のように異なる範囲の乱数を生成することもできます。
+	// のように異なる範囲の乱数も生成できます。
 	fmt.Print((rand.Float64()*5)+5, ",")
 	fmt.Print((rand.Float64() * 5) + 5)
 	fmt.Println()

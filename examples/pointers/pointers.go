@@ -37,6 +37,6 @@ func main() {
 	zeroptr(&i)
 	fmt.Println("zeroptr:", i)
 
-	// ポインタは表示することもできます。
+	// ポインタは表示もできます。
 	fmt.Println("pointer:", &i)
 }
