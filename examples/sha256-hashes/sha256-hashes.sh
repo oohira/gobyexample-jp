@@ -1,15 +1,14 @@
-# Running the program computes the hash and prints it in
-# a human-readable hex format.
+# プログラムを実行すると、ハッシュが計算され、
+# 人間が読める 16 進フォーマットで表示されます。
 $ go run sha256-hashes.go
 sha256 this string
 1af1dfa857bf1d8814fe1af8983c18080019922e557f15a8a...
 
 
-# You can compute other hashes using a similar pattern to
-# the one shown above. For example, to compute
-# SHA512 hashes import `crypto/sha512` and use
-# `sha512.New()`.
+# 先に説明したのと同様のパターンを使って、他のハッシュも計算できます。
+# 例えば、SHA512 ハッシュを計算するには、`crypto/sha512`
+# をインポートして `sha512.New()` を使います。
 
-# Note that if you need cryptographically secure hashes,
-# you should carefully research
-# [hash strength](https://en.wikipedia.org/wiki/Cryptographic_hash_function)!
+# 暗号論的に安全なハッシュが必要な場合には、
+# [ハッシュの強度](https://en.wikipedia.org/wiki/Cryptographic_hash_function)
+# を注意深く調査すべきという点に注意してください！
