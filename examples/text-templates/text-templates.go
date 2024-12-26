@@ -1,7 +1,7 @@
-// Go offers built-in support for creating dynamic content or showing customized
-// output to the user with the `text/template` package. A sibling package
-// named `html/template` provides the same API but has additional security
-// features and should be used for generating HTML.
+// Go は、動的なコンテンツを作成したり、カスタマイズされた出力をユーザーに表示したり
+// する機能を、`text/template` パッケージで組み込みサポートしています。
+// これと対になる `html/template` パッケージでは、同じ API で追加のセキュリティ
+// 機能を備えているので、HTML を生成する場合は使用してください。
 
 package main
 
@@ -12,24 +12,24 @@ import (
 
 func main() {
 
-	// We can create a new template and parse its body from
-	// a string.
-	// Templates are a mix of static text and "actions" enclosed in
-	// `{{...}}` that are used to dynamically insert content.
+	// 新しいテンプレートを作成し、文字列からその内容をパースします。
+	// テンプレートは、静的なテキストと `{{...}}` で囲まれた
+	// "アクション (actions)" の組み合わせで、アクション部分に
+	// 動的なコンテンツが挿入されます。
 	t1 := template.New("t1")
 	t1, err := t1.Parse("Value is {{.}}\n")
 	if err != nil {
 		panic(err)
 	}
 
-	// Alternatively, we can use the `template.Must` function to
-	// panic in case `Parse` returns an error. This is especially
-	// useful for templates initialized in the global scope.
+	// また、`template.Must` 関数を使えば、`Parse` がエラーを返した
+	// 場合に panic を起こせます。テンプレートをグローバルスコープで
+	// 初期化する場合に便利です。
 	t1 = template.Must(t1.Parse("Value: {{.}}\n"))
 
-	// By "executing" the template we generate its text with
-	// specific values for its actions. The `{{.}}` action is
-	// replaced by the value passed as a parameter to `Execute`.
+	// テンプレートを "実行 (executing)" することで、アクションに特定の
+	// 値を挿入したテキストを生成します。`{{.}}` アクションは、`Execute`
+	// に渡された値で置き換えられます。
 	t1.Execute(os.Stdout, "some text")
 	t1.Execute(os.Stdout, 5)
 	t1.Execute(os.Stdout, []string{
@@ -39,38 +39,39 @@ func main() {
 		"C#",
 	})
 
-	// Helper function we'll use below.
+	// ヘルパー関数を定義します。
 	Create := func(name, t string) *template.Template {
 		return template.Must(template.New(name).Parse(t))
 	}
 
-	// If the data is a struct we can use the `{{.FieldName}}` action to access
-	// its fields. The fields should be exported to be accessible when a
-	// template is executing.
+	// データが構造体の場合、`{{.FieldName}}` アクションでフィールドに
+	// アクセスできます。フィールドは、テンプレート実行時にアクセスできるよう
+	// エクスポートされている必要があります。
 	t2 := Create("t2", "Name: {{.Name}}\n")
 
 	t2.Execute(os.Stdout, struct {
 		Name string
 	}{"Jane Doe"})
 
-	// The same applies to maps; with maps there is no restriction on the
-	// case of key names.
+	// マップでも同様です。マップの場合は、キー名が大文字かどうかに
+	// 制限はありません。
 	t2.Execute(os.Stdout, map[string]string{
 		"Name": "Mickey Mouse",
 	})
 
-	// if/else provide conditional execution for templates. A value is considered
-	// false if it's the default value of a type, such as 0, an empty string,
-	// nil pointer, etc.
-	// This sample demonstrates another
-	// feature of templates: using `-` in actions to trim whitespace.
+	// if/else はテンプレートで条件付き実行を提供します。値が、
+	// 0 や 空文字列、nil ポインタなど型のデフォルト値であれば、
+	// `false`と見なされます。
+	// また、テンプレートの別の機能として、アクション内で `-`
+	// を使用して空白を削除できます。
 	t3 := Create("t3",
 		"{{if . -}} yes {{else -}} no {{end}}\n")
 	t3.Execute(os.Stdout, "not empty")
 	t3.Execute(os.Stdout, "")
 
-	// range blocks let us loop through slices, arrays, maps or channels. Inside
-	// the range block `{{.}}` is set to the current item of the iteration.
+	// range ブロックを使用すると、スライス、配列、マップ、そして
+	// チャネルを反復処理できます。range ブロック内では、`{{.}}`
+	// が現在の要素を指します。
 	t4 := Create("t4",
 		"Range: {{range .}}{{.}} {{end}}\n")
 	t4.Execute(os.Stdout,
