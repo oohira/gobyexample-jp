@@ -58,7 +58,7 @@
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/nxiEPrOV4Jc"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/r8PrBx-6WXK"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -147,13 +147,10 @@
         
         <tr>
           <td class="docs">
-            <p>Reading from a closed channel succeeds immediately,
-returning the zero value of the underlying type.
-The optional second return value is <code>true</code> if the
-value received was delivered by a successful send
-operation to the channel, or <code>false</code> if it was a
-zero value generated because the channel is closed
-and empty.</p>
+            <p>クローズしたチャネルから読み込むとすぐさま成功し、
+ゼロ値が返ります。2 つ目の戻り値は、チャネルに送信された
+値を受信できた場合は <code>true</code>、チャネルがクローズされて
+ゼロ値になった場合は <code>false</code> になります。</p>
 
           </td>
           <td class="code">

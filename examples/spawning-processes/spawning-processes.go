@@ -29,8 +29,8 @@ func main() {
 
 	// `Output` メソッドや `Command` のその他のメソッドは、
 	// コマンドを実行するのに問題（例. パス誤り）が見つかると
-	// `*exec.Error` を返します。また、コマンドは実行できたが
-	// 終了コードが0以外だった場合は、 `*exec.ExitError`
+	// `*exec.Error` を返します。また、コマンドは実行できても
+	// 終了コードが非ゼロだった場合は、`*exec.ExitError`
 	// を返します。
 	_, err = exec.Command("date", "-x").Output()
 	if err != nil {

@@ -4,8 +4,8 @@ $ go run spawning-processes.go
 > date
 Thu 05 May 2022 10:10:12 PM PDT
 
-# date doesn't have a `-x` flag so it will exit with
-# an error message and non-zero return code.
+# date コマンドは `-x` フラグをもたないため、
+# エラーメッセージと非ゼロのエラーコードで終了します。
 command exited with rc = 1
 > grep hello
 hello grep

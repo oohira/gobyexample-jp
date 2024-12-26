@@ -46,13 +46,10 @@ func main() {
 	// 手法を使って、ワーカーの完了を待ちます。
 	<-done
 
-	// Reading from a closed channel succeeds immediately,
-	// returning the zero value of the underlying type.
-	// The optional second return value is `true` if the
-	// value received was delivered by a successful send
-	// operation to the channel, or `false` if it was a
-	// zero value generated because the channel is closed
-	// and empty.
+	// クローズしたチャネルから読み込むとすぐさま成功し、
+	// ゼロ値が返ります。2 つ目の戻り値は、チャネルに送信された
+	// 値を受信できた場合は `true`、チャネルがクローズされて
+	// ゼロ値になった場合は `false` になります。
 	_, ok := <-jobs
 	fmt.Println("received more jobs:", ok)
 }

@@ -43,8 +43,8 @@ func main() {
 	delete(m, "k2")
 	fmt.Println("map:", m)
 
-	// To remove *all* key/value pairs from a map, use
-	// the `clear` builtin.
+	// マップから *すべての* キーと値のペアを削除するには、
+	// `clear` ビルトイン関数を使います。
 	clear(m)
 	fmt.Println("map:", m)
 
@@ -63,8 +63,7 @@ func main() {
 	n := map[string]int{"foo": 1, "bar": 2}
 	fmt.Println("map:", n)
 
-	// The `maps` package contains a number of useful
-	// utility functions for maps.
+	// `maps` パッケージにはマップ操作に便利な関数があります。
 	n2 := map[string]int{"foo": 1, "bar": 2}
 	if maps.Equal(n, n2) {
 		fmt.Println("n == n2")

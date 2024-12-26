@@ -1,5 +1,4 @@
-# Some of the generated numbers may be
-# different when you run the sample.
+# このサンプルを実行した場合、生成される数値は変わる可能性があります。
 $ go run random-numbers.go
 68,56
 0.8090228139659177

@@ -57,7 +57,7 @@
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/rHRjS4rtHzx"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/6bVRh2Bx8EG"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -122,8 +122,8 @@
           <td class="docs">
             <p><code>Output</code> メソッドや <code>Command</code> のその他のメソッドは、
 コマンドを実行するのに問題（例. パス誤り）が見つかると
-<code>*exec.Error</code> を返します。また、コマンドは実行できたが
-終了コードが0以外だった場合は、 <code>*exec.ExitError</code>
+<code>*exec.Error</code> を返します。また、コマンドは実行できても
+終了コードが非ゼロだった場合は、<code>*exec.ExitError</code>
 を返します。</p>
 
           </td>
@@ -232,8 +232,8 @@
         
         <tr>
           <td class="docs">
-            <p>date doesn&rsquo;t have a <code>-x</code> flag so it will exit with
-an error message and non-zero return code.</p>
+            <p>date コマンドは <code>-x</code> フラグをもたないため、
+エラーメッセージと非ゼロのエラーコードで終了します。</p>
 
           </td>
           <td class="code leading">
