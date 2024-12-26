@@ -42,9 +42,9 @@
         
         <tr>
           <td class="docs">
-            <p>Starting with version 1.23, Go has added support for
-<a href="https://go.dev/blog/range-functions">iterators</a>,
-which lets us range over pretty much anything!</p>
+            <p>Go は、バージョン 1.23 から
+<a href="https://go.dev/blog/range-functions">イテレーター (iterator)</a>
+をサポートし、ほぼすべてのものが <code>range</code> で扱えるようになりました！</p>
 
           </td>
           <td class="code empty leading">
@@ -58,7 +58,7 @@ which lets us range over pretty much anything!</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/JsdFcZac4E-"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/zhxZphFZ2mg"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -79,11 +79,9 @@ which lets us range over pretty much anything!</p>
         
         <tr>
           <td class="docs">
-            <p>Let&rsquo;s look at the <code>List</code> type from the
-<a href="generics">previous example</a> again. In that example
-we had an <code>AllElements</code> method that returned a slice
-of all elements in the list. With Go iterators, we
-can do it better - as shown below.</p>
+            <p><a href="generics">前回の例</a> で見た <code>List</code> 型を再び取り上げましょう。
+その例では、リスト内のすべての要素をスライスとして返す <code>AllElements</code>
+メソッドがありました。Go のイテレーターを使えば、もっとうまく実現できます。</p>
 
           </td>
           <td class="code leading">
@@ -127,8 +125,9 @@ can do it better - as shown below.</p>
         
         <tr>
           <td class="docs">
-            <p>All returns an <em>iterator</em>, which in Go is a function
-with a <a href="https://pkg.go.dev/iter#Seq">special signature</a>.</p>
+            <p>All は、<em>イテレーター (iterator)</em> を返します。Go では、
+イテレーターは <a href="https://pkg.go.dev/iter#Seq">特別なシグネチャ</a>
+をもつ関数です。</p>
 
           </td>
           <td class="code leading">
@@ -140,11 +139,10 @@ with a <a href="https://pkg.go.dev/iter#Seq">special signature</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>The iterator function takes another function as
-a parameter, called <code>yield</code> by convention (but
-the name can be arbitrary). It will call <code>yield</code> for
-every element we want to iterate over, and note <code>yield</code>&rsquo;s
-return value for a potential early termination.</p>
+            <p>イテレーター関数は、引数として別の関数を受け取ります。
+通常、この関数は <code>yield</code> と呼ばれますが、名前は任意です。
+イテレーターは、繰り返したい各要素に対して <code>yield</code> を呼び出し、
+<code>yield</code> の戻り値で早期終了を判定します。</p>
 
           </td>
           <td class="code leading">
@@ -161,10 +159,10 @@ return value for a potential early termination.</p>
         
         <tr>
           <td class="docs">
-            <p>Iteration doesn&rsquo;t require an underlying data structure,
-and doesn&rsquo;t even have to be finite! Here&rsquo;s a function
-returning an iterator over Fibonacci numbers: it keeps
-running as long as <code>yield</code> keeps returning <code>true</code>.</p>
+            <p>イテレーターは、必ずしも対象のデータ構造を必要とせず、
+有限である必要もありません！以下は、フィボナッチ数列を生成する
+イテレーターを返す関数です。これは、<code>yield</code> が <code>true</code>
+を返す限り終わることはありません。</p>
 
           </td>
           <td class="code leading">
@@ -208,8 +206,8 @@ running as long as <code>yield</code> keeps returning <code>true</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>Since <code>List.All</code> returns an iterator, we can use it
-in a regular <code>range</code> loop.</p>
+            <p><code>List.All</code> がイテレーターを返すため、通常の <code>range</code>
+ループで使用できます。</p>
 
           </td>
           <td class="code leading">
@@ -222,10 +220,10 @@ in a regular <code>range</code> loop.</p>
         
         <tr>
           <td class="docs">
-            <p>Packages like <a href="https://pkg.go.dev/slices">slices</a> have
-a number of useful functions to work with iterators.
-For example, <code>Collect</code> takes any iterator and collects
-all its values into a slice.</p>
+            <p><a href="https://pkg.go.dev/slices">slices</a> パッケージなどには、
+イテレーターを操作するための便利な関数が多数含まれています。
+例えば、<code>Collect</code> は任意のイテレーターを受け取り、
+その値をすべてスライスに収集します。</p>
 
           </td>
           <td class="code leading">
@@ -247,8 +245,8 @@ all its values into a slice.</p>
         
         <tr>
           <td class="docs">
-            <p>Once the loop hits <code>break</code> or an early return, the <code>yield</code> function
-passed to the iterator will return <code>false</code>.</p>
+            <p>ループが <code>break</code> または早期リターンに達すると、
+イテレーターに渡された <code>yield</code> 関数は <code>false</code> を返します。</p>
 
           </td>
           <td class="code">
