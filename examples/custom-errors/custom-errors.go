@@ -1,7 +1,6 @@
-// It's possible to use custom types as `error`s by
-// implementing the `Error()` method on them. Here's a
-// variant on the example above that uses a custom type
-// to explicitly represent an argument error.
+// カスタム型に `Error()` メソッドを実装することで、独自の型を
+// `error` として使用できます。
+// 以下は、引数エラーを明示的に表すカスタム型を使用した例です。
 
 package main
 
@@ -10,14 +9,14 @@ import (
 	"fmt"
 )
 
-// A custom error type usually has the suffix "Error".
+// カスタムエラー型には通常 "Error" という接尾辞を付けます。
 type argError struct {
 	arg     int
 	message string
 }
 
-// Adding this `Error` method makes `argError` implement
-// the `error` interface.
+// `argError` に `Error` メソッドを追加することで、
+// `error` インターフェースを実装できます。
 func (e *argError) Error() string {
 	return fmt.Sprintf("%d - %s", e.arg, e.message)
 }
@@ -25,7 +24,7 @@ func (e *argError) Error() string {
 func f(arg int) (int, error) {
 	if arg == 42 {
 
-		// Return our custom error.
+		// カスタムエラーを返します。
 		return -1, &argError{arg, "can't work with it"}
 	}
 	return arg + 3, nil
@@ -33,11 +32,10 @@ func f(arg int) (int, error) {
 
 func main() {
 
-	// `errors.As` is a more advanced version of `errors.Is`.
-	// It checks that a given error (or any error in its chain)
-	// matches a specific error type and converts to a value
-	// of that type, returning `true`. If there's no match, it
-	// returns `false`.
+	// `errors.As` は、`errors.Is` のより高度なバージョンです。
+	// 指定されたエラー（またはその連鎖内の任意のエラー）が特定の
+	// エラー型に一致するかを確認し、一致する場合はその型の値に変換して
+	// `true` を返します。一致しない場合は `false` を返します。
 	_, err := f(42)
 	var ae *argError
 	if errors.As(err, &ae) {

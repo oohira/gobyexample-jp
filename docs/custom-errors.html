@@ -42,10 +42,9 @@
         
         <tr>
           <td class="docs">
-            <p>It&rsquo;s possible to use custom types as <code>error</code>s by
-implementing the <code>Error()</code> method on them. Here&rsquo;s a
-variant on the example above that uses a custom type
-to explicitly represent an argument error.</p>
+            <p>カスタム型に <code>Error()</code> メソッドを実装することで、独自の型を
+<code>error</code> として使用できます。
+以下は、引数エラーを明示的に表すカスタム型を使用した例です。</p>
 
           </td>
           <td class="code empty leading">
@@ -59,7 +58,7 @@ to explicitly represent an argument error.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/qKKTjmc6SuB"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/v_xJ_lGaRzR"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -79,7 +78,7 @@ to explicitly represent an argument error.</p>
         
         <tr>
           <td class="docs">
-            <p>A custom error type usually has the suffix &ldquo;Error&rdquo;.</p>
+            <p>カスタムエラー型には通常 &ldquo;Error&rdquo; という接尾辞を付けます。</p>
 
           </td>
           <td class="code leading">
@@ -93,8 +92,8 @@ to explicitly represent an argument error.</p>
         
         <tr>
           <td class="docs">
-            <p>Adding this <code>Error</code> method makes <code>argError</code> implement
-the <code>error</code> interface.</p>
+            <p><code>argError</code> に <code>Error</code> メソッドを追加することで、
+<code>error</code> インターフェースを実装できます。</p>
 
           </td>
           <td class="code leading">
@@ -118,7 +117,7 @@ the <code>error</code> interface.</p>
         
         <tr>
           <td class="docs">
-            <p>Return our custom error.</p>
+            <p>カスタムエラーを返します。</p>
 
           </td>
           <td class="code leading">
@@ -142,11 +141,10 @@ the <code>error</code> interface.</p>
         
         <tr>
           <td class="docs">
-            <p><code>errors.As</code> is a more advanced version of <code>errors.Is</code>.
-It checks that a given error (or any error in its chain)
-matches a specific error type and converts to a value
-of that type, returning <code>true</code>. If there&rsquo;s no match, it
-returns <code>false</code>.</p>
+            <p><code>errors.As</code> は、<code>errors.Is</code> のより高度なバージョンです。
+指定されたエラー（またはその連鎖内の任意のエラー）が特定の
+エラー型に一致するかを確認し、一致する場合はその型の値に変換して
+<code>true</code> を返します。一致しない場合は <code>false</code> を返します。</p>
 
           </td>
           <td class="code">
