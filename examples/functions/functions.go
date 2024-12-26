@@ -15,7 +15,7 @@ func plus(a int, b int) int {
 }
 
 // 同じ型の引数が連続する場合は、途中の引数の型名を省略し、
-// 最後の引数にのみ型を宣言することもできます。
+// 最後の引数にのみ型を宣言できます。
 func plusPlus(a, b, c int) int {
 	return a + b + c
 }

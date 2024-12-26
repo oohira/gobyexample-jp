@@ -58,7 +58,7 @@ JSON との相互変換も含みます。</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/g6S_TzY5lIG"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/b3bBZEZoblE"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -294,7 +294,7 @@ JSON の配列とオブジェクトにエンコードされます。</p>
         
         <tr>
           <td class="docs">
-            <p>JSON をカスタムデータ型にデコードすることもできます。
+            <p>JSON をカスタムデータ型にもデコードできます。
 この方法は、プログラムを型安全にし、デコードされた
 データにアクセスするときの型チェックを不要にできる
 という利点があります。</p>
@@ -315,9 +315,9 @@ JSON の配列とオブジェクトにエンコードされます。</p>
             <p>これまでの例では、データを JSON 形式で標準出力へ
 出力するために、中間形式としてバイト型と文字列型を
 常に使っていました。
-<code>os.Stdout</code> や HTTP レスポンスボディのような
-<code>os.Writer</code>s に、エンコードした JSON
-を直接ストリーム出力することもできます。</p>
+エンコードした JSON を <code>os.Stdout</code> や HTTP
+レスポンスボディなどの <code>os.Writer</code> に
+直接ストリーム出力もできます。</p>
 
           </td>
           <td class="code">

@@ -63,7 +63,7 @@ Go の考え方に沿っています。</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/gU9YD9HA96F"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/_oLrcR2-qn0"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -149,8 +149,8 @@ Go の考え方に沿っています。</p>
 ゴルーチンにプライベートな変数となっている点が異なります。
 このゴルーチンは、<code>reads</code> チャネルと <code>writes</code> チャネルを
 繰り返し <code>select</code> し、リクエストが届いたら応答します。
-レスポンスは、まず要求された操作を実行し、
-その後成功を示す値 (<code>reads</code> の場合は要求された値)
+レスポンスは、要求された操作をした後、
+成功を示す値 (<code>reads</code> の場合は要求された値)
 を応答チャネル <code>resp</code> に送信します。</p>
 
           </td>

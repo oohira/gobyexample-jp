@@ -34,7 +34,7 @@ func main() {
 		fmt.Printf("%s -> %s\n", k, v)
 	}
 
-	// `range` はマップのキーだけを反復処理することもできます。
+	// `range` はマップのキーだけの反復処理もできます。
 	for k := range kvs {
 		fmt.Println("key:", k)
 	}

@@ -21,7 +21,7 @@ func main() {
 	fmt.Println(now.UnixNano())
 
 	// エポックからの秒数やナノ秒数を表す数値を、
-	// 対応する `time` に変換することもできます。
+	// 対応する `time` に変換できます。
 	fmt.Println(time.Unix(now.Unix(), 0))
 	fmt.Println(time.Unix(0, now.UnixNano()))
 }

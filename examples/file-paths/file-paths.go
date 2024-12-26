@@ -28,7 +28,7 @@ func main() {
 	fmt.Println("Dir(p):", filepath.Dir(p))
 	fmt.Println("Base(p):", filepath.Base(p))
 
-	// パスが絶対パスかどうかを判定することもできます。
+	// パスが絶対パスかどうかの判定もできます。
 	fmt.Println(filepath.IsAbs("dir/file"))
 	fmt.Println(filepath.IsAbs("/dir/file"))
 

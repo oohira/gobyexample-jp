@@ -63,7 +63,7 @@ func main() {
 	// 上の例ではエラーチェックを省略しましたが、いつもの
 	// `if err != nil` パターンを使うことができます。
 	// また、上の例では `StdoutPipe` の結果だけを取得しましたが、
-	// 全く同じ方法で `StderrPipe` から取得することもできます。
+	// 全く同じ方法で `StderrPipe` からも取得できます。
 	fmt.Println("> grep hello")
 	fmt.Println(string(grepBytes))
 

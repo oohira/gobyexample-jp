@@ -74,7 +74,7 @@ func main() {
 	check(err)
 
 	// サブディレクトリも含めたすべてのディレクトリを *再帰的に*
-	// 走査することもできます。`WalkDir` に、見つかったファイル
+	// 走査できます。`WalkDir` に、見つかったファイル
 	// またはディレクトリを処理するコールバック関数を指定します。
 	fmt.Println("Visiting subdir")
 	err = filepath.WalkDir("subdir", visit)

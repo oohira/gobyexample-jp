@@ -53,7 +53,7 @@ func makeTea(arg int) error {
 func main() {
 	for _, i := range []int{7, 42} {
 
-		// `if` 文の中でインラインでエラーチェックするのは一般的です。
+		// `if` 文の中でインラインのエラーチェックができます。
 		if r, e := f(i); e != nil {
 			fmt.Println("f failed:", e)
 		} else {
@@ -67,7 +67,7 @@ func main() {
 			// `errors.Is` は、指定されたエラー（またはその連鎖内の任意のエラー）
 			// が特定のエラー値と一致するかを確認します。これは、ラップされたエラーや
 			// ネストされたエラーの場合に特に有用で、エラーの連鎖内で特定のエラータイプや
-			// センチネルエラーを識別することができます。
+			// センチネルエラーを識別できます。
 			if errors.Is(err, ErrOutOfTea) {
 				fmt.Println("We should buy new tea!")
 			} else if errors.Is(err, ErrPower) {
