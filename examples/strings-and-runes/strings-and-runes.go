@@ -1,11 +1,11 @@
-// A Go string is a read-only slice of bytes. The language
-// and the standard library treat strings specially - as
-// containers of text encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).
-// In other languages, strings are made of "characters".
-// In Go, the concept of a character is called a `rune` - it's
-// an integer that represents a Unicode code point.
-// [This Go blog post](https://go.dev/blog/strings) is a good
-// introduction to the topic.
+// Go の文字列は、バイトの読み取り専用スライスです。言語と標準ライブラリは、
+// 文字列を [UTF-8](https://en.wikipedia.org/wiki/UTF-8)
+// でエンコードされたテキストのコンテナとして特別に扱います。
+// 他の言語では、文字列は "文字 (characters)" の集合とみなされますが、
+// Go には、`rune` という概念があります。`rune` は、Unicode
+// コードポイントを表す整数です。
+// [この Go ブログ記事](https://go.dev/blog/strings) は、
+// このトピックの良い入門資料です。
 
 package main
 
@@ -16,56 +16,52 @@ import (
 
 func main() {
 
-	// `s` is a `string` assigned a literal value
-	// representing the word "hello" in the Thai
-	// language. Go string literals are UTF-8
-	// encoded text.
+	// `s` は、タイ語で "こんにちは" を表すリテラル値をもつ
+	// `string` 型です。Go の文字列リテラルは、UTF-8
+	// でエンコードされています。
 	const s = "สวัสดี"
 
-	// Since strings are equivalent to `[]byte`, this
-	// will produce the length of the raw bytes stored within.
+	// 文字列は `[]byte` と等しいため、これは内部に格納されている
+	// 生のバイト列の長さを出力します。
 	fmt.Println("Len:", len(s))
 
-	// Indexing into a string produces the raw byte values at
-	// each index. This loop generates the hex values of all
-	// the bytes that constitute the code points in `s`.
+	// 文字列へのインデックス操作は、各インデックスでの生のバイト値を生成します。
+	// このループは、`s` のコードポイントを構成するバイトの16進値を出力します。
 	for i := 0; i < len(s); i++ {
 		fmt.Printf("%x ", s[i])
 	}
 	fmt.Println()
 
-	// To count how many _runes_ are in a string, we can use
-	// the `utf8` package. Note that the run-time of
-	// `RuneCountInString` depends on the size of the string,
-	// because it has to decode each UTF-8 rune sequentially.
-	// Some Thai characters are represented by UTF-8 code points
-	// that can span multiple bytes, so the result of this count
-	// may be surprising.
+	// 文字列内の _rune_ を数えるには、`utf8` パッケージを使用します。
+	// `RuneCountInString` は、UTF-8 の各 rune を順にデコード
+	// しなければならないため、実行時間が文字列のサイズに依存するので
+	// 注意してください。タイ語の文字は、UTF-8 のコードポイントが複数
+	// バイトにまたがる場合もあるため、結果が予想外に感じるかもしれません。
 	fmt.Println("Rune count:", utf8.RuneCountInString(s))
 
-	// A `range` loop handles strings specially and decodes
-	// each `rune` along with its offset in the string.
+	// `range` ループは、文字列を特別に扱い、各 `rune`
+	// を文字列内でのオフセットとともにデコードします。
 	for idx, runeValue := range s {
 		fmt.Printf("%#U starts at %d\n", runeValue, idx)
 	}
 
-	// We can achieve the same iteration by using the
-	// `utf8.DecodeRuneInString` function explicitly.
+	// `utf8.DecodeRuneInString` 関数を使用すれば、
+	// 同じ反復処理を実現できます。
 	fmt.Println("\nUsing DecodeRuneInString")
 	for i, w := 0, 0; i < len(s); i += w {
 		runeValue, width := utf8.DecodeRuneInString(s[i:])
 		fmt.Printf("%#U starts at %d\n", runeValue, i)
 		w = width
 
-		// This demonstrates passing a `rune` value to a function.
+		// `rune` 値を関数に渡す例です。
 		examineRune(runeValue)
 	}
 }
 
 func examineRune(r rune) {
 
-	// Values enclosed in single quotes are _rune literals_. We
-	// can compare a `rune` value to a rune literal directly.
+	// シングルクォートで囲まれた値は、_rune リテラル_ です。
+	// `rune` 値を rune リテラルと直接比較できます。
 	if r == 't' {
 		fmt.Println("found tee")
 	} else if r == 'ส' {
