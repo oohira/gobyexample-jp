@@ -42,16 +42,14 @@
         
         <tr>
           <td class="docs">
-            <p>The Go standard library provides straightforward
-tools for outputting logs from Go programs, with
-the <a href="https://pkg.go.dev/log">log</a> package for
-free-form output and the
-<a href="https://pkg.go.dev/log/slog">log/slog</a> package for
-structured output.</p>
+            <p>Go の標準ライブラリは、Go プログラムからログを出力するための
+簡単なツールを提供します。自由形式のログには
+<a href="https://pkg.go.dev/log">log</a> パッケージを、構造化ログには
+<a href="https://pkg.go.dev/log/slog">log/slog</a> パッケージを使えます。</p>
 
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/Qd0uCqBlYUn"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/ohzVBmHoYXg"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -93,12 +91,10 @@ structured output.</p>
         
         <tr>
           <td class="docs">
-            <p>Simply invoking functions like <code>Println</code> from the
-<code>log</code> package uses the <em>standard</em> logger, which
-is already pre-configured for reasonable logging
-output to <code>os.Stderr</code>. Additional methods like
-<code>Fatal*</code> or <code>Panic*</code> will exit the program after
-logging.</p>
+            <p><code>log</code> パッケージの <code>Println</code> などの関数を呼び出すと、
+すでに設定済みの <em>標準</em> ロガーを使って、<code>os.Stderr</code>
+に適切なログを出力できます。<code>Fatal*</code> や <code>Panic*</code>
+などのメソッドは、ログ出力の後にプログラムを終了します。</p>
 
           </td>
           <td class="code leading">
@@ -109,12 +105,10 @@ logging.</p>
         
         <tr>
           <td class="docs">
-            <p>Loggers can be configured with <em>flags</em> to set
-their output format. By default, the standard
-logger has the <code>log.Ldate</code> and <code>log.Ltime</code> flags
-set, and these are collected in <code>log.LstdFlags</code>.
-We can change its flags to emit time with
-microsecond accuracy, for example.</p>
+            <p>ロガーは、<em>フラグ (flag)</em> を使用して出力形式を設定できます。
+デフォルトでは、標準ロガーには <code>log.Ldate</code> と <code>log.Ltime</code>
+フラグが設定されていて、これは <code>log.LstdFlags</code> と同等です。
+例えば、ミリ秒精度で時間を出力するようにフラグを変更できます。</p>
 
           </td>
           <td class="code leading">
@@ -126,8 +120,7 @@ microsecond accuracy, for example.</p>
         
         <tr>
           <td class="docs">
-            <p>It also supports emitting the file name and
-line from which the <code>log</code> function is called.</p>
+            <p>呼び出し元のファイル名と行番号を出力する設定もできます。</p>
 
           </td>
           <td class="code leading">
@@ -139,10 +132,9 @@ line from which the <code>log</code> function is called.</p>
         
         <tr>
           <td class="docs">
-            <p>It may be useful to create a custom logger and
-pass it around. When creating a new logger, we
-can set a <em>prefix</em> to distinguish its output
-from other loggers.</p>
+            <p>カスタムロガーを作成して利用することも有用です。
+新しいロガーを作成するときに、他のロガーの出力と区別しやすいよう
+<em>接頭辞 (prefix)</em> を設定できます。</p>
 
           </td>
           <td class="code leading">
@@ -154,9 +146,8 @@ from other loggers.</p>
         
         <tr>
           <td class="docs">
-            <p>We can set the prefix
-on existing loggers (including the standard one)
-with the <code>SetPrefix</code> method.</p>
+            <p>既存のロガー（標準ロガーを含む）の接頭辞は、<code>SetPrefix</code>
+メソッドで設定できます。</p>
 
           </td>
           <td class="code leading">
@@ -168,8 +159,8 @@ with the <code>SetPrefix</code> method.</p>
         
         <tr>
           <td class="docs">
-            <p>Loggers can have custom output targets;
-any <code>io.Writer</code> works.</p>
+            <p>ロガーは、カスタムの出力先を設定できます。
+任意の <code>io.Writer</code> が使えます。</p>
 
           </td>
           <td class="code leading">
@@ -181,7 +172,7 @@ any <code>io.Writer</code> works.</p>
         
         <tr>
           <td class="docs">
-            <p>This call writes the log output into <code>buf</code>.</p>
+            <p>この呼び出しは、ログ出力を <code>buf</code> に書き込みます。</p>
 
           </td>
           <td class="code leading">
@@ -192,7 +183,7 @@ any <code>io.Writer</code> works.</p>
         
         <tr>
           <td class="docs">
-            <p>This will actually show it on standard output.</p>
+            <p>これにより、標準出力に実際の出力が表示されます。</p>
 
           </td>
           <td class="code leading">
@@ -203,9 +194,8 @@ any <code>io.Writer</code> works.</p>
         
         <tr>
           <td class="docs">
-            <p>The <code>slog</code> package provides
-<em>structured</em> log output. For example, logging
-in JSON format is straightforward.</p>
+            <p><code>slog</code> パッケージは、<em>構造化された</em> ログ出力を提供します。
+例えば、JSON 形式のログ出力が簡単に実現できます。</p>
 
           </td>
           <td class="code leading">
@@ -218,9 +208,8 @@ in JSON format is straightforward.</p>
         
         <tr>
           <td class="docs">
-            <p>In addition to the message, <code>slog</code> output can
-contain an arbitrary number of key=value
-pairs.</p>
+            <p>メッセージに加えて、<code>slog</code> の出力には任意のキーと値のペアを
+含めることができます。</p>
 
           </td>
           <td class="code">
@@ -236,8 +225,7 @@ pairs.</p>
         
         <tr>
           <td class="docs">
-            <p>Sample output; the date and time
-emitted will depend on when the example ran.</p>
+            <p>サンプル出力です。日付と時刻は、実行日時に依存します。</p>
 
           </td>
           <td class="code leading">
@@ -254,9 +242,8 @@ emitted will depend on when the example ran.</p>
         
         <tr>
           <td class="docs">
-            <p>These are wrapped for clarity of presentation
-on the website; in reality they are emitted
-on a single line.</p>
+            <p>これらはウェブサイト上で見やすくするために折り返しています。
+実際には1行で出力されます。</p>
 
           </td>
           <td class="code">

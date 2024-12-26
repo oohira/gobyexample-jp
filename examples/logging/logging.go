@@ -1,9 +1,7 @@
-// The Go standard library provides straightforward
-// tools for outputting logs from Go programs, with
-// the [log](https://pkg.go.dev/log) package for
-// free-form output and the
-// [log/slog](https://pkg.go.dev/log/slog) package for
-// structured output.
+// Go の標準ライブラリは、Go プログラムからログを出力するための
+// 簡単なツールを提供します。自由形式のログには
+// [log](https://pkg.go.dev/log) パッケージを、構造化ログには
+// [log/slog](https://pkg.go.dev/log/slog) パッケージを使えます。
 package main
 
 import (
@@ -17,61 +15,52 @@ import (
 
 func main() {
 
-	// Simply invoking functions like `Println` from the
-	// `log` package uses the _standard_ logger, which
-	// is already pre-configured for reasonable logging
-	// output to `os.Stderr`. Additional methods like
-	// `Fatal*` or `Panic*` will exit the program after
-	// logging.
+	// `log` パッケージの `Println` などの関数を呼び出すと、
+	// すでに設定済みの _標準_ ロガーを使って、`os.Stderr`
+	// に適切なログを出力できます。`Fatal*` や `Panic*`
+	// などのメソッドは、ログ出力の後にプログラムを終了します。
 	log.Println("standard logger")
 
-	// Loggers can be configured with _flags_ to set
-	// their output format. By default, the standard
-	// logger has the `log.Ldate` and `log.Ltime` flags
-	// set, and these are collected in `log.LstdFlags`.
-	// We can change its flags to emit time with
-	// microsecond accuracy, for example.
+	// ロガーは、_フラグ (flag)_ を使用して出力形式を設定できます。
+	// デフォルトでは、標準ロガーには `log.Ldate` と `log.Ltime`
+	// フラグが設定されていて、これは `log.LstdFlags` と同等です。
+	// 例えば、ミリ秒精度で時間を出力するようにフラグを変更できます。
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	log.Println("with micro")
 
-	// It also supports emitting the file name and
-	// line from which the `log` function is called.
+	// 呼び出し元のファイル名と行番号を出力する設定もできます。
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("with file/line")
 
-	// It may be useful to create a custom logger and
-	// pass it around. When creating a new logger, we
-	// can set a _prefix_ to distinguish its output
-	// from other loggers.
+	// カスタムロガーを作成して利用することも有用です。
+	// 新しいロガーを作成するときに、他のロガーの出力と区別しやすいよう
+	// _接頭辞 (prefix)_ を設定できます。
 	mylog := log.New(os.Stdout, "my:", log.LstdFlags)
 	mylog.Println("from mylog")
 
-	// We can set the prefix
-	// on existing loggers (including the standard one)
-	// with the `SetPrefix` method.
+	// 既存のロガー（標準ロガーを含む）の接頭辞は、`SetPrefix`
+	// メソッドで設定できます。
 	mylog.SetPrefix("ohmy:")
 	mylog.Println("from mylog")
 
-	// Loggers can have custom output targets;
-	// any `io.Writer` works.
+	// ロガーは、カスタムの出力先を設定できます。
+	// 任意の `io.Writer` が使えます。
 	var buf bytes.Buffer
 	buflog := log.New(&buf, "buf:", log.LstdFlags)
 
-	// This call writes the log output into `buf`.
+	// この呼び出しは、ログ出力を `buf` に書き込みます。
 	buflog.Println("hello")
 
-	// This will actually show it on standard output.
+	// これにより、標準出力に実際の出力が表示されます。
 	fmt.Print("from buflog:", buf.String())
 
-	// The `slog` package provides
-	// _structured_ log output. For example, logging
-	// in JSON format is straightforward.
+	// `slog` パッケージは、_構造化された_ ログ出力を提供します。
+	// 例えば、JSON 形式のログ出力が簡単に実現できます。
 	jsonHandler := slog.NewJSONHandler(os.Stderr, nil)
 	myslog := slog.New(jsonHandler)
 	myslog.Info("hi there")
 
-	// In addition to the message, `slog` output can
-	// contain an arbitrary number of key=value
-	// pairs.
+	// メッセージに加えて、`slog` の出力には任意のキーと値のペアを
+	// 含めることができます。
 	myslog.Info("hello again", "key", "val", "age", 25)
 }
