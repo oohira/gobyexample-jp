@@ -1,21 +1,19 @@
-// _Enumerated types_ (enums) are a special case of
-// [sum types](https://en.wikipedia.org/wiki/Algebraic_data_type).
-// An enum is a type that has a fixed number of possible
-// values, each with a distinct name. Go doesn't have an
-// enum type as a distinct language feature, but enums
-// are simple to implement using existing language idioms.
+// _列挙型_ (enum) は、[直和型](https://en.wikipedia.org/wiki/Algebraic_data_type)
+// の特殊なケースです。列挙型とは、決まった値のどれかをもつ型で、
+// それぞれの値には固有の名前がつけられています。Go には言語機能としての
+// 列挙型はありませんが、既存の言語の慣用表現を使えば簡単に実装できます。
 
 package main
 
 import "fmt"
 
-// Our enum type `ServerState` has an underlying `int` type.
+// 列挙型 `ServerState` の実体は `int` 型です。
 type ServerState int
 
-// The possible values for `ServerState` are defined as
-// constants. The special keyword [iota](https://go.dev/ref/spec#Iota)
-// generates successive constant values automatically; in this
-// case 0, 1, 2 and so on.
+// `ServerState` の取りうる値を定数として定義します。
+// 特殊なキーワード [iota](https://go.dev/ref/spec#Iota)
+// は、連続する定数値を自動生成します。
+// この場合、0, 1, 2, ... となります。
 const (
 	StateIdle ServerState = iota
 	StateConnected
@@ -23,15 +21,15 @@ const (
 	StateRetrying
 )
 
-// By implementing the [fmt.Stringer](https://pkg.go.dev/fmt#Stringer)
-// interface, values of `ServerState` can be printed out or converted
-// to strings.
+// [fmt.Stringer](https://pkg.go.dev/fmt#Stringer)
+// インターフェースを実装することで、`ServerState` の値を
+// 文字列で出力したり、文字列に変換したりできるようになります。
 //
-// This can get cumbersome if there are many possible values. In such
-// cases the [stringer tool](https://pkg.go.dev/golang.org/x/tools/cmd/stringer)
-// can be used in conjunction with `go:generate` to automate the
-// process. See [this post](https://eli.thegreenplace.net/2021/a-comprehensive-guide-to-go-generate)
-// for a longer explanation.
+// 値が多い場合、この実装は面倒になることがあります。その場合は、
+// [stringer ツール](https://pkg.go.dev/golang.org/x/tools/cmd/stringer)
+// を `go:generate` と組み合わせて自動化できます。
+// [こちらの記事](https://eli.thegreenplace.net/2021/a-comprehensive-guide-to-go-generate)
+// に詳細な説明があります。
 var stateName = map[ServerState]string{
 	StateIdle:      "idle",
 	StateConnected: "connected",
@@ -46,24 +44,22 @@ func (ss ServerState) String() string {
 func main() {
 	ns := transition(StateIdle)
 	fmt.Println(ns)
-	// If we have a value of type `int`, we cannot pass it to `transition` - the
-	// compiler will complain about type mismatch. This provides some degree of
-	// compile-time type safety for enums.
+	// `int` 型の値を `transition` に渡そうとすると、コンパイラは
+	// 型の不一致を指摘します。これにより、列挙型に対する型安全性が
+	// コンパイル時にある程度は担保されます。
 
 	ns2 := transition(ns)
 	fmt.Println(ns2)
 }
 
-// transition emulates a state transition for a
-// server; it takes the existing state and returns
-// a new state.
+// transition は、サーバーの状態遷移をエミュレートします。
+// この関数は、現在の状態を受け取り、新しい状態を返します。
 func transition(s ServerState) ServerState {
 	switch s {
 	case StateIdle:
 		return StateConnected
 	case StateConnected, StateRetrying:
-		// Suppose we check some predicates here to
-		// determine the next state...
+		// 次の状態を決定するための条件をここでチェックする想定です。
 		return StateIdle
 	case StateError:
 		return StateError
