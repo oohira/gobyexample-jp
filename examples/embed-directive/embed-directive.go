@@ -1,31 +1,32 @@
-// `//go:embed` is a [compiler
-// directive](https://pkg.go.dev/cmd/compile#hdr-Compiler_Directives) that
-// allows programs to include arbitrary files and folders in the Go binary at
-// build time. Read more about the embed directive
-// [here](https://pkg.go.dev/embed).
+// `//go:embed` は、
+// [コンパイラディレクティブ](https://pkg.go.dev/cmd/compile#hdr-Compiler_Directives)
+// で、ビルド時に任意のファイルやフォルダを Go バイナリに埋め込めます。
+// `embed` ディレクティブの詳細は、[こちら](https://pkg.go.dev/embed)
+// を参照してください。
 package main
 
-// Import the `embed` package; if you don't use any exported
-// identifiers from this package, you can do a blank import with `_ "embed"`.
+// `embed` パッケージをインポートします。もしこのパッケージから
+// エクスポートされた識別子を使わない場合は、`_ "embed"`
+// を使ったブランクインポートが可能です。
 import (
 	"embed"
 )
 
-// `embed` directives accept paths relative to the directory containing the
-// Go source file. This directive embeds the contents of the file into the
-// `string` variable immediately following it.
+// `embed` ディレクティブは、Go ソースファイルを含むディレクトリからの
+// 相対パスを受け入れます。このディレクティブは、直後に続く `string`
+// 型の変数に、ファイルの内容を埋め込みます。
 //
 //go:embed folder/single_file.txt
 var fileString string
 
-// Or embed the contents of the file into a `[]byte`.
+// ファイルの内容を `[]byte` 型に埋め込むこともできます。
 //
 //go:embed folder/single_file.txt
 var fileByte []byte
 
-// We can also embed multiple files or even folders with wildcards. This uses
-// a variable of the [embed.FS type](https://pkg.go.dev/embed#FS), which
-// implements a simple virtual file system.
+// ワイルドカードを使って複数のファイルやフォルダを埋め込むこともできます。
+// この場合、[embed.FS 型](https://pkg.go.dev/embed#FS) 変数を使います。
+// `embed.FS` は、シンプルな仮想ファイルシステムを実装しています。
 //
 //go:embed folder/single_file.txt
 //go:embed folder/*.hash
@@ -33,11 +34,11 @@ var folder embed.FS
 
 func main() {
 
-	// Print out the contents of `single_file.txt`.
+	// `single_file.txt` の内容を出力します。
 	print(fileString)
 	print(string(fileByte))
 
-	// Retrieve some files from the embedded folder.
+	// 埋め込まれたフォルダからいくつかのファイルを取得します。
 	content1, _ := folder.ReadFile("folder/file1.hash")
 	print(string(content1))
 

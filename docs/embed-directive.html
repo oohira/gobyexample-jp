@@ -42,23 +42,24 @@
         
         <tr>
           <td class="docs">
-            <p><code>//go:embed</code> is a <a href="https://pkg.go.dev/cmd/compile#hdr-Compiler_Directives">compiler
-directive</a> that
-allows programs to include arbitrary files and folders in the Go binary at
-build time. Read more about the embed directive
-<a href="https://pkg.go.dev/embed">here</a>.</p>
+            <p><code>//go:embed</code> は、
+<a href="https://pkg.go.dev/cmd/compile#hdr-Compiler_Directives">コンパイラディレクティブ</a>
+で、ビルド時に任意のファイルやフォルダを Go バイナリに埋め込めます。
+<code>embed</code> ディレクティブの詳細は、<a href="https://pkg.go.dev/embed">こちら</a>
+を参照してください。</p>
 
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/6m2ll-D52BB"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/gKbPzqThwME"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Import the <code>embed</code> package; if you don&rsquo;t use any exported
-identifiers from this package, you can do a blank import with <code>_ &quot;embed&quot;</code>.</p>
+            <p><code>embed</code> パッケージをインポートします。もしこのパッケージから
+エクスポートされた識別子を使わない場合は、<code>_ &quot;embed&quot;</code>
+を使ったブランクインポートが可能です。</p>
 
           </td>
           <td class="code leading">
@@ -71,9 +72,9 @@ identifiers from this package, you can do a blank import with <code>_ &quot;embe
         
         <tr>
           <td class="docs">
-            <p><code>embed</code> directives accept paths relative to the directory containing the
-Go source file. This directive embeds the contents of the file into the
-<code>string</code> variable immediately following it.</p>
+            <p><code>embed</code> ディレクティブは、Go ソースファイルを含むディレクトリからの
+相対パスを受け入れます。このディレクティブは、直後に続く <code>string</code>
+型の変数に、ファイルの内容を埋め込みます。</p>
 
           </td>
           <td class="code leading">
@@ -85,7 +86,7 @@ Go source file. This directive embeds the contents of the file into the
         
         <tr>
           <td class="docs">
-            <p>Or embed the contents of the file into a <code>[]byte</code>.</p>
+            <p>ファイルの内容を <code>[]byte</code> 型に埋め込むこともできます。</p>
 
           </td>
           <td class="code leading">
@@ -97,9 +98,9 @@ Go source file. This directive embeds the contents of the file into the
         
         <tr>
           <td class="docs">
-            <p>We can also embed multiple files or even folders with wildcards. This uses
-a variable of the <a href="https://pkg.go.dev/embed#FS">embed.FS type</a>, which
-implements a simple virtual file system.</p>
+            <p>ワイルドカードを使って複数のファイルやフォルダを埋め込むこともできます。
+この場合、<a href="https://pkg.go.dev/embed#FS">embed.FS 型</a> 変数を使います。
+<code>embed.FS</code> は、シンプルな仮想ファイルシステムを実装しています。</p>
 
           </td>
           <td class="code leading">
@@ -122,7 +123,7 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Print out the contents of <code>single_file.txt</code>.</p>
+            <p><code>single_file.txt</code> の内容を出力します。</p>
 
           </td>
           <td class="code leading">
@@ -134,7 +135,7 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Retrieve some files from the embedded folder.</p>
+            <p>埋め込まれたフォルダからいくつかのファイルを取得します。</p>
 
           </td>
           <td class="code leading">
@@ -162,9 +163,9 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Use these commands to run the example.
-(Note: due to limitation on go playground,
-this example can only be run on your local machine.)</p>
+            <p>サンプルを実行するには、これらのコマンドを使ってください。
+Go Playground の制限で、このサンプルはローカルマシンでしか
+実行できないことに注意してください。</p>
 
           </td>
           <td class="code leading">
