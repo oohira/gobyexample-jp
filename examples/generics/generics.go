@@ -1,19 +1,19 @@
-// Starting with version 1.18, Go has added support for
-// _generics_, also known as _type parameters_.
+// Go 1.18 以降で、_ジェネリクス (generic)_ がサポートされました。
+// ジェネリクスは、_型パラメーター (type parameter)_ としても知られます。
 
 package main
 
 import "fmt"
 
-// As an example of a generic function, `SlicesIndex` takes
-// a slice of any `comparable` type and an element of that
-// type and returns the index of the first occurrence of
-// v in s, or -1 if not present. The `comparable` constraint
-// means that we can compare values of this type with the
-// `==` and `!=` operators. For a more thorough explanation
-// of this type signature, see [this blog post](https://go.dev/blog/deconstructing-type-parameters).
-// Note that this function exists in the standard library
-// as [slices.Index](https://pkg.go.dev/slices#Index).
+// ジェネリック関数の例を見ていきます。`SlicesIndex` は、
+// 任意の `comparable` 型のスライス s と、その型の要素 v
+// を受け取り、s 内で最初に v が出現する位置を返します。
+// 存在しない場合は、-1 を返します。`comparable` 制約は、
+// この型の値を `==` および `!=` 演算子で比較できることを意味します。
+// この型シグネチャの詳細な説明は、
+// [このブログ記事](https://go.dev/blog/deconstructing-type-parameters)
+// を参照してください。なお、この関数は、標準ライブラリに
+// [slices.Index](https://pkg.go.dev/slices#Index) として存在します。
 func SlicesIndex[S ~[]E, E comparable](s S, v E) int {
 	for i := range s {
 		if v == s[i] {
@@ -23,8 +23,7 @@ func SlicesIndex[S ~[]E, E comparable](s S, v E) int {
 	return -1
 }
 
-// As an example of a generic type, `List` is a
-// singly-linked list with values of any type.
+// ジェネリック型の例として、`List` は任意の型の値をもつ単方向リストです。
 type List[T any] struct {
 	head, tail *element[T]
 }
@@ -34,9 +33,9 @@ type element[T any] struct {
 	val  T
 }
 
-// We can define methods on generic types just like we
-// do on regular types, but we have to keep the type
-// parameters in place. The type is `List[T]`, not `List`.
+// 通常の型と同様に、ジェネリック型にもメソッドを定義できますが、
+// 型パラメーターを保持する必要があります。
+// 型は `List[T]` であり、`List` ではありません。
 func (lst *List[T]) Push(v T) {
 	if lst.tail == nil {
 		lst.head = &element[T]{val: v}
@@ -47,9 +46,8 @@ func (lst *List[T]) Push(v T) {
 	}
 }
 
-// AllElements returns all the List elements as a slice.
-// In the next example we'll see a more idiomatic way
-// of iterating over all elements of custom types.
+// AllElements は、リスト内のすべての要素をスライスで返します。
+// カスタム型の要素を反復処理するより慣用的な方法は、次回紹介します。
 func (lst *List[T]) AllElements() []T {
 	var elems []T
 	for e := lst.head; e != nil; e = e.next {
@@ -61,14 +59,12 @@ func (lst *List[T]) AllElements() []T {
 func main() {
 	var s = []string{"foo", "bar", "zoo"}
 
-	// When invoking generic functions, we can often rely
-	// on _type inference_. Note that we don't have to
-	// specify the types for `S` and `E` when
-	// calling `SlicesIndex` - the compiler infers them
-	// automatically.
+	// ジェネリック関数を呼び出すとき、_型推論_ に依存できます。
+	// `SlicesIndex` を呼び出すのに、`S` と `E` の型を
+	// 指定する必要はありません。コンパイラが自動的に推論します。
 	fmt.Println("index of zoo:", SlicesIndex(s, "zoo"))
 
-	// ... though we could also specify them explicitly.
+	// 型を明示的に指定もできます。
 	_ = SlicesIndex[[]string, string](s, "zoo")
 
 	lst := List[int]{}
