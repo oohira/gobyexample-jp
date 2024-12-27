@@ -1,5 +1,5 @@
-// [環境変数](http://en.wikipedia.org/wiki/Environment_variable)
-// は、[設定情報を Unix プログラムに渡す](http://www.12factor.net/config)
+// [環境変数](https://en.wikipedia.org/wiki/Environment_variable)
+// は、[設定情報を Unix プログラムに渡す](https://www.12factor.net/config)
 // ための、一般的な仕組みです。
 // 環境変数を設定、取得、一覧する方法を見ていきましょう。
 

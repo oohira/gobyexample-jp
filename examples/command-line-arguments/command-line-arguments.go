@@ -1,4 +1,4 @@
-// [_コマンドライン引数_](http://en.wikipedia.org/wiki/Command-line_interface#Arguments)
+// [_コマンドライン引数_](https://en.wikipedia.org/wiki/Command-line_interface#Arguments)
 // は、プログラムの実行をパラメーター化する一般的な方法です。
 // 例えば、`go run hello.go` は、`run` と
 // `hello.go` を `go` プログラムの引数として使います。

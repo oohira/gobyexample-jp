@@ -1,5 +1,5 @@
 // ときには、Go プログラムで
-// [Unix シグナル](http://en.wikipedia.org/wiki/Unix_signal)
+// [Unix シグナル](https://en.wikipedia.org/wiki/Unix_signal)
 // を扱いたいこともあります。例えば、`SIGTERM`
 // を受け取ったらサーバーを正常に終了させたり、`SIGINT`
 // を受け取ったらコマンドラインツールの入力処理を止めたり、
@@ -27,7 +27,7 @@ func main() {
 	// 与えられたチャネルを登録します。
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
-	// main 関数で `sigs` からここで受信することもできますが、
+	// この main 関数で `sigs` から受信してもよいですが、
 	// より現実のシナリオに近いグレースフルシャットダウンを
 	// デモするために、別のゴルーチンで同じことを実現する方法を
 	// 見ていきましょう。

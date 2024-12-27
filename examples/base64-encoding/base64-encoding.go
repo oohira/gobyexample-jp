@@ -1,4 +1,4 @@
-// Go は [Base64 エンコード/デコード](http://en.wikipedia.org/wiki/Base64)
+// Go は [Base64 エンコード/デコード](https://en.wikipedia.org/wiki/Base64)
 // を組み込みでサポートしています。
 
 package main

@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'context.html';
@@ -54,9 +57,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/fKHcN5v0KWD"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/6bVRh2Bx8EG"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -66,12 +68,11 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;io&#34;</span>
-    <span class="s">&#34;os/exec&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;io&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os/exec&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -81,8 +82,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -96,30 +96,50 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">dateCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;date&#34;</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">dateCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;date&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>Output</code> は、もう 1 つのヘルパーです。
-コマンドを実行して終了を待ち、出力を取得する
-という一般的なケースを扱えます。エラーがなければ、
+            <p><code>Output</code> メソッドは、コマンドを実行して終了を待ち、
+その標準出力を取得します。エラーがなければ、
 <code>dateOut</code> は日付情報のバイト列を保持します。</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">dateOut</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dateCmd</span><span class="p">.</span><span class="nf">Output</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; date&#34;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">dateOut</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">dateOut</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dateCmd</span><span class="p">.</span><span class="nf">Output</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; date&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">dateOut</span><span class="p">))</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>Output</code> メソッドや <code>Command</code> のその他のメソッドは、
+コマンドを実行するのに問題（例. パス誤り）が見つかると
+<code>*exec.Error</code> を返します。また、コマンドは実行できても
+終了コードが非ゼロだった場合は、<code>*exec.ExitError</code>
+を返します。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;date&#34;</span><span class="p">,</span> <span class="s">&#34;-x&#34;</span><span class="p">).</span><span class="nf">Output</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">err</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">exec</span><span class="p">.</span><span class="nx">Error</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;failed executing:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">exec</span><span class="p">.</span><span class="nx">ExitError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;command exit rc =&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nf">ExitCode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -132,9 +152,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">grepCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;grep&#34;</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">grepCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;grep&#34;</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -147,15 +165,13 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">grepIn</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">StdinPipe</span><span class="p">()</span>
-    <span class="nx">grepOut</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">StdoutPipe</span><span class="p">()</span>
-    <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
-    <span class="nx">grepIn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;hello grep\ngoodbye grep&#34;</span><span class="p">))</span>
-    <span class="nx">grepIn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-    <span class="nx">grepBytes</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">io</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">grepOut</span><span class="p">)</span>
-    <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">grepIn</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">StdinPipe</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepOut</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">StdoutPipe</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepIn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;hello grep\ngoodbye grep&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepIn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepBytes</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">io</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">grepOut</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">grepCmd</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -164,15 +180,13 @@
             <p>上の例ではエラーチェックを省略しましたが、いつもの
 <code>if err != nil</code> パターンを使うことができます。
 また、上の例では <code>StdoutPipe</code> の結果だけを取得しましたが、
-全く同じ方法で <code>StderrPipe</code> から取得することもできます。</p>
+全く同じ方法で <code>StderrPipe</code> からも取得できます。</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; grep hello&#34;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">grepBytes</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; grep hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">grepBytes</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -187,16 +201,14 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">lsCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;bash&#34;</span><span class="p">,</span> <span class="s">&#34;-c&#34;</span><span class="p">,</span> <span class="s">&#34;ls -a -l -h&#34;</span><span class="p">)</span>
-    <span class="nx">lsOut</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">lsCmd</span><span class="p">.</span><span class="nf">Output</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; ls -a -l -h&#34;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">lsOut</span><span class="p">))</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">lsCmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">Command</span><span class="p">(</span><span class="s">&#34;bash&#34;</span><span class="p">,</span> <span class="s">&#34;-c&#34;</span><span class="p">,</span> <span class="s">&#34;ls -a -l -h&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lsOut</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">lsCmd</span><span class="p">.</span><span class="nf">Output</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;&gt; ls -a -l -h&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">lsOut</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -212,21 +224,23 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="gp">$</span> go run spawning-processes.go
-<span class="gp">&gt;</span> date
-<span class="go">Wed Oct 10 09:53:11 PDT 2012</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run spawning-processes.go
+</span></span><span class="line"><span class="cl"><span class="gp">&gt;</span> date
+</span></span><span class="line"><span class="cl"><span class="go">Thu 05 May 2022 10:10:12 PM PDT</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            
+            <p>date コマンドは <code>-x</code> フラグをもたないため、
+エラーメッセージと非ゼロのエラーコードで終了します。</p>
+
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="gp">&gt;</span> grep hello
-<span class="go">hello grep</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">command exited with rc = 1
+</span></span></span><span class="line"><span class="cl"><span class="go"></span><span class="gp">&gt;</span> grep hello
+</span></span><span class="line"><span class="cl"><span class="go">hello grep</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -236,10 +250,10 @@
           </td>
           <td class="code">
             
-          <pre class="chroma"><span class="gp">&gt;</span> ls -a -l -h
-<span class="go">drwxr-xr-x  4 mark 136B Oct 3 16:29 .
-</span><span class="go">drwxr-xr-x 91 mark 3.0K Oct 3 12:50 ..
-</span><span class="go">-rw-r--r--  1 mark 1.3K Oct 3 16:28 spawning-processes.go</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">&gt;</span> ls -a -l -h
+</span></span><span class="line"><span class="cl"><span class="go">drwxr-xr-x  4 mark 136B Oct 3 16:29 .
+</span></span></span><span class="line"><span class="cl"><span class="go">drwxr-xr-x 91 mark 3.0K Oct 3 12:50 ..
+</span></span></span><span class="line"><span class="cl"><span class="go">-rw-r--r--  1 mark 1.3K Oct 3 16:28 spawning-processes.go</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -258,7 +272,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"io\"\u000A    \"os/exec\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    dateCmd :\u003D exec.Command(\"date\")\u000A');codeLines.push('    dateOut, err :\u003D dateCmd.Output()\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(\"\u003E date\")\u000A    fmt.Println(string(dateOut))\u000A');codeLines.push('    grepCmd :\u003D exec.Command(\"grep\", \"hello\")\u000A');codeLines.push('    grepIn, _ :\u003D grepCmd.StdinPipe()\u000A    grepOut, _ :\u003D grepCmd.StdoutPipe()\u000A    grepCmd.Start()\u000A    grepIn.Write([]byte(\"hello grep\\ngoodbye grep\"))\u000A    grepIn.Close()\u000A    grepBytes, _ :\u003D io.ReadAll(grepOut)\u000A    grepCmd.Wait()\u000A');codeLines.push('    fmt.Println(\"\u003E grep hello\")\u000A    fmt.Println(string(grepBytes))\u000A');codeLines.push('    lsCmd :\u003D exec.Command(\"bash\", \"-c\", \"ls -a -l -h\")\u000A    lsOut, err :\u003D lsCmd.Output()\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(\"\u003E ls -a -l -h\")\u000A    fmt.Println(string(lsOut))\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"io\"\u000A    \"os/exec\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    dateCmd :\u003D exec.Command(\"date\")\u000A');codeLines.push('    dateOut, err :\u003D dateCmd.Output()\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(\"\u003E date\")\u000A    fmt.Println(string(dateOut))\u000A');codeLines.push('    _, err \u003D exec.Command(\"date\", \"-x\").Output()\u000A    if err !\u003D nil {\u000A        switch e :\u003D err.(type) {\u000A        case *exec.Error:\u000A            fmt.Println(\"failed executing:\", err)\u000A        case *exec.ExitError:\u000A            fmt.Println(\"command exit rc \u003D\", e.ExitCode())\u000A        default:\u000A            panic(err)\u000A        }\u000A    }\u000A');codeLines.push('    grepCmd :\u003D exec.Command(\"grep\", \"hello\")\u000A');codeLines.push('    grepIn, _ :\u003D grepCmd.StdinPipe()\u000A    grepOut, _ :\u003D grepCmd.StdoutPipe()\u000A    grepCmd.Start()\u000A    grepIn.Write([]byte(\"hello grep\\ngoodbye grep\"))\u000A    grepIn.Close()\u000A    grepBytes, _ :\u003D io.ReadAll(grepOut)\u000A    grepCmd.Wait()\u000A');codeLines.push('    fmt.Println(\"\u003E grep hello\")\u000A    fmt.Println(string(grepBytes))\u000A');codeLines.push('    lsCmd :\u003D exec.Command(\"bash\", \"-c\", \"ls -a -l -h\")\u000A    lsOut, err :\u003D lsCmd.Output()\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(\"\u003E ls -a -l -h\")\u000A    fmt.Println(string(lsOut))\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

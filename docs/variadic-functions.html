@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'multiple-return-values.html';
@@ -39,7 +42,7 @@
         
         <tr>
           <td class="docs">
-            <p><a href="http://en.wikipedia.org/wiki/Variadic_function"><em>可変長引数関数 (Variadic functions)</em></a>
+            <p><a href="https://en.wikipedia.org/wiki/Variadic_function"><em>可変長引数関数 (Variadic functions)</em></a>
 は、任意個の引数で呼び出すことができます。
 例えば、 <code>fmt.Println</code> は一般的な可変長引数関数です。</p>
 
@@ -55,9 +58,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/yDlYASakAQV"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/i9hxACyqssu"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -67,8 +69,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -79,16 +80,26 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">func</span> <span class="nf">sum</span><span class="p">(</span><span class="nx">nums</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
-    <span class="nx">total</span> <span class="o">:=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
-        <span class="nx">total</span> <span class="o">+=</span> <span class="nx">num</span>
-    <span class="p">}</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">sum</span><span class="p">(</span><span class="nx">nums</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">total</span> <span class="o">:=</span> <span class="mi">0</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>関数の中では、 <code>nums</code> の型は <code>[]int</code> と同等です。
+<code>len(nums)</code> を呼び出したり、 <code>range</code> で順に
+処理したりできます。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">total</span> <span class="o">+=</span> <span class="nx">num</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -98,8 +109,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -110,10 +120,8 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -125,11 +133,9 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
-    <span class="nf">sum</span><span class="p">(</span><span class="nx">nums</span><span class="o">...</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sum</span><span class="p">(</span><span class="nx">nums</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -143,10 +149,10 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="gp">$</span> go run variadic-functions.go 
-<span class="go">[1 2] 3
-</span><span class="go">[1 2 3] 6
-</span><span class="go">[1 2 3 4] 10</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run variadic-functions.go 
+</span></span><span class="line"><span class="cl"><span class="go">[1 2] 3
+</span></span></span><span class="line"><span class="cl"><span class="go">[1 2 3] 6
+</span></span></span><span class="line"><span class="cl"><span class="go">[1 2 3 4] 10</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -177,7 +183,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func sum(nums ...int) {\u000A    fmt.Print(nums, \" \")\u000A    total :\u003D 0\u000A    for _, num :\u003D range nums {\u000A        total +\u003D num\u000A    }\u000A    fmt.Println(total)\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    sum(1, 2)\u000A    sum(1, 2, 3)\u000A');codeLines.push('    nums :\u003D []int{1, 2, 3, 4}\u000A    sum(nums...)\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func sum(nums ...int) {\u000A    fmt.Print(nums, \" \")\u000A    total :\u003D 0\u000A');codeLines.push('    for _, num :\u003D range nums {\u000A        total +\u003D num\u000A    }\u000A    fmt.Println(total)\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    sum(1, 2)\u000A    sum(1, 2, 3)\u000A');codeLines.push('    nums :\u003D []int{1, 2, 3, 4}\u000A    sum(nums...)\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

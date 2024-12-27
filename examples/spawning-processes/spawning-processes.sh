@@ -2,8 +2,11 @@
 # 直接実行したときと同じ出力を返します。
 $ go run spawning-processes.go
 > date
-Wed Oct 10 09:53:11 PDT 2012
+Thu 05 May 2022 10:10:12 PM PDT
 
+# date コマンドは `-x` フラグをもたないため、
+# エラーメッセージと非ゼロのエラーコードで終了します。
+command exited with rc = 1
 > grep hello
 hello grep
 

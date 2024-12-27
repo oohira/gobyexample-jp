@@ -4,18 +4,29 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 func main() {
 
 	// 配列とは異なり、スライスは含まれる要素だけで
 	// 型が定義されます (要素の数は関係ありません)。
+	// 初期化されていないスライスは nil で、長さは 0 です。
+	var s []string
+	fmt.Println("uninit:", s, s == nil, len(s) == 0)
+
 	// 長さが 0 でない空のスライスを作るには、
 	// `make` ビルトイン関数を使います。ここでは、
 	// 長さ `3` の `string` のスライスを作っています
 	// (ゼロ値で初期化されます)。
-	s := make([]string, 3)
-	fmt.Println("emp:", s)
+	// デフォルトでは、新規作成したスライスの容量は、スライスの
+	// 長さと等しくなります。スライスが時間とともに大きくなると
+	// 分かっている場合は、 `make` への追加引数として明示的に
+	// 容量を指定できます。
+	s = make([]string, 3)
+	fmt.Println("emp:", s, "len:", len(s), "cap:", cap(s))
 
 	// 配列と全く同じように値の設定と取得が可能です。
 	s[0] = "a"
@@ -38,7 +49,7 @@ func main() {
 	s = append(s, "e", "f")
 	fmt.Println("apd:", s)
 
-	// スライスは `copy` することもできます。ここでは、
+	// スライスの `copy` もできます。ここでは、
 	// `s` と同じ長さの空のスライス `c` を作成し、
 	// `s` から `c` へコピーしています。
 	c := make([]string, len(s))
@@ -66,7 +77,13 @@ func main() {
 	t := []string{"g", "h", "i"}
 	fmt.Println("dcl:", t)
 
-	// スライスを多次元のデータ構造にすることもできます。
+	// `slices` パッケージは多数の便利関数を含んでいます。
+	t2 := []string{"g", "h", "i"}
+	if slices.Equal(t, t2) {
+		fmt.Println("t == t2")
+	}
+
+	// スライスを多次元のデータ構造にもできます。
 	// 多次元配列とは異なり、内側のスライスの長さは
 	// 変わりえます。
 	twoD := make([][]int, 3)

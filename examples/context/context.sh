@@ -1,5 +1,5 @@
 # サーバーをバックグラウンドで実行します。
-$ go run context-in-http-servers.go &
+$ go run context.go &
 
 # クライアントから `/hello` へのリクエストをシミュレートし、
 # 少し後で Ctrl+C を押してキャンセルのシグナルを送ります。

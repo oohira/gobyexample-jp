@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Go by Example: Enums</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script type="text/javascript">
+    if (window.location.host == "oohira.github.io") {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-88560400-2', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'interfaces.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'struct-embedding.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="example" id="enums">
+      <h2><a href="./">Go by Example</a>: Enums</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p><em>列挙型</em> (enum) は、<a href="https://en.wikipedia.org/wiki/Algebraic_data_type">直和型</a>
+の特殊なケースです。列挙型とは、決まった値のどれかをもつ型で、
+それぞれの値には固有の名前がつけられています。Go には言語機能としての
+列挙型はありませんが、既存の言語の慣用表現を使えば簡単に実装できます。</p>
+
+          </td>
+          <td class="code empty leading">
+            
+          
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+            <a href="https://go.dev/play/p/hawccfalV1M"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>列挙型 <code>ServerState</code> の実体は <code>int</code> 型です。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ServerState</span> <span class="kt">int</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>ServerState</code> の取りうる値を定数として定義します。
+特殊なキーワード <a href="https://go.dev/ref/spec#Iota">iota</a>
+は、連続する定数値を自動生成します。
+この場合、0, 1, 2, &hellip; となります。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateIdle</span> <span class="nx">ServerState</span> <span class="p">=</span> <span class="kc">iota</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateConnected</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateError</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateRetrying</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://pkg.go.dev/fmt#Stringer">fmt.Stringer</a>
+インターフェースを実装することで、<code>ServerState</code> の値を
+文字列で出力したり、文字列に変換したりできるようになります。</p>
+
+<p>値が多い場合、この実装は面倒になることがあります。その場合は、
+<a href="https://pkg.go.dev/golang.org/x/tools/cmd/stringer">stringer ツール</a>
+を <code>go:generate</code> と組み合わせて自動化できます。
+<a href="https://eli.thegreenplace.net/2021/a-comprehensive-guide-to-go-generate">こちらの記事</a>
+に詳細な説明があります。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">stateName</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="nx">ServerState</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateIdle</span><span class="p">:</span>      <span class="s">&#34;idle&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateConnected</span><span class="p">:</span> <span class="s">&#34;connected&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateError</span><span class="p">:</span>     <span class="s">&#34;error&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">StateRetrying</span><span class="p">:</span>  <span class="s">&#34;retrying&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">ss</span> <span class="nx">ServerState</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">stateName</span><span class="p">[</span><span class="nx">ss</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>int</code> 型の値を <code>transition</code> に渡そうとすると、コンパイラは
+型の不一致を指摘します。これにより、列挙型に対する型安全性が
+コンパイル時にある程度は担保されます。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ns</span> <span class="o">:=</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">StateIdle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">ns</span><span class="p">)</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">ns2</span> <span class="o">:=</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">ns</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">ns2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>transition は、サーバーの状態遷移をエミュレートします。
+この関数は、現在の状態を受け取り、新しい状態を返します。</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">s</span> <span class="nx">ServerState</span><span class="p">)</span> <span class="nx">ServerState</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="nx">s</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">StateIdle</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">StateConnected</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">StateConnected</span><span class="p">,</span> <span class="nx">StateRetrying</span><span class="p">:</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>次の状態を決定するための条件をここでチェックする想定です。</p>
+
+          </td>
+          <td class="code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">StateIdle</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">StateError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">StateError</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;unknown state: %s&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run enums.go
+</span></span><span class="line"><span class="cl"><span class="go">connected
+</span></span></span><span class="line"><span class="cl"><span class="go">idle</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="struct-embedding.html">Struct Embedding</a>.
+      </p>
+      
+
+    <p class="footer">
+      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> (translated by <a href="https://twitter.com/oohira">@oohira</a>) | <a href="https://github.com/oohira/gobyexample-jp">feedback</a> | <a href="https://github.com/oohira/gobyexample-jp#license">license</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('type ServerState int\u000A');codeLines.push('const (\u000A    StateIdle ServerState \u003D iota\u000A    StateConnected\u000A    StateError\u000A    StateRetrying\u000A)\u000A');codeLines.push('var stateName \u003D map[ServerState]string{\u000A    StateIdle:      \"idle\",\u000A    StateConnected: \"connected\",\u000A    StateError:     \"error\",\u000A    StateRetrying:  \"retrying\",\u000A}\u000A');codeLines.push('func (ss ServerState) String() string {\u000A    return stateName[ss]\u000A}\u000A');codeLines.push('func main() {\u000A    ns :\u003D transition(StateIdle)\u000A    fmt.Println(ns)\u000A');codeLines.push('    ns2 :\u003D transition(ns)\u000A    fmt.Println(ns2)\u000A}\u000A');codeLines.push('func transition(s ServerState) ServerState {\u000A    switch s {\u000A    case StateIdle:\u000A        return StateConnected\u000A    case StateConnected, StateRetrying:\u000A');codeLines.push('        return StateIdle\u000A    case StateError:\u000A        return StateError\u000A    default:\u000A        panic(fmt.Errorf(\"unknown state: %s\", s))\u000A    }\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

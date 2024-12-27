@@ -11,7 +11,7 @@ func main() {
 	var a = "initial"
 	fmt.Println(a)
 
-	// 複数の変数を一度に宣言することもできます。
+	// 複数の変数を一度に宣言できます。
 	var b, c int = 1, 2
 	fmt.Println(b, c)
 
@@ -26,6 +26,7 @@ func main() {
 
 	// `:=` は、変数を宣言かつ初期化する簡略記法です。
 	// この例では、 `var f string = "apple"` と同じです。
+	// この文法は、関数の中でのみ利用できます。
 	f := "apple"
 	fmt.Println(f)
 }

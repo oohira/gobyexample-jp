@@ -1,4 +1,4 @@
-// Go は、`encoding.xml` パッケージで XML や XML
+// Go は、`encoding/xml` パッケージで XML や XML
 // ライクなフォーマットを組み込みでサポートします。
 
 package main
@@ -38,7 +38,7 @@ func main() {
 	// XML ヘッダを出力するには、明示的に加えます。
 	fmt.Println(xml.Header + string(out))
 
-	// XML のバイト列からデータ構造にパースするには `Unmarhshal`
+	// XML のバイト列からデータ構造にパースするには `Unmarshal`
 	// を使用します。もし XML が不正だったり、Plant にマッピング
 	// できなかったりする場合は、説明的なエラーが返されます。
 	var p Plant

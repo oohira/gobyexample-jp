@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'closures.html';
@@ -26,7 +29,7 @@
           
           
           if (e.key == "ArrowRight") {
-              window.location.href = 'pointers.html';
+              window.location.href = 'range-over-built-in-types.html';
           }
           
       }
@@ -40,7 +43,7 @@
         <tr>
           <td class="docs">
             <p>Go は、
-<a href="http://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>再帰関数 (recursive functions)</em></a>.
+<a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>再帰関数 (recursive functions)</em></a>.
 をサポートします。これは典型的な例です。</p>
 
           </td>
@@ -55,9 +58,8 @@
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/g_BQ74Q19FI"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/3dnkPfQzXAL"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -67,8 +69,7 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -80,14 +81,12 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">func</span> <span class="nf">fact</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="mi">1</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">n</span> <span class="o">*</span> <span class="nf">fact</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">fact</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">n</span> <span class="o">*</span> <span class="nf">fact</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -97,23 +96,20 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">fact</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">fact</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>クロージャも再帰関数にできます。ただし、関数を定義する前に、
-<code>var</code> で明示的に型宣言する必要があります。</p>
+            <p>無名関数も再帰的にできます。ただし、関数を保存するための変数を
+<code>var</code> であらかじめ宣言する必要があります。</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="kd">var</span> <span class="nx">fib</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">fib</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -123,12 +119,10 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">    <span class="nx">fib</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">n</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fib</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -140,9 +134,8 @@
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -152,9 +145,8 @@
           </td>
           <td class="code">
             
-          <pre class="chroma">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">fib</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">fib</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -168,9 +160,9 @@
           </td>
           <td class="code">
             
-          <pre class="chroma"><span class="gp">$</span> go run recursion.go 
-<span class="go">5040
-</span><span class="go">13</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run recursion.go 
+</span></span><span class="line"><span class="cl"><span class="go">5040
+</span></span></span><span class="line"><span class="cl"><span class="go">13</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -178,7 +170,7 @@
       
       
       <p class="next">
-        Next example: <a href="pointers.html">Pointers</a>.
+        Next example: <a href="range-over-built-in-types.html">Range over Built-in Types</a>.
       </p>
       
 
@@ -189,7 +181,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func fact(n int) int {\u000A    if n \u003D\u003D 0 {\u000A        return 1\u000A    }\u000A    return n * fact(n-1)\u000A}\u000A');codeLines.push('func main() {\u000A    fmt.Println(fact(7))\u000A');codeLines.push('    var fib func(n int) int\u000A');codeLines.push('    fib \u003D func(n int) int {\u000A        if n \u003C 2 {\u000A            return n\u000A        }\u000A        return fib(n-1) + fib(n-2)\u000A');codeLines.push('    }\u000A');codeLines.push('    fmt.Println(fib(7))\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func fact(n int) int {\u000A    if n \u003D\u003D 0 {\u000A        return 1\u000A    }\u000A    return n * fact(n-1)\u000A}\u000A');codeLines.push('func main() {\u000A    fmt.Println(fact(7))\u000A');codeLines.push('    var fib func(n int) int\u000A');codeLines.push('    fib \u003D func(n int) int {\u000A        if n \u003C 2 {\u000A            return n\u000A        }\u000A');codeLines.push('        return fib(n-1) + fib(n-2)\u000A    }\u000A');codeLines.push('    fmt.Println(fib(7))\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,4 +1,4 @@
-// Go は、組み込みで [正規表現](http://en.wikipedia.org/wiki/Regular_expression)
+// Go は、組み込みで [正規表現](https://en.wikipedia.org/wiki/Regular_expression)
 // をサポートしています。以下は、Go で正規表現を使う一般的な例です。
 
 package main

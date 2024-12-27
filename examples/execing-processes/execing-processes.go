@@ -3,7 +3,7 @@
 // 必要がある場合に使います。しかし、ときには現在の Go プロセスを完全に別の
 // (おそらく Go 以外の) プロセスに置き換えたいだけの場合もあります。
 // そのためには、古典的な
-// <a href="http://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
+// <a href="https://en.wikipedia.org/wiki/Exec_(operating_system)"><code>exec</code></a>
 // 関数の Go 実装を使います。
 
 package main

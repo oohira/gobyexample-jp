@@ -97,7 +97,7 @@ func main() {
 	str1 := strs[0].(string)
 	fmt.Println(str1)
 
-	// JSON をカスタムデータ型にデコードすることもできます。
+	// JSON をカスタムデータ型にもデコードできます。
 	// この方法は、プログラムを型安全にし、デコードされた
 	// データにアクセスするときの型チェックを不要にできる
 	// という利点があります。
@@ -110,9 +110,9 @@ func main() {
 	// これまでの例では、データを JSON 形式で標準出力へ
 	// 出力するために、中間形式としてバイト型と文字列型を
 	// 常に使っていました。
-	// `os.Stdout` や HTTP レスポンスボディのような
-	// `os.Writer`s に、エンコードした JSON
-	// を直接ストリーム出力することもできます。
+	// エンコードした JSON を `os.Stdout` や HTTP
+	// レスポンスボディなどの `os.Writer` に
+	// 直接ストリーム出力もできます。
 	enc := json.NewEncoder(os.Stdout)
 	d := map[string]int{"apple": 5, "lettuce": 7}
 	enc.Encode(d)

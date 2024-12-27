@@ -1,4 +1,4 @@
-// Go は <em><a href="http://en.wikipedia.org/wiki/Pointer_(computer_programming)">ポインタ (pointers)</a></em>
+// Go は <em><a href="https://en.wikipedia.org/wiki/Pointer_(computer_programming)">ポインタ (pointers)</a></em>
 // をサポートするので、プログラムの中で
 // 値やレコードへの参照を渡すことができます。
 
@@ -37,6 +37,6 @@ func main() {
 	zeroptr(&i)
 	fmt.Println("zeroptr:", i)
 
-	// ポインタは表示することもできます。
+	// ポインタは表示もできます。
 	fmt.Println("pointer:", &i)
 }

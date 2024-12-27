@@ -1,4 +1,4 @@
-// [_コマンドラインフラグ_](http://en.wikipedia.org/wiki/Command-line_interface#Command-line_option)
+// [_コマンドラインフラグ_](https://en.wikipedia.org/wiki/Command-line_interface#Command-line_option)
 // は、コマンドラインプログラムに対してオプションを指定する
 // 一般的な方法です。例えば、`wc -l` での `-l`
 // がコマンドラインフラグになります。
@@ -30,7 +30,7 @@ func main() {
 	forkPtr := flag.Bool("fork", false, "a bool")
 
 	// プログラムの別の場所で宣言された変数を使うような
-	// オプションを宣言することも可能です。
+	// オプションの宣言も可能です。
 	// フラグを宣言する関数にポインタの形で渡す必要がある点に
 	// 注意してください。
 	var svar string

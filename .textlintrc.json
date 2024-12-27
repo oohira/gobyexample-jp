@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "preset-ja-technical-writing": {
+      "ja-no-weak-phrase": false,
+      "max-kanji-continuous-len": {
+        "max": 6,
+        "allow": [
+          "可変長引数関数"
+        ]
+      },
+      "max-ten": {
+        "max": 4
+      },
+      "no-exclamation-question-mark": false
+    }
+  }
+}

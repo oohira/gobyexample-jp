@@ -18,7 +18,10 @@
     }
   </script>
   <script>
-      onkeydown = (e) => {
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey) {
+              return;
+          }
           
           if (e.key == "ArrowLeft") {
               window.location.href = 'regular-expressions.html';
@@ -55,9 +58,8 @@ JSON との相互変換も含みます。</p>
             
           </td>
           <td class="code leading">
-            <a href="http://play.golang.org/p/g6S_TzY5lIG"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
-          <pre class="chroma"><span class="kn">package</span> <span class="nx">main</span>
-</pre>
+            <a href="https://go.dev/play/p/b3bBZEZoblE"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -67,12 +69,11 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;encoding/json&#34;</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;os&#34;</span>
-<span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -84,12 +85,10 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">type</span> <span class="nx">response1</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Page</span>   <span class="kt">int</span>
-    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">response1</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Page</span>   <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -101,12 +100,10 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-<span class="kd">type</span> <span class="nx">response2</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Page</span>   <span class="kt">int</span>      <span class="s">`json:&#34;page&#34;`</span>
-    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;fruits&#34;`</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">response2</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Page</span>   <span class="kt">int</span>      <span class="s">`json:&#34;page&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;fruits&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -116,8 +113,7 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -129,10 +125,8 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">bolB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">bolB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">bolB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">bolB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -142,9 +136,8 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">    <span class="nx">intB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">intB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">intB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">intB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -154,9 +147,8 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">    <span class="nx">fltB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mf">2.34</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">fltB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fltB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mf">2.34</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">fltB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -166,9 +158,8 @@ JSON との相互変換も含みます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">    <span class="nx">strB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">strB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">strB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">strB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -180,11 +171,9 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">slcD</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}</span>
-    <span class="nx">slcB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">slcD</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">slcB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slcD</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slcB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">slcD</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">slcB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -194,10 +183,9 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">    <span class="nx">mapD</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;lettuce&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
-    <span class="nx">mapB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">mapD</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">mapB</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">mapD</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;lettuce&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mapB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">mapD</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">mapB</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -211,13 +199,11 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">res1D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response1</span><span class="p">{</span>
-        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
-    <span class="nx">res1B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res1D</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res1B</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">res1D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response1</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res1B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res1D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res1B</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -230,13 +216,11 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">res2D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response2</span><span class="p">{</span>
-        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
-    <span class="nx">res2B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res2D</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res2B</span><span class="p">))</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">res2D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response2</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res2B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res2D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res2B</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -248,9 +232,7 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">byt</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&#34;num&#34;:6.13,&#34;strs&#34;:[&#34;a&#34;,&#34;b&#34;]}`</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">byt</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&#34;num&#34;:6.13,&#34;strs&#34;:[&#34;a&#34;,&#34;b&#34;]}`</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -263,9 +245,7 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="kd">var</span> <span class="nx">dat</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dat</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -277,12 +257,10 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">byt</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">dat</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">dat</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">byt</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">dat</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">dat</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -295,10 +273,8 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">num</span> <span class="o">:=</span> <span class="nx">dat</span><span class="p">[</span><span class="s">&#34;num&#34;</span><span class="p">].(</span><span class="kt">float64</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">num</span> <span class="o">:=</span> <span class="nx">dat</span><span class="p">[</span><span class="s">&#34;num&#34;</span><span class="p">].(</span><span class="kt">float64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -310,17 +286,15 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">strs</span> <span class="o">:=</span> <span class="nx">dat</span><span class="p">[</span><span class="s">&#34;strs&#34;</span><span class="p">].([]</span><span class="kd">interface</span><span class="p">{})</span>
-    <span class="nx">str1</span> <span class="o">:=</span> <span class="nx">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str1</span><span class="p">)</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">strs</span> <span class="o">:=</span> <span class="nx">dat</span><span class="p">[</span><span class="s">&#34;strs&#34;</span><span class="p">].([]</span><span class="kd">interface</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str1</span> <span class="o">:=</span> <span class="nx">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str1</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>JSON をカスタムデータ型にデコードすることもできます。
+            <p>JSON をカスタムデータ型にもデコードできます。
 この方法は、プログラムを型安全にし、デコードされた
 データにアクセスするときの型チェックを不要にできる
 という利点があります。</p>
@@ -328,13 +302,11 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma">
-    <span class="nx">str</span> <span class="o">:=</span> <span class="s">`{&#34;page&#34;: 1, &#34;fruits&#34;: [&#34;apple&#34;, &#34;peach&#34;]}`</span>
-    <span class="nx">res</span> <span class="o">:=</span> <span class="nx">response2</span><span class="p">{}</span>
-    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">:=</span> <span class="s">`{&#34;page&#34;: 1, &#34;fruits&#34;: [&#34;apple&#34;, &#34;peach&#34;]}`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span> <span class="o">:=</span> <span class="nx">response2</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -343,19 +315,17 @@ JSON の配列とオブジェクトにエンコードされます。</p>
             <p>これまでの例では、データを JSON 形式で標準出力へ
 出力するために、中間形式としてバイト型と文字列型を
 常に使っていました。
-<code>os.Stdout</code> や HTTP レスポンスボディのような
-<code>os.Writer</code>s に、エンコードした JSON
-を直接ストリーム出力することもできます。</p>
+エンコードした JSON を <code>os.Stdout</code> や HTTP
+レスポンスボディなどの <code>os.Writer</code> に
+直接ストリーム出力もできます。</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma">
-    <span class="nx">enc</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span>
-    <span class="nx">d</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;lettuce&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
-    <span class="nx">enc</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
-<span class="p">}</span>
-</pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">enc</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">d</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;lettuce&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">enc</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -369,29 +339,29 @@ JSON の配列とオブジェクトにエンコードされます。</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><span class="gp">$</span> go run json.go
-<span class="go">true
-</span><span class="go">1
-</span><span class="go">2.34
-</span><span class="go">&#34;gopher&#34;
-</span><span class="go">[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]
-</span><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}
-</span><span class="go">{&#34;Page&#34;:1,&#34;Fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
-</span><span class="go">{&#34;page&#34;:1,&#34;fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
-</span><span class="go">map[num:6.13 strs:[a b]]
-</span><span class="go">6.13
-</span><span class="go">a
-</span><span class="go">{1 [apple peach]}
-</span><span class="go">apple
-</span><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}</span></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run json.go
+</span></span><span class="line"><span class="cl"><span class="go">true
+</span></span></span><span class="line"><span class="cl"><span class="go">1
+</span></span></span><span class="line"><span class="cl"><span class="go">2.34
+</span></span></span><span class="line"><span class="cl"><span class="go">&#34;gopher&#34;
+</span></span></span><span class="line"><span class="cl"><span class="go">[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;Page&#34;:1,&#34;Fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;page&#34;:1,&#34;fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
+</span></span></span><span class="line"><span class="cl"><span class="go">map[num:6.13 strs:[a b]]
+</span></span></span><span class="line"><span class="cl"><span class="go">6.13
+</span></span></span><span class="line"><span class="cl"><span class="go">a
+</span></span></span><span class="line"><span class="cl"><span class="go">{1 [apple peach]}
+</span></span></span><span class="line"><span class="cl"><span class="go">apple
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
             <p>Go における JSON の基本をここで学びましたが、さらなる情報は、
-ブログ記事の <a href="http://blog.golang.org/2011/01/json-and-go.html">JSON と Go</a>
-および、<a href="http://golang.org/pkg/encoding/json/">JSON パッケージドキュメント</a>
+ブログ記事の <a href="https://go.dev/blog/json">JSON と Go</a>
+および、<a href="https://pkg.go.dev/encoding/json">JSON パッケージドキュメント</a>
 を確認してください。</p>
 
           </td>
